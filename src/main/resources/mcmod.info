@@ -1,0 +1,20 @@
+[
+    {
+        "modid": "watergenerators",
+        "name": "Water Generators",
+        "description": "A simple RF generator module.",
+        "version": "1.0.1",
+        "mcversion": "1.12.2",
+        "url": "",
+        "updateUrl": "",
+        "authorList": [
+          "xiaoxianben"
+        ],
+        "credits": "Idealland - they provided this framework.",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": [
+            "redstoneflux"
+        ]
+  }
+]

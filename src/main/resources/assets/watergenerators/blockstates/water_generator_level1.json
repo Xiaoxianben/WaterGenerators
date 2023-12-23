@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "watergenerators:water_generator_level1"
+    }
+  }
+}

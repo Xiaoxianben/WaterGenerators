@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_top",
+  "textures": {
+    "side": "watergenerators:blocks/machine/main",
+    "top": "#top"
+  }
+}
