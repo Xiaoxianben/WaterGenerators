@@ -25,3 +25,6 @@ runServer/*
 !runServer/eula.txt
 !runServer/server.properties
 
+/tem/
+/run/
+/runServer/
