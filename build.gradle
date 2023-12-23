@@ -28,7 +28,7 @@ apply plugin: "net.minecraftforge.gradle.forge"
 apply from: "runmanager.gradle"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-version = "1.0.1"
+version = "1.1.0"
 group = "com.xiaoxianben.watergenerators" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "watergenerators-1.12.2"
 
@@ -66,9 +66,10 @@ repositories {
 dependencies {
 
     implementation "cofh:RedstoneFlux:1.12-2.1.0.+:universal"
+    /*
     implementation files("tem/[热力-管道]ThermalDynamics-1.12.2-2.5.6.1-universal.jar")
     implementation files("tem/[热力-膨胀]ThermalExpansion-1.12.2-5.5.7.1-universal.jar")
-
+*/
 //    compile files("tem/watergenerators-1.12.2-1.0.1.jar")
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
