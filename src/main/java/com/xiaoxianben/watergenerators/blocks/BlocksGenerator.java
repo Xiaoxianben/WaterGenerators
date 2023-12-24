@@ -45,7 +45,7 @@ public class BlocksGenerator implements IHasInit {
 
 
     public void init() {
-        createGenerator = new BlockCreateGenerator("create_generator999", (int) (Math.pow(2, 31) - 1));
+        createGenerator = new BlockCreateGenerator("create_generator", (int) (Math.pow(2, 31) - 1));
 
         TURBINE_GENERATOR_LEVEL1 = turbineGeneratorLevel0("turbine_generator_level1", energyBasic, "1"); // 铁
         TURBINE_GENERATOR_LEVEL2 = turbineGeneratorLevel0("turbine_generator_level2", energyBasic*2, "2"); // 镀金
