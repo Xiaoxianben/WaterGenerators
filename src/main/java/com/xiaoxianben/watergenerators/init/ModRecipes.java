@@ -1,5 +1,6 @@
 package com.xiaoxianben.watergenerators.init;
 
+import com.xiaoxianben.watergenerators.blocks.BlockTEBasic;
 import com.xiaoxianben.watergenerators.blocks.BlocksGenerator;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
 import com.xiaoxianben.watergenerators.util.Reference;
@@ -104,7 +105,7 @@ public class ModRecipes {
         GameRegistry.addShapedRecipe(output.getRegistryName(), new ResourceLocation(Reference.MOD_ID, "duct_coil"),
                 output.getDefaultInstance(), params);
     }
-    public static void registryGenerator(Block output, byte level, byte generatorTab) {
+    public static void registryGenerator(BlockTEBasic output, byte level, byte generatorTab) {
         Object[] material = getGeneratorMaterial(level, generatorTab);
         if (material[0] == null) return ;
         String gearOreName = (String) material[0];

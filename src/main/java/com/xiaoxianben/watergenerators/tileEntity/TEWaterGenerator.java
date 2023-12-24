@@ -20,10 +20,10 @@ public class TEWaterGenerator extends TEEnergyBasic {
     public int maxFluidDrain;
 
     public TEWaterGenerator() {
-        this((int) (Math.pow(2, 31) - 1), 0);
+        this((int) (Math.pow(2, 31) - 1), 0, "");
     }
-    public TEWaterGenerator(int capacity, int basePowerGeneration) {
-        super(capacity, basePowerGeneration);
+    public TEWaterGenerator(int capacity, int basePowerGeneration, String level) {
+        super(capacity, basePowerGeneration, level);
         this.tank = new FluidTankBasic(capacity / 8);
         this.tank.setCanDrain(false);
         this.maxFluidDrain = basePowerGeneration/2;

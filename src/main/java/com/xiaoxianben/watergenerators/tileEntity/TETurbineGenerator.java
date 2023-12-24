@@ -11,10 +11,10 @@ import net.minecraftforge.fluids.IFluidBlock;
 public class TETurbineGenerator extends TEEnergyBasic {
 
     public TETurbineGenerator() {
-        this((int) (Math.pow(2, 31) - 1), 0);
+        this((int) (Math.pow(2, 31) - 1), 0, "");
     }
-    public TETurbineGenerator(int capacity, int basePowerGeneration) {
-        super(capacity, basePowerGeneration);
+    public TETurbineGenerator(int capacity, int basePowerGeneration, String level) {
+        super(capacity, basePowerGeneration, level);
     }
 
     public float getLiquidLeve(World world, BlockPos pos, float liquidLeve) {

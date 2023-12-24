@@ -2,7 +2,7 @@ package com.xiaoxianben.watergenerators.tileEntity;
 
 public class TECreateGenerator extends TEEnergyBasic {
     public TECreateGenerator(int capacity, int basePowerGeneration) {
-        super(capacity, basePowerGeneration);
+        super(capacity, basePowerGeneration, "创造");
     }
 
     @Override

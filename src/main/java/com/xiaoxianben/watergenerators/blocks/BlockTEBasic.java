@@ -7,6 +7,7 @@ import com.xiaoxianben.watergenerators.tileEntity.TECreateGenerator;
 import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import com.xiaoxianben.watergenerators.tileEntity.TETurbineGenerator;
 import com.xiaoxianben.watergenerators.tileEntity.TEWaterGenerator;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -24,6 +25,7 @@ import java.util.Objects;
 
 
 public class BlockTEBasic extends BlockBase implements ITileEntityProvider {
+    public String level = "";
     protected int capacity;
     protected int basePowerGeneration;
     protected int maxExtract;
@@ -36,6 +38,11 @@ public class BlockTEBasic extends BlockBase implements ITileEntityProvider {
         this.capacity = capacity;
         this.basePowerGeneration = basePowerGeneration;
         this.maxExtract = maxExtract;
+    }
+
+    public BlockTEBasic setLevel(String level) {
+        this.level = level;
+        return this;
     }
 
     // 方块右击事件

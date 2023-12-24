@@ -69,7 +69,7 @@ public class GuiContainerBasic extends GuiContainer {
         // 绘制能量条等其他GUI元素
         int XString = this.guiLeft + 45;
         int tempNum = 1;
-        String level = Objects.requireNonNull(this.tileEntity.getBlockType().getRegistryName()).getResourcePath().substring(tileEntityNameIndex);
+        String level = this.tileEntity.level;
         this.fontRenderer.drawString("名字："+tileEntityName+level+"级", XString, this.guiTop+9, 0x000000);
         for(String string : this.drawStringList) {
             this.fontRenderer.drawString(string, XString, this.guiTop+(9*++tempNum), 0x000000);

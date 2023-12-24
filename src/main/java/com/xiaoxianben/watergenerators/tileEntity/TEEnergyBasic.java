@@ -22,6 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
 public class TEEnergyBasic extends TileEntity implements IEnergyProvider, IEnergyStorage,ITickable {
+    public String level;
     public EnergyStorage energyStorage;
     public int finallyReceiveEnergy;
     public int basePowerGeneration;
@@ -29,12 +30,13 @@ public class TEEnergyBasic extends TileEntity implements IEnergyProvider, IEnerg
     public EnumFacing[] facingList = new EnumFacing[6];
 
     public TEEnergyBasic() {
-        this((int) (Math.pow(2, 31) - 1), 0);
+        this((int) (Math.pow(2, 31) - 1), 0, "");
     }
-    public TEEnergyBasic(int capacity, int basePowerGeneration) {
+    public TEEnergyBasic(int capacity, int basePowerGeneration, String level) {
         super();
         energyStorage = new EnergyStorage(capacity, 0, (int) (Math.pow(2, 31) - 1));
         this.basePowerGeneration = basePowerGeneration;
+        this.level = level;
     }
 
     public boolean onBlockActivated(@Nonnull EntityPlayer player, @Nonnull EnumHand hand) {

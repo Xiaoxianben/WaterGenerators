@@ -2,6 +2,7 @@ package com.xiaoxianben.watergenerators.blocks;
 
 import com.xiaoxianben.watergenerators.Main;
 import com.xiaoxianben.watergenerators.util.IHasModel;
+import com.xiaoxianben.watergenerators.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,7 +21,7 @@ import java.util.Random;
 public class BlockBase extends Block implements IHasModel {
     public BlockBase(String name, Material material, CreativeTabs tab) {
         super(material);
-        setUnlocalizedName(name);
+        setUnlocalizedName(Reference.MOD_ID+'.'+name);
         setRegistryName(name);
         setCreativeTab(tab);
 
