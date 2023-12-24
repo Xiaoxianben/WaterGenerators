@@ -169,6 +169,7 @@ public class TEEnergyBasic extends TileEntity implements IEnergyProvider, IEnerg
 
         energyStorage.setCapacity(compound.getInteger("capacity"));
         this.setBasePowerGeneration(compound.getInteger("basePowerGeneration"));
+        this.level = compound.getString("level");
         super.readFromNBT(compound);
     }
     @ParametersAreNonnullByDefault
@@ -178,6 +179,7 @@ public class TEEnergyBasic extends TileEntity implements IEnergyProvider, IEnerg
         NBTTagCompound NBT = energyStorage.writeToNBT(compound);
         NBT.setInteger("capacity", this.getMaxEnergyStored());
         NBT.setInteger("basePowerGeneration", this.getBasePowerGeneration());
+        NBT.setString("level", this.level);
         return super.writeToNBT(NBT);
     }
     @ParametersAreNonnullByDefault

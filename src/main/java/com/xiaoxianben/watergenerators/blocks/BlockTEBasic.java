@@ -7,7 +7,6 @@ import com.xiaoxianben.watergenerators.tileEntity.TECreateGenerator;
 import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import com.xiaoxianben.watergenerators.tileEntity.TETurbineGenerator;
 import com.xiaoxianben.watergenerators.tileEntity.TEWaterGenerator;
-import jdk.nashorn.internal.objects.annotations.Setter;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -82,12 +81,12 @@ public class BlockTEBasic extends BlockBase implements ITileEntityProvider {
         }
         playerIn.sendMessage(new TextComponentString(TEBlock.getWorld().isRemote + "\n" + message.toString()));
 */
-        if (!(playerIn.getHeldItem(hand).getItem() == ModItems.information_finder)) {
+        if (!(playerIn.getHeldItem(hand).getItem() == ModItems.information_finder) && !worldIn.isRemote) {
             if(TEBlock.onBlockActivated(playerIn, hand)) {
                 this.openGUI(Main.instance, worldIn, playerIn, pos);
             }
             return true;
-        } else {
+        } else if (!worldIn.isRemote) {
             StringBuilder message;
             String[] rfList = TEBlock.getFinallyExtractEnergyRough();
             float rfValue = Float.parseFloat(rfList[0]);

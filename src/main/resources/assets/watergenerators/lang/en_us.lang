@@ -57,21 +57,21 @@ tile.watergenerators.water_generator_level2.name=water generator level2
 tile.watergenerators.water_generator_level3.name=water generator level3
 tile.watergenerators.water_generator_level4.name=water generator level4
 tile.watergenerators.water_generator_level5.name=water generator level5
-tile.watergenerators.water_generator_level6.name=water generator level6
-tile.watergenerators.water_generator_level7.name=water generator level7
-tile.watergenerators.water_generator_level8.name=water generator level8
-tile.watergenerators.water_generator_level9.name=water generator level9
-tile.watergenerators.water_generator_level10.name=water generator level10
+tile.watergenerators.water_generator_steel.name=water generator level6
+tile.watergenerators.water_generator_invar.name=water generator level7
+tile.watergenerators.water_generator_electrum.name=water generator level8
+tile.watergenerators.water_generator_signalum.name=water generator level9
+tile.watergenerators.water_generator_enderium.name=water generator level10
 tile.watergenerators.turbine_generator_level1.name=turbine generator level1
 tile.watergenerators.turbine_generator_level2.name=turbine generator level2
 tile.watergenerators.turbine_generator_level3.name=turbine generator level3
 tile.watergenerators.turbine_generator_level4.name=turbine generator level4
 tile.watergenerators.turbine_generator_level5.name=turbine generator level5
-tile.watergenerators.turbine_generator_level6.name=turbine generator level6
-tile.watergenerators.turbine_generator_level7.name=turbine generator level7
-tile.watergenerators.turbine_generator_level8.name=turbine generator level8
-tile.watergenerators.turbine_generator_level9.name=turbine generator level9
-tile.watergenerators.turbine_generator_level10.name=turbine generator level10
+tile.watergenerators.turbine_generator_steel.name=turbine generator level6
+tile.watergenerators.turbine_generator_invar.name=turbine generator level7
+tile.watergenerators.turbine_generator_electrum.name=turbine generator level8
+tile.watergenerators.turbine_generator_signalum.name=turbine generator level9
+tile.watergenerators.turbine_generator_enderium.name=turbine generator level10
 
 
 

@@ -49,7 +49,9 @@ public class PacketConsciousness implements IMessage {
                         EntityPlayer player = Minecraft.getMinecraft().player;
                         BlockPos blockPos = new BlockPos(nbt.getInteger("x"), nbt.getInteger("y"), nbt.getInteger("z"));
                         TEEnergyBasic tileEntity = (TEEnergyBasic) player.getEntityWorld().getTileEntity(blockPos);
-                        tileEntity.readFromNBT(nbt);
+                        if (tileEntity != null) {
+                            tileEntity.readFromNBT(nbt);
+                        }
                     }
                 });
             }

@@ -1,5 +1,5 @@
 {
-    "parent": "block/cube_all",
+    "parent": "watergenerators:block/machine",
     "textures": {
         "top": "watergenerators:blocks/machine/turbine_generator_signalum"
     }

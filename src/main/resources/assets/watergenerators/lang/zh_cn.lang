@@ -56,20 +56,21 @@ tile.watergenerators.water_generator_level2.name=水发电机2级
 tile.watergenerators.water_generator_level3.name=水发电机3级
 tile.watergenerators.water_generator_level4.name=水发电机4级
 tile.watergenerators.water_generator_level5.name=水发电机5级
-tile.watergenerators.water_generator_level6.name=水发电机6级
-tile.watergenerators.water_generator_level7.name=水发电机7级
-tile.watergenerators.water_generator_level8.name=水发电机8级
-tile.watergenerators.water_generator_level9.name=水发电机9级
-tile.watergenerators.water_generator_level10.name=水发电机10级
+tile.watergenerators.water_generator_steel.name=水发电机钢级
+tile.watergenerators.water_generator_invar.name=水发电机殷钢级
+tile.watergenerators.water_generator_electrum.name=水发电机琥珀金级
+tile.watergenerators.water_generator_signalum.name=水发电机信素级
+tile.watergenerators.water_generator_enderium.name=水发电机末影级
+
 tile.watergenerators.turbine_generator_level1.name=涡轮发电机1级
 tile.watergenerators.turbine_generator_level2.name=涡轮发电机2级
 tile.watergenerators.turbine_generator_level3.name=涡轮发电机3级
 tile.watergenerators.turbine_generator_level4.name=涡轮发电机4级
 tile.watergenerators.turbine_generator_level5.name=涡轮发电机5级
-tile.watergenerators.turbine_generator_level6.name=涡轮发电机6级
-tile.watergenerators.turbine_generator_level7.name=涡轮发电机7级
-tile.watergenerators.turbine_generator_level8.name=涡轮发电机8级
-tile.watergenerators.turbine_generator_level9.name=涡轮发电机9级
-tile.watergenerators.turbine_generator_level10.name=涡轮发电机10级
+tile.watergenerators.turbine_generator_steel.name=涡轮发电机钢级
+tile.watergenerators.turbine_generator_invar.name=涡轮发电机殷钢级
+tile.watergenerators.turbine_generator_electrum.name=涡轮发电机琥珀金级
+tile.watergenerators.turbine_generator_signalum.name=涡轮发电机信素级
+tile.watergenerators.turbine_generator_enderium.name=涡轮发电机末影级
 
 
