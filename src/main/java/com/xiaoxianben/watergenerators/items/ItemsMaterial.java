@@ -8,11 +8,13 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Loader;
 
 public class ItemsMaterial implements IHasInit {
+    // 齿轮
     public static Item gearIron;
     public static Item gearGoldPlated;
     public static Item gearDiamond;
     public static Item gearObsidian;
     public static Item gearEmerald;
+    // 导线
     public static Item coilIron;
     public static Item coilGoldPlated;
     public static Item coilDiamond;
@@ -23,6 +25,7 @@ public class ItemsMaterial implements IHasInit {
     public static Item coilElectrum;
     public static Item coilSignalum;
     public static Item coilEnderium;
+    // 导管
     public static Item conduitIron;
     public static Item conduitGoldPlated;
     public static Item conduitDiamond;
@@ -33,6 +36,7 @@ public class ItemsMaterial implements IHasInit {
     public static Item conduitElectrum;
     public static Item conduitSignalum;
     public static Item conduitEnderium;
+    // 涡轮装片
     public static Item turbineRotorIron;
     public static Item turbineRotorGoldPlated;
     public static Item turbineRotorDiamond;
