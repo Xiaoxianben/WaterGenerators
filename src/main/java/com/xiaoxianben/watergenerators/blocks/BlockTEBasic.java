@@ -3,14 +3,15 @@ package com.xiaoxianben.watergenerators.blocks;
 
 import com.xiaoxianben.watergenerators.Main;
 import com.xiaoxianben.watergenerators.init.ModItems;
-import com.xiaoxianben.watergenerators.tileEntity.*;
+import com.xiaoxianben.watergenerators.tileEntity.TECreateGenerator;
+import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
+import com.xiaoxianben.watergenerators.tileEntity.TETurbineGenerator;
+import com.xiaoxianben.watergenerators.tileEntity.TEWaterGenerator;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;

@@ -17,12 +17,10 @@ import java.util.Objects;
 
 public class BlockWaterGenerator extends BlockTEBasic{
 
-    public BlockWaterGenerator(String name, int basePowerGeneration) {
-        super(name, Material.IRON, Main.MACHINE_TAB, basePowerGeneration *400, basePowerGeneration, 0);
+    public BlockWaterGenerator(String name, int basePowerGeneration, int level) {
+        super(name, Material.IRON, Main.MACHINE_TAB, basePowerGeneration * 400, basePowerGeneration, 0);
         setHarvestLevel("pickaxe", 2);
-        if (Integer.parseInt(name.substring(21)) > 3){
-            setResistance(6000.0f);
-        }
+        setResistance(6000.0f * level);
     }
 
     public void openGUI(Object mod, World world, EntityPlayer player, BlockPos pos) {

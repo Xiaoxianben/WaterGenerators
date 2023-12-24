@@ -167,25 +167,25 @@ public class ModRecipes {
                 params[0] = "gearInvar";
                 params[1] = ItemsMaterial.conduitInvar;
                 params[2] = ItemsMaterial.turbineRotorInvar;
-                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_LEVEL6 : BlocksGenerator.WATER_GENERATOR_LEVEL6;
+                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_Steel : BlocksGenerator.WATER_GENERATOR_Steel;
                 break;
             case 8:
                 params[0] = "gearElectrum";
                 params[1] = ItemsMaterial.conduitElectrum;
                 params[2] = ItemsMaterial.turbineRotorElectrum;
-                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_LEVEL7 : BlocksGenerator.WATER_GENERATOR_LEVEL7;
+                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_Invar : BlocksGenerator.WATER_GENERATOR_Invar;
                 break;
             case 9:
                 params[0] = "gearSignalum";
                 params[1] = ItemsMaterial.conduitSignalum;
                 params[2] = ItemsMaterial.turbineRotorSignalum;
-                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_LEVEL8 : BlocksGenerator.WATER_GENERATOR_LEVEL8;
+                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_Electrum : BlocksGenerator.WATER_GENERATOR_Electrum;
                 break;
             case 10:
                 params[0] = "gearEnderium";
                 params[1] = ItemsMaterial.conduitEnderium;
                 params[2] = ItemsMaterial.turbineRotorEnderium;
-                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_LEVEL9 : BlocksGenerator.WATER_GENERATOR_LEVEL9;
+                params[3] = generatorTab == 1? BlocksGenerator.TURBINE_GENERATOR_Signalum : BlocksGenerator.WATER_GENERATOR_Signalum;
                 break;
         }
         return params;

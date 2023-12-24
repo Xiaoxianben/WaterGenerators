@@ -60,12 +60,17 @@ repositories {
         name = "curse maven"
         url = "https://www.cursemaven.com/"
     }
+    maven {
+        name = "EnderIO"
+        url 'https://maven.enderio.com/'
+    }
 
 }
 
 dependencies {
 
-    implementation "cofh:RedstoneFlux:1.12-2.1.0.+:universal"
+    compileOnly "cofh:RedstoneFlux:1.12-2.1.0.+:universal"
+
     /*
     implementation files("tem/[热力-管道]ThermalDynamics-1.12.2-2.5.6.1-universal.jar")
     implementation files("tem/[热力-膨胀]ThermalExpansion-1.12.2-5.5.7.1-universal.jar")

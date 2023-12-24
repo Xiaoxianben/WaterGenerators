@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "top": "watergenerators:blocks/machine/turbine_generator_electrum"
+    }
+}
