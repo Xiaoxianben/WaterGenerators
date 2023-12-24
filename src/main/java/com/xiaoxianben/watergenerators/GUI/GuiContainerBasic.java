@@ -42,7 +42,7 @@ public class GuiContainerBasic extends GuiContainer {
             drawRect(this.guiLeft + textureX, this.guiTop + textureY,
                     this.guiLeft + textureX + width, this.guiTop + textureY + height, 0x3FFFFFFF);
             drawRect(mouseX + 5, mouseY - 1,
-                    mouseX + 5 + (this.drawStringList[2].length() * 5), mouseY + 10,0x90000000);
+                    mouseX + 5 + (this.drawStringList[drawStringListIndex].length() * 5), mouseY + 10,0x90000000);
             fontRenderer.drawString(this.drawStringList[drawStringListIndex],
                     mouseX + 5, mouseY, 0xFFFFFFFF);
         }

@@ -17,8 +17,8 @@ public class GuiContainerWaterGenerator extends GuiContainerBasic {
         this.drawTexturedRectDownToUp(this.tileEntity.getFluidAmount(), this.tileEntity.getMaxFluidAmount(), 194, 149);
     }
     public void drawAllMouseRect(int mouseX, int mouseY) {
-        this.drawMouseRect(mouseX, mouseY, 7, 4, 20, 72, 2);
-        this.drawMouseRect(mouseX, mouseY, 149, 4, 20, 72, 3);
+        this.drawMouseRect(mouseX, mouseY, 7, 4, 20, 72, 1);
+        this.drawMouseRect(mouseX, mouseY, 149, 4, 20, 72, 2);
     }
 
     public void updateDrawStringList() {

@@ -16,7 +16,7 @@ public class GuiContainerTurbineGenerator extends GuiContainerBasic {
         this.drawTexturedRectDownToUp(this.tileEntity.getEnergyStored(), this.tileEntity.getMaxEnergyStored(), 175, 7);
     }
     public void drawAllMouseRect(int mouseX, int mouseY) {
-        this.drawMouseRect(mouseX, mouseY, 7, 4, 20, 72, 2);
+        this.drawMouseRect(mouseX, mouseY, 7, 4, 20, 72, 1);
     }
 
     public void updateDrawStringList() {
