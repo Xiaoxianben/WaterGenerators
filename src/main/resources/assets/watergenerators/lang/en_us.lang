@@ -11,7 +11,6 @@ item.watergenerators.gear_goldPlated.name=goldPlated gear
 item.watergenerators.gear_diamond.name=diamond gear
 item.watergenerators.gear_obsidian.name=obsidian gear
 item.watergenerators.gear_emerald.name=emerald gear
-
 # coil
 item.watergenerators.coil_iron.name=iron coil
 item.watergenerators.coil_goldPlated.name=goldPlated coil
@@ -52,26 +51,30 @@ item.watergenerators.ductShell_0.name=duct shell bank
 tile.watergenerators.block_goldPlatedIron.name=gold plated iron block
 tile.watergenerators.block_machineShell_frame.name=block machine shell frame
 tile.watergenerators.block_machineShell.name=block machine shell
+
+tile.watergenerators.create_generator.name=create generator
+
 tile.watergenerators.water_generator_level1.name=water generator level1
 tile.watergenerators.water_generator_level2.name=water generator level2
 tile.watergenerators.water_generator_level3.name=water generator level3
 tile.watergenerators.water_generator_level4.name=water generator level4
 tile.watergenerators.water_generator_level5.name=water generator level5
-tile.watergenerators.water_generator_steel.name=water generator level6
-tile.watergenerators.water_generator_invar.name=water generator level7
-tile.watergenerators.water_generator_electrum.name=water generator level8
-tile.watergenerators.water_generator_signalum.name=water generator level9
-tile.watergenerators.water_generator_enderium.name=water generator level10
+tile.watergenerators.water_generator_steel.name=water generator level steel
+tile.watergenerators.water_generator_invar.name=water generator level invar
+tile.watergenerators.water_generator_electrum.name=water generator level electrum
+tile.watergenerators.water_generator_signalum.name=water generator level signalum
+tile.watergenerators.water_generator_enderium.name=water generator level enderium
+
 tile.watergenerators.turbine_generator_level1.name=turbine generator level1
 tile.watergenerators.turbine_generator_level2.name=turbine generator level2
 tile.watergenerators.turbine_generator_level3.name=turbine generator level3
 tile.watergenerators.turbine_generator_level4.name=turbine generator level4
 tile.watergenerators.turbine_generator_level5.name=turbine generator level5
-tile.watergenerators.turbine_generator_steel.name=turbine generator level6
-tile.watergenerators.turbine_generator_invar.name=turbine generator level7
-tile.watergenerators.turbine_generator_electrum.name=turbine generator level8
-tile.watergenerators.turbine_generator_signalum.name=turbine generator level9
-tile.watergenerators.turbine_generator_enderium.name=turbine generator level10
+tile.watergenerators.turbine_generator_steel.name=turbine generator level steel
+tile.watergenerators.turbine_generator_invar.name=turbine generator level invar
+tile.watergenerators.turbine_generator_electrum.name=turbine generator level electrum
+tile.watergenerators.turbine_generator_signalum.name=turbine generator level signalum
+tile.watergenerators.turbine_generator_enderium.name=turbine generator level enderium
 
 
 

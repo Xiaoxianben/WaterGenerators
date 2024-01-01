@@ -5,6 +5,7 @@ import com.xiaoxianben.watergenerators.util.IHasModel;
 import com.xiaoxianben.watergenerators.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemBase extends Item implements IHasModel {
     public ItemBase(String name, CreativeTabs tab) {

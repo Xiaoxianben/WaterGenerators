@@ -51,6 +51,9 @@ item.watergenerators.ductShell_0.name=导管外壳
 tile.watergenerators.block_goldPlatedIron.name=镀金铁块
 tile.watergenerators.block_machineShell_frame.name=机器外壳框架
 tile.watergenerators.block_machineShell.name=镀金机器外壳
+
+tile.watergenerators.create_generator.name=创造发电机
+
 tile.watergenerators.water_generator_level1.name=水发电机1级
 tile.watergenerators.water_generator_level2.name=水发电机2级
 tile.watergenerators.water_generator_level3.name=水发电机3级

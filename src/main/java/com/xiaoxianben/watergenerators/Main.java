@@ -2,10 +2,7 @@ package com.xiaoxianben.watergenerators;
 
 import com.xiaoxianben.watergenerators.GUI.GUIHandler;
 import com.xiaoxianben.watergenerators.event.PacketConsciousness;
-import com.xiaoxianben.watergenerators.init.ModBlocks;
-import com.xiaoxianben.watergenerators.init.ModItems;
-import com.xiaoxianben.watergenerators.init.ModOre;
-import com.xiaoxianben.watergenerators.init.ModRecipes;
+import com.xiaoxianben.watergenerators.init.*;
 import com.xiaoxianben.watergenerators.proxy.CommonProxy;
 import com.xiaoxianben.watergenerators.tabs.IngotBlocksTab;
 import com.xiaoxianben.watergenerators.tabs.MachineTab;
@@ -45,8 +42,6 @@ public class Main {
     public void preInit(FMLPreInitializationEvent event) {
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
         network.registerMessage(new PacketConsciousness.Handler(), PacketConsciousness.class, 1, Side.CLIENT);
-        ModItems.preInit();
-        ModBlocks.preInit();
     }
 
     @Mod.EventHandler

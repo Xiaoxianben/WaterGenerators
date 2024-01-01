@@ -105,7 +105,21 @@ public class ModRecipes {
         GameRegistry.addShapedRecipe(output.getRegistryName(), new ResourceLocation(Reference.MOD_ID, "duct_coil"),
                 output.getDefaultInstance(), params);
     }
-    public static void registryGenerator(BlockTEBasic output, byte level, byte generatorTab) {
+    public static void registryGenerator(BlockTEBasic output, Item conduit, Item turbineRotor,String gearOreName, Block oldGenerator) {
+        Object[] params = {
+            "FZF",
+            "DCD",
+            "FGF",
+            'F', ModBlocks.machineShell,
+            'D', conduit,
+            'Z', turbineRotor,
+            'G', gearOreName,
+            'C', oldGenerator
+        };
+        GameRegistry.addShapedRecipe(output.getRegistryName(), new ResourceLocation(Reference.MOD_ID, "generator"),
+                Item.getItemFromBlock(output).getDefaultInstance(), params);
+    }
+    public static void registryGenerator_old(BlockTEBasic output, byte level, byte generatorTab) {
         Object[] material = getGeneratorMaterial(level, generatorTab);
         if (material[0] == null) return ;
         String gearOreName = (String) material[0];
@@ -122,7 +136,7 @@ public class ModRecipes {
             'G', gearOreName,
             'C', oldGenerator
         };
-        GameRegistry.addShapedRecipe(output.getRegistryName(), new ResourceLocation(Reference.MOD_ID, "waterGenerator"),
+        GameRegistry.addShapedRecipe(output.getRegistryName(), new ResourceLocation(Reference.MOD_ID, "generator"),
                 Item.getItemFromBlock(output).getDefaultInstance(), params);
     }
     public static Object[] getGeneratorMaterial(byte level, byte generatorTab) {

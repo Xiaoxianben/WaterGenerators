@@ -1,5 +1,6 @@
 package com.xiaoxianben.watergenerators.init;
 
+import com.xiaoxianben.watergenerators.blocks.BlocksGenerator;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Loader;
@@ -18,5 +19,9 @@ public class ModOre {
         OreDictionary.registerOre("gearDiamond", ItemsMaterial.gearDiamond.getDefaultInstance());
         OreDictionary.registerOre("gearObsidian", ItemsMaterial.gearObsidian.getDefaultInstance());
         OreDictionary.registerOre("gearEmerald", ItemsMaterial.gearEmerald.getDefaultInstance());
+
+        for (int i = 0; i < BlocksGenerator.EnderIOTurbineGenerators.length; i++) {
+            if(BlocksGenerator.generator[i+1]) OreDictionary.registerOre("gear"+BlocksGenerator.EnderIOIngotOre[i], ItemsMaterial.enderIOGear[i]);
+        }
     }
 }

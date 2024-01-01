@@ -2,6 +2,7 @@ package com.xiaoxianben.watergenerators.items;
 
 import com.xiaoxianben.watergenerators.API.IHasInit;
 import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.blocks.BlocksGenerator;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -14,6 +15,7 @@ public class ItemsMaterial implements IHasInit {
     public static Item gearDiamond;
     public static Item gearObsidian;
     public static Item gearEmerald;
+    public static Item[] enderIOGear = new Item[5];
     // 导线
     public static Item coilIron;
     public static Item coilGoldPlated;
@@ -36,6 +38,7 @@ public class ItemsMaterial implements IHasInit {
     public static Item conduitElectrum;
     public static Item conduitSignalum;
     public static Item conduitEnderium;
+    public static Item[] enderIOConduit = new Item[5];
     // 涡轮装片
     public static Item turbineRotorIron;
     public static Item turbineRotorGoldPlated;
@@ -47,6 +50,7 @@ public class ItemsMaterial implements IHasInit {
     public static Item turbineRotorElectrum;
     public static Item turbineRotorSignalum;
     public static Item turbineRotorEnderium;
+    public static Item[] enderIOTurbineRotor = new Item[5];
 
     public void init() {
         boolean hasTF = Loader.isModLoaded("thermalfoundation");
@@ -56,6 +60,10 @@ public class ItemsMaterial implements IHasInit {
         gearDiamond = registryMaterial("gear_diamond");
         gearObsidian = registryMaterial("gear_obsidian");
         gearEmerald = registryMaterial("gear_emerald");
+
+        for (int i = 0; i < enderIOGear.length; i++) {
+            if(BlocksGenerator.generator[i+1]) enderIOGear[i] = registryMaterial("gear_" + BlocksGenerator.EnderIOName[i]);
+        }
         // 线圈
         coilIron = registryMaterial("coil_iron");
         coilGoldPlated = registryMaterial("coil_goldPlated");
@@ -83,6 +91,9 @@ public class ItemsMaterial implements IHasInit {
             conduitSignalum = registryMaterial("conduit_signalum");
             conduitEnderium = registryMaterial("conduit_enderium");
         }
+        for (int i = 0; i < enderIOConduit.length; i++) {
+            if(BlocksGenerator.generator[i+1]) enderIOConduit[i] = registryMaterial("conduit_" + BlocksGenerator.EnderIOName[i]);
+        }
         // 涡轮转片
         turbineRotorIron = registryMaterial("turbine_rotor_iron");
         turbineRotorGoldPlated = registryMaterial("turbine_rotor_goldPlated");
@@ -96,6 +107,9 @@ public class ItemsMaterial implements IHasInit {
             turbineRotorSignalum = registryMaterial("turbine_rotor_signalum");
             turbineRotorEnderium = registryMaterial("turbine_rotor_enderium");
         }
+        for (int i = 0; i < enderIOTurbineRotor.length; i++) {
+            if(BlocksGenerator.generator[i+1]) enderIOTurbineRotor[i] = registryMaterial("turbine_rotor_" + BlocksGenerator.EnderIOName[i]);
+        }
     }
     public void initRegistry() {
         boolean hasTF = Loader.isModLoaded("thermalfoundation");
@@ -105,6 +119,9 @@ public class ItemsMaterial implements IHasInit {
         ModRecipes.registryGear(gearObsidian, "obsidian");
         ModRecipes.registryGear(gearEmerald, "gemEmerald");
         ModRecipes.registryGear(gearDiamond, "gemDiamond");
+        for (int i = 0; i < enderIOGear.length; i++) {
+            if(BlocksGenerator.generator[i+1]) ModRecipes.registryGear(enderIOGear[i], "ingot" + BlocksGenerator.EnderIOIngotOre[i]);
+        }
 
         // 线圈
         ModRecipes.registryCoil(coilIron, "ingotIron", Items.AIR);
