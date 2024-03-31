@@ -1,7 +1,8 @@
 {
-  "parent": "block/cube_top",
-  "textures": {
-    "side": "watergenerators:blocks/machineshell",
-    "top": "watergenerators:blocks/machineshell"
-  }
+    "parent": "block/orientable",
+    "textures": {
+        "front": "#side",
+        "top": "#top",
+        "side": "#side"
+    }
 }

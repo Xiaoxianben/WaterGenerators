@@ -1,0 +1,32 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "top": "watergenerators:blocks/machine/top/enderium",
+            "side": "watergenerators:blocks/machine/side/enderium"
+        },
+        "model": "watergenerators:machine_vaporization"
+    },
+    "variants": {
+        "normal": [
+            {}
+        ],
+        "facing": {
+            "north": {
+                "y": 0
+            },
+            "south": {
+                "y": 180
+            },
+            "west": {
+                "y": 270
+            },
+            "east": {
+                "y": 90
+            }
+        },
+        "inventory": {
+            "transform": "forge:default-block"
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "front": "watergenerators:blocks/machine/steam",
+        "top": "#top",
+        "side": "#side"
+    }
+}

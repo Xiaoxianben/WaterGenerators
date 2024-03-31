@@ -1,86 +1,131 @@
 package com.xiaoxianben.watergenerators.enery;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.energy.IEnergyStorage;
 
-public class EnergyStorage extends net.minecraftforge.energy.EnergyStorage {
-    public EnergyStorage(int capacity) {
-        super(capacity);
+public class EnergyStorage implements IEnergyStorage {
+
+    protected long energy;
+    protected long capacity;
+    protected long maxReceive;
+    protected long maxExtract;
+
+    protected String[] NBT_KEYS = {"EnergyStorage", "Energy", "Capacity", "MaxReceive", "MaxExtract"};
+
+    public EnergyStorage(long capacity) {
+        this(capacity, capacity, capacity);
     }
 
-    public EnergyStorage(int capacity, int maxTransfer) {
-        super(capacity, maxTransfer);
+    public EnergyStorage(long capacity, long maxReceive, long maxExtract) {
+        this.capacity = capacity;
+        this.maxReceive = maxReceive;
+        this.maxExtract = maxExtract;
     }
 
-    public EnergyStorage(int capacity, int maxReceive, int maxExtract) {
-        super(capacity, maxReceive, maxExtract);
+
+    public EnergyStorage setCapacity(int capacity) {
+        this.capacity = capacity;
+
+        if (energy > capacity) {
+            energy = capacity;
+        }
+        return this;
     }
 
-    public EnergyStorage(int capacity, int maxReceive, int maxExtract, int energy) {
-        super(capacity, maxReceive, maxExtract, energy);
+    public int getIntForLong(long l) {
+        return l >= Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) l;
     }
 
-	public EnergyStorage setCapacity(int capacity) {
+    @Override
+    public int receiveEnergy(int maxReceive, boolean simulate) {
+        if (!canReceive())
+            return 0;
 
-		this.capacity = capacity;
+        long energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+        if (!simulate)
+            energy += energyReceived;
+        return getIntForLong(energyReceived);
+    }
 
-		if (energy > capacity) {
-			energy = capacity;
-		}
-		return this;
-	}
+    @Override
+    public int extractEnergy(int maxExtract, boolean simulate) {
+        if (!canExtract())
+            return 0;
 
-	public EnergyStorage setMaxTransfer(int maxTransfer) {
+        long energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+        if (!simulate)
+            energy -= energyExtracted;
+        return getIntForLong(energyExtracted);
+    }
 
-		setMaxReceive(maxTransfer);
-		setMaxExtract(maxTransfer);
-		return this;
-	}
+    @Override
+    public int getEnergyStored() {
+        return getIntForLong(energy);
+    }
 
-	public EnergyStorage setMaxReceive(int maxReceive) {
+    @Override
+    public int getMaxEnergyStored() {
+        return getIntForLong(capacity);
+    }
 
-		this.maxReceive = maxReceive;
-		return this;
-	}
+    @Override
+    public boolean canExtract() {
+        return this.maxExtract > 0;
+    }
 
-	public EnergyStorage setMaxExtract(int maxExtract) {
+    @Override
+    public boolean canReceive() {
+        return this.maxReceive > 0;
+    }
 
-		this.maxExtract = maxExtract;
-		return this;
-	}
+    public long getEnergyStoredLong() {
+        return energy;
+    }
+    public long getMaxEnergyStoredLong() {
+        return capacity;
+    }
 
+    /**
+     * This function is included to allow the containing tile to directly and efficiently modify the energy contained in the EnergyStorage. Do not rely on this externally, as not all IEnergyHandlers are guaranteed to have it.
+     */
+    public void modifyEnergyStored(long energy) {
+        this.energy += energy;
 
-	/**
-	 * This function is included to allow the containing tile to directly and efficiently modify the energy contained in the EnergyStorage. Do not rely on this externally, as not all IEnergyHandlers are guaranteed to have it.
-	 */
-	public void modifyEnergyStored(int energy) {
-
-		this.energy += energy;
-
-		if (this.energy > capacity) {
-			this.energy = capacity;
-		} else if (this.energy < 0) {
-			this.energy = 0;
-		}
-	}
+        if (this.energy > capacity) {
+            this.energy = capacity;
+        } else if (this.energy < 0) {
+            this.energy = 0;
+        }
+    }
 
     public EnergyStorage readFromNBT(NBTTagCompound nbt) {
+        NBTTagCompound nbt1 = nbt.getCompoundTag(NBT_KEYS[0]);
 
-		this.energy = nbt.getInteger("Energy");
+        this.energy = nbt1.getLong(NBT_KEYS[1]);
+        this.capacity = nbt1.getLong(NBT_KEYS[2]);
+        this.maxReceive = nbt1.getLong(NBT_KEYS[3]);
+        this.maxExtract = nbt1.getLong(NBT_KEYS[4]);
 
-		if (energy > capacity) {
-			energy = capacity;
-		}
-		return this;
-	}
+        if (energy > capacity) {
+            energy = capacity;
+        }
+        return this;
+    }
 
-	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        if (energy < 0) {
+            energy = 0;
+        }
+        NBTTagCompound nbt1 = new NBTTagCompound();
 
-		if (energy < 0) {
-			energy = 0;
-		}
-		nbt.setInteger("Energy", energy);
-		return nbt;
-	}
+        nbt1.setLong(NBT_KEYS[1], energy);
+        nbt1.setLong(NBT_KEYS[2], capacity);
+        nbt1.setLong(NBT_KEYS[3], maxReceive);
+        nbt1.setLong(NBT_KEYS[4], maxExtract);
+
+        nbt.setTag(NBT_KEYS[0], nbt1);
+        return nbt;
+    }
 
 
 }

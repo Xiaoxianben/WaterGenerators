@@ -38,7 +38,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "1.12.2-14.23.5.2847"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.
@@ -51,31 +51,27 @@ minecraft {
 }
 
 repositories {
-    mavenCentral()
-    maven {
-        name = "cofh maven"
-        url = "https://maven.covers1624.net/"
-    }
-    maven {
-        name = "curse maven"
-        url = "https://www.cursemaven.com/"
-    }
-    maven {
-        name = "EnderIO"
-        url 'https://maven.enderio.com/'
-    }
-
+maven {
+    // location of the maven that hosts JEI files
+    name = "Progwml6 maven"
+    url = "https://dvs1.progwml6.com/files/maven/"
+  }
+  maven {
+    // location of a maven mirror for JEI files, as a fallback
+    name = "ModMaven"
+    url = "https://modmaven.dev"
+  }
 }
 
 dependencies {
 
-    compileOnly "cofh:RedstoneFlux:1.12-2.1.0.+:universal"
+//    compileOnly "cofh:RedstoneFlux:1.12-2.1.0.+:universal"
 
-    /*
-    implementation files("tem/[热力-管道]ThermalDynamics-1.12.2-2.5.6.1-universal.jar")
-    implementation files("tem/[热力-膨胀]ThermalExpansion-1.12.2-5.5.7.1-universal.jar")
-*/
-//    compile files("tem/watergenerators-1.12.2-1.0.1.jar")
+	deobfCompile "mezz.jei:jei_${project.minecraft.version}:${jei_version}:api"
+	runtime "mezz.jei:jei_${project.minecraft.version}:${jei_version}"
+
+//    compile files("temp/[热力-管道]ThermalDynamics-1.12.2-2.5.6.1-universal.jar")
+//    compile files("temp/[热力-膨胀]ThermalExpansion-1.12.2-5.5.7.1-universal.jar")
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"

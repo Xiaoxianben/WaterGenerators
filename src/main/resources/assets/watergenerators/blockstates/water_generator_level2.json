@@ -1,7 +1,33 @@
 {
-  "variants": {
-    "normal": {
-      "model": "watergenerators:water_generator_level2"
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "front": "watergenerators:blocks/machine/water_generator/level2",
+            "top": "watergenerators:blocks/machine/top/level2",
+            "side": "watergenerators:blocks/machine/side/level2"
+        },
+        "model": "watergenerators:water_machine"
+    },
+    "variants": {
+        "normal": [
+            {}
+        ],
+        "facing": {
+            "north": {
+                "y": 0
+            },
+            "south": {
+                "y": 180
+            },
+            "west": {
+                "y": 270
+            },
+            "east": {
+                "y": 90
+            }
+        },
+        "inventory": {
+            "transform": "forge:default-block"
+        }
     }
-  }
 }

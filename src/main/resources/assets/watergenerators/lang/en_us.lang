@@ -2,43 +2,58 @@
 itemGroup.ingotBlock_tap=water generators/ingot Block
 itemGroup.machine_tap=water generators/machine
 itemGroup.material_tap=water generators/material
+
 # ###### item
 item.watergenerators.ingot_goldPlatedIron.name=gold plated iron ingot
 item.watergenerators.information_finder.name=information finder
-# gear
+
+# ## gear
 item.watergenerators.gear_iron.name=iron gear
 item.watergenerators.gear_goldPlated.name=goldPlated gear
 item.watergenerators.gear_diamond.name=diamond gear
 item.watergenerators.gear_obsidian.name=obsidian gear
 item.watergenerators.gear_emerald.name=emerald gear
-# coil
+
+item.watergenerators.gear_endsteel.name=ender steel gear
+item.watergenerators.gear_melodic.name=melodyAlloy gear
+item.watergenerators.gear_stellar.name=stellarAlloy gear
+# ## coil
 item.watergenerators.coil_iron.name=iron coil
 item.watergenerators.coil_goldPlated.name=goldPlated coil
 item.watergenerators.coil_diamond.name=diamond coil
 item.watergenerators.coil_obsidian.name=obsidian coil
 item.watergenerators.coil_emerald.name=emerald coil
+
 item.watergenerators.coil_steel.name=steel coil
 item.watergenerators.coil_invar.name=invar coil
 item.watergenerators.coil_electrum.name=electrum coil
 item.watergenerators.coil_signalum.name=signalum coil
 item.watergenerators.coil_enderium.name=enderium coil
-# turbine_rotor
+# ## turbine_rotor
 item.watergenerators.turbine_rotor_iron.name=iron turbine rotor
 item.watergenerators.turbine_rotor_goldPlated.name=goldPlated turbine rotor
 item.watergenerators.turbine_rotor_diamond.name=diamond turbine rotor
 item.watergenerators.turbine_rotor_obsidian.name=obsidian turbine rotor
 item.watergenerators.turbine_rotor_emerald.name=emerald turbine rotor
+
 item.watergenerators.turbine_rotor_steel.name=steel turbine rotor
 item.watergenerators.turbine_rotor_invar.name=invar turbine rotor
 item.watergenerators.turbine_rotor_electrum.name=electrum turbine rotor
 item.watergenerators.turbine_rotor_signalum.name=signalum turbine rotor
 item.watergenerators.turbine_rotor_enderium.name=enderium turbine rotor
-# ductCoil
+
+item.watergenerators.turbine_rotor_vibrantalloy.name=vibrant alloy turbine rotor
+item.watergenerators.turbine_rotor_darksteel.name=dark steel turbine rotor
+item.watergenerators.turbine_rotor_endsteel.name=end steel turbine rotor
+item.watergenerators.turbine_rotor_melodicalloy.name=melodic alloy turbine rotor
+item.watergenerators.turbine_rotor_stellaralloy.name=stellar alloy turbine rotor
+# ## ductCoil
 item.watergenerators.conduit_iron.name=iron conduit
 item.watergenerators.conduit_goldPlated.name=gold plated conduit
 item.watergenerators.conduit_diamond.name=diamond conduit
 item.watergenerators.conduit_obsidian.name=obsidian conduit
 item.watergenerators.conduit_emerald.name=emerald conduit
+
 item.watergenerators.conduit_steel.name=steel conduit
 item.watergenerators.conduit_invar.name=invar conduit
 item.watergenerators.conduit_electrum.name=electrum conduit
@@ -49,119 +64,129 @@ item.watergenerators.ductShell_1.name=duct shell
 item.watergenerators.ductShell_0.name=duct shell bank
 # ###### block/tile
 tile.watergenerators.block_goldPlatedIron.name=gold plated iron block
-tile.watergenerators.block_machineShell_frame.name=block machine shell frame
-tile.watergenerators.block_machineShell.name=block machine shell
+tile.watergenerators.machineShell_frame.name=machine shell frame
+
+tile.watergenerators.steam.name=steam
 
 tile.watergenerators.create_generator.name=create generator
 
+# ## waterGenerator
 tile.watergenerators.water_generator_level1.name=water generator level1
 tile.watergenerators.water_generator_level2.name=water generator level2
 tile.watergenerators.water_generator_level3.name=water generator level3
 tile.watergenerators.water_generator_level4.name=water generator level4
 tile.watergenerators.water_generator_level5.name=water generator level5
+
 tile.watergenerators.water_generator_steel.name=water generator level steel
 tile.watergenerators.water_generator_invar.name=water generator level invar
 tile.watergenerators.water_generator_electrum.name=water generator level electrum
 tile.watergenerators.water_generator_signalum.name=water generator level signalum
-tile.watergenerators.water_generator_enderium.name=water generator level enderium
+tile.watergenerators.water_generator_enderium.name=turbine generator level enderium
 
-tile.watergenerators.turbine_generator_level1.name=turbine generator level1
-tile.watergenerators.turbine_generator_level2.name=turbine generator level2
-tile.watergenerators.turbine_generator_level3.name=turbine generator level3
-tile.watergenerators.turbine_generator_level4.name=turbine generator level4
-tile.watergenerators.turbine_generator_level5.name=turbine generator level5
+tile.watergenerators.water_generator_vibrantalloy.name=water generator level vibrantalloy
+tile.watergenerators.water_generator_darksteel.name=water generator level darksteel
+tile.watergenerators.water_generator_endsteel.name=water generator level endsteel
+tile.watergenerators.water_generator_melodicalloy.name=water generator level melodicalloy
+tile.watergenerators.water_generator_stellaralloy.name=water generator level stellaralloy
+
+# ## turbineGenerator
+tile.watergenerators.turbine_generator_level1.name=turbine generator level 1
+tile.watergenerators.turbine_generator_level2.name=turbine generator level 2
+tile.watergenerators.turbine_generator_level3.name=turbine generator level 3
+tile.watergenerators.turbine_generator_level4.name=turbine generator level 4
+tile.watergenerators.turbine_generator_level5.name=turbine generator level 5
+
 tile.watergenerators.turbine_generator_steel.name=turbine generator level steel
 tile.watergenerators.turbine_generator_invar.name=turbine generator level invar
 tile.watergenerators.turbine_generator_electrum.name=turbine generator level electrum
 tile.watergenerators.turbine_generator_signalum.name=turbine generator level signalum
 tile.watergenerators.turbine_generator_enderium.name=turbine generator level enderium
 
+tile.watergenerators.turbine_generator_vibrantalloy.name=turbine generator level vibrantalloy
+tile.watergenerators.turbine_generator_darksteel.name=turbine generator level darksteel
+tile.watergenerators.turbine_generator_endsteel.name=turbine generator level endsteel
+tile.watergenerators.turbine_generator_melodicalloy.name=turbine generator level melodicalloy
+tile.watergenerators.turbine_generator_stellaralloy.name=turbine generator level stellaralloy
 
+# ## steamGenerator
+tile.watergenerators.steam_generator_level1.name=steam generator level 1
+tile.watergenerators.steam_generator_level2.name=steam generator level 2
+tile.watergenerators.steam_generator_level3.name=steam generator level 3
+tile.watergenerators.steam_generator_level4.name=steam generator level 4
+tile.watergenerators.steam_generator_level5.name=steam generator level 5
 
-# #####################################
-##PARSE_ESCAPES
-##tabs
-#itemGroup.ideallandMiscTab=IDL Hall
-#
-#generator.TYPE_ONE=Type One;
-#generator.TYPE_TWO=Type Two;
-#
-##config
-#configgui.idealland.category.Menu0.GeneralConf=General Config
-#idealland.conf.general.welcome=Welcome Message Key
-#
-##Enchantments
-#enchantment.idealland.test_enchantment=Early Access
-## 已删
-## enchantment.simplegenerators.rapid_power=rapid_power
-#
-##Messages
-#idealland.moroon_incoming_herald=[IDL][Warn] The Moroon are interested in your fights.
-#idealland.msg.notice_meter_report=[IDL] Moroon notice value: %d, invasion: %d/%d, error:%d
-#
-##Potions
-#idealland.potion.deadly=Deadly
-#idealland.potion.zen_heart=Countless Virtue
-#
-#
-##Entities
-#entity.moroon_tainter.name=Moroon Pathfinder
-#
-##Blocks
-#tile.watergenerators.idealland_light_basic.name=Idealland Lamp
-#
-#tile.watergenerators.test.name=Idealland Block A
-#
-##Items
-#idealland.food.shared.xp_desc=Grants XP: %d
-#idealland.gua_enhance_no_free.desc=Use anvil to socket Gua(Elemental)
-#idealland.gua_enhance_free.desc=Free Gua Sockets(Direct craft): %d
-#
-#idealland.gua_enhance_total.desc=Gua Enhance Total: %d
-#idealland.shared.press_shift=Hold SHIFT to examine info.
-#
-#fading.duration.desc=Vanishes after %d seconds
-#
-#item.watergenerators.debug_test.name=Debug Item
-#item.watergenerators.debug_test.desc=For debuging. Not for playing.
-#
-#item.watergenerators.xie_geta.name=Geta of Mr.Xie
-#item.watergenerators.xie_geta.desc.0=Uphill mode. Grants Lv.%s Jump Boost.
-#item.watergenerators.xie_geta.desc.1=Flat ground mode. Grants Lv.%s Speed.
-#item.watergenerators.xie_geta.desc.2=Down hill mode. Reduces %s fall damage.
-#
-#item.watergenerators.p2w_goblet.name=P.2.W. Chalice
-#item.watergenerators.p2w_goblet.desc=Pay gold to increase your power. (Try crafting it with the 8 elements and gold)
-#item.watergenerators.p2w_goblet.contain.desc=Containing %d exp.
-#item.watergenerators.p2w_goblet.player.desc=Owner power: Lv.%d (%d/%d exp)
-#
-#
-##Skills
-#idealland.skill.shared.cool_down_desc=Cooldown: %.1fs
-#idealland.skill.shared.power_desc=Damage: %.1f
-#idealland.skill.shared.range_desc=Radius: %.1f block
-#idealland.skill.shared.duration_desc=Duration: %.1fs
-#idealland.skill.shared.error_desc=Error: +-%d
-#idealland.skill.shared.level_desc=Level: %d/%d
-#idealland.skill.shared.name_format=%s
-#idealland.skill.shared.name_format_with_lv=%s Lv.%s %s
-#idealland.skill.shared.lv_max=[MAX]
-#
-#idealland.gua_enhance_list.desc=Earth %s Thunder %s\nWater %s Mountain %s\nLake %s Fire %s\nWind%s Sky%s
-#idealland.gua_not_applicable.desc=-
-#
-#idealland.kill_count.desc=Kills: %d
-#
-#idealland.skill.msg.cool_down=Cooling Down.
-#
-##Death
-##examples
-##death.fell.accident.ladder=%1$s fell off a ladder
-##death.fell.accident.vines=%1$s fell off some vines
-##death.fell.accident.water=%1$s fell out of the water
-##death.fell.accident.generic=%1$s fell from a high place
-##death.fell.killer=%1$s was doomed to fall
-##death.fell.assist=%1$s was doomed to fall by %2$s
-##death.fell.assist.item=%1$s was doomed to fall by %2$s using %3$s
-##death.fell.finish=%1$s fell too far and was finished by %2$s
-##death.fell.finish.item=%1$s fell too far and was finished by %2$s using %3$s
+tile.watergenerators.steam_generator_steel.name=steam generator level steel
+tile.watergenerators.steam_generator_invar.name=steam generator level invar
+tile.watergenerators.steam_generator_electrum.name=steam generator level electrum
+tile.watergenerators.steam_generator_signalum.name=steam generator level signalum
+tile.watergenerators.steam_generator_enderium.name=steam generator level enderium
+
+tile.watergenerators.steam_generator_vibrantalloy.name=steam generator level vibrantalloy
+tile.watergenerators.steam_generator_darksteel.name=steam generator level darksteel
+tile.watergenerators.steam_generator_endsteel.name=steam generator level endsteel
+tile.watergenerators.steam_generator_melodicalloy.name=steam generator level melodicalloy
+tile.watergenerators.steam_generator_stellaralloy.name=steam generator level stellaralloy
+
+# ## machine
+tile.watergenerators.machine_vaporization_level1.name=vaporizer level 1
+tile.watergenerators.machine_vaporization_level2.name=vaporizer level 2
+tile.watergenerators.machine_vaporization_level3.name=vaporizer level 3
+tile.watergenerators.machine_vaporization_level4.name=vaporizer level 4
+tile.watergenerators.machine_vaporization_level5.name=vaporizer level 5
+
+tile.watergenerators.machine_vaporization_steel.name=vaporizer level steel
+tile.watergenerators.machine_vaporization_invar.name=vaporizer level invar
+tile.watergenerators.machine_vaporization_electrum.name=vaporizer level electrum
+tile.watergenerators.machine_vaporization_signalum.name=vaporizer level signalum
+tile.watergenerators.machine_vaporization_enderium.name=vaporizer level enderium
+
+tile.watergenerators.machine_vaporization_vibrantalloy.name=vaporizer level vibrantalloy
+tile.watergenerators.machine_vaporization_darksteel.name=vaporizer level darksteel
+tile.watergenerators.machine_vaporization_endsteel.name=vaporizer level endsteel
+tile.watergenerators.machine_vaporization_melodicalloy.name=vaporizer level melodicalloy
+tile.watergenerators.machine_vaporization_stellaralloy.name=vaporizer level stellaralloy
+
+# ## machine shell
+tile.watergenerators.machineshell_level1.name=machine shell level 1
+tile.watergenerators.machineshell_level2.name=machine shell level 2
+tile.watergenerators.machineshell_level3.name=machine shell level 3
+tile.watergenerators.machineshell_level4.name=machine shell level 4
+tile.watergenerators.machineshell_level5.name=machine shell level 5
+
+tile.watergenerators.machineshell_steel.name=machine shell level steel
+tile.watergenerators.machineshell_invar.name=machine shell level invar
+tile.watergenerators.machineshell_electrum.name=machine shell level electrum
+tile.watergenerators.machineshell_signalum.name=machine shell level signalum
+tile.watergenerators.machineshell_enderium.name=machine shell level enderium
+
+tile.watergenerators.machineshell_vibrantalloy.name=machine shell level vibrantalloy
+tile.watergenerators.machineshell_darksteel.name=machine shell level darksteel
+tile.watergenerators.machineshell_endsteel.name=machine shell level endsteel
+tile.watergenerators.machineshell_melodicalloy.name=machine shell level melodicalloy
+tile.watergenerators.machineshell_stellaralloy.name=machine shell level stellaralloy
+
+# ##### config
+config.basicAmountOfFluidToProduceEnergy.comment=config of the water generator: the amount of liquid required to produce 1 RF energy
+config.basicAmountOfSteamToProduceEnergy.comment=config of the steam generator: the amount of steam required to produce 1 RF energy
+config.energyBasic.comment=config of the generator: The basic production energy of the generator
+
+category.generator.comment=basic production energy configuration for all generators
+
+RC.title.name=vaporization
+
+# level name
+level.vibrantalloy.name=vibrantalloy
+level.darksteel.name=darksteel
+level.endsteel.name=endsteel
+level.melodicalloy.name=melodicalloy
+level.stellaralloy.name=stellaralloy
+
+level.steel.name=steel
+level.invar.name=invar
+level.electrum.name=electrum
+level.signalum.name=signalum
+level.enderium.name=enderium
+
+# Gui
+gui.basePowerGeneration.text=base power generation:
+gui.realPowerGeneration.text=actual power generation:

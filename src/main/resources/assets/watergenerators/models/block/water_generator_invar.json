@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "watergenerators:blocks/machine/water_generator_invar"
-    }
-}

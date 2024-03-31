@@ -1,15 +1,14 @@
 package com.xiaoxianben.watergenerators.items;
 
+import com.xiaoxianben.watergenerators.API.IHasModel;
 import com.xiaoxianben.watergenerators.Main;
-import com.xiaoxianben.watergenerators.util.IHasModel;
-import com.xiaoxianben.watergenerators.util.Reference;
+import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemBase extends Item implements IHasModel {
     public ItemBase(String name, CreativeTabs tab) {
-        setUnlocalizedName(Reference.MOD_ID+'.'+name);
+        setUnlocalizedName(ModInformation.MOD_ID + '.' + name);
         setRegistryName(name);
 
         setCreativeTab(tab);

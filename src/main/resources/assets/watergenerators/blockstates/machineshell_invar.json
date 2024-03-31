@@ -1,0 +1,18 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "top": "watergenerators:blocks/machine/top/invar",
+            "side": "watergenerators:blocks/machine/side/invar"
+        },
+        "model": "watergenerators:block_machineshell"
+    },
+    "variants": {
+        "normal": [
+            {}
+        ],
+        "inventory": {
+            "transform": "forge:default-block"
+        }
+    }
+}

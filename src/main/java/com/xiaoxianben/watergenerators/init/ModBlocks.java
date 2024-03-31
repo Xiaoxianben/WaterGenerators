@@ -4,39 +4,55 @@ import com.xiaoxianben.watergenerators.API.IHasInit;
 import com.xiaoxianben.watergenerators.Main;
 import com.xiaoxianben.watergenerators.blocks.BlockBase;
 import com.xiaoxianben.watergenerators.blocks.BlocksGenerator;
+import com.xiaoxianben.watergenerators.blocks.BlocksMachine;
+import com.xiaoxianben.watergenerators.otherModsItems.otherInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModBlocks {
+    /**
+     * init列表
+     */
     public static List<IHasInit> initList = new ArrayList<>();
 
     public static Block GOLD_PLATED_IRON_BLOCK;
     public static Block machineShell_frame;
-    public static Block machineShell;
 
     public static void preInit() {
         GOLD_PLATED_IRON_BLOCK = new BlockBase("block_goldPlatedIron", Material.IRON, Main.INGOT_BLOCK_TAB);
-        machineShell_frame = new BlockBase("block_machineShell_frame", Material.IRON, Main.MACHINE_TAB);
-        machineShell = new BlockBase("block_machineShell", Material.IRON, Main.MACHINE_TAB);
+        machineShell_frame = new BlockBase("machineShell_frame", Material.IRON, Main.MACHINE_TAB) {
+            public boolean canPlaceBlockAt(@Nonnull World worldIn, @Nonnull BlockPos pos) {
+                return false;
+            }
+        };
+
         BlocksGenerator generator = new BlocksGenerator();
+        BlocksMachine machine = new BlocksMachine();
+
         initList.add(generator);
+        initList.add(machine);
+
+        otherInit.initBlock();
+
         for (IHasInit init : initList) {
             init.init();
         }
     }
+
     public static void init() {
         ModRecipes.registryBlock(Item.getItemFromBlock(GOLD_PLATED_IRON_BLOCK), ModItems.GOLD_PLATED_IRON_INGOT);
 
-        ModRecipes.registryShell(Item.getItemFromBlock(machineShell_frame), Items.AIR, "");
-        ModRecipes.registryShell(Item.getItemFromBlock(machineShell), Item.getItemFromBlock(machineShell_frame), "ingotGoldPlatedIron");
+        ModRecipes.registryShell(machineShell_frame, null, null);
 
         for (IHasInit init : initList) {
-            init.initRegistry();
+            init.initRecipes();
         }
     }
 }

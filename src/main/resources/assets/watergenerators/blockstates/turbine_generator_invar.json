@@ -1,7 +1,17 @@
 {
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "top": "watergenerators:blocks/machine/turbine_generator/invar"
+        },
+        "model": "watergenerators:turbine_machine"
+    },
     "variants": {
-        "normal": {
-            "model": "watergenerators:turbine_generator_invar"
+        "normal": [
+            {}
+        ],
+        "inventory": {
+            "transform": "forge:default-block"
         }
     }
 }

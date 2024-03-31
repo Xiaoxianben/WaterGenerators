@@ -1,146 +1,123 @@
 package com.xiaoxianben.watergenerators.blocks;
 
 import com.xiaoxianben.watergenerators.API.IHasInit;
+import com.xiaoxianben.watergenerators.event.ConfigLoader;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
-import com.xiaoxianben.watergenerators.tileEntity.TECreateGenerator;
-import com.xiaoxianben.watergenerators.tileEntity.TETurbineGenerator;
-import com.xiaoxianben.watergenerators.tileEntity.TEWaterGenerator;
-import com.xiaoxianben.watergenerators.util.Reference;
+import com.xiaoxianben.watergenerators.tileEntity.TEGeneratorCreate;
+import com.xiaoxianben.watergenerators.tileEntity.TEGeneratorSteam;
+import com.xiaoxianben.watergenerators.tileEntity.TEGeneratorTurbine;
+import com.xiaoxianben.watergenerators.tileEntity.TEGeneratorWater;
+import com.xiaoxianben.watergenerators.util.ModInformation;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class BlocksGenerator implements IHasInit {
 
-    public static int energyBasic = 10;
+    public static int energyBasic = ConfigLoader.energyBasic;
 
     // GENERATOR
-    public static BlockTEBasic createGenerator;
+    public static BlockGeneratorBasic createGenerator;
 
-    public static BlockTEBasic TURBINE_GENERATOR_LEVEL1; // 铁
-    public static BlockTEBasic TURBINE_GENERATOR_LEVEL2; // 镀金
-    public static BlockTEBasic TURBINE_GENERATOR_LEVEL3; // 钻石
-    public static BlockTEBasic TURBINE_GENERATOR_LEVEL4; // 黑曜石
-    public static BlockTEBasic TURBINE_GENERATOR_LEVEL5; // 绿宝石
-    public static BlockTEBasic TURBINE_GENERATOR_Steel; // 钢
-    public static BlockTEBasic TURBINE_GENERATOR_Invar; // 殷钢
-    public static BlockTEBasic TURBINE_GENERATOR_Electrum; // 琥珀金
-    public static BlockTEBasic TURBINE_GENERATOR_Signalum; // 信素
-    public static BlockTEBasic TURBINE_GENERATOR_Enderium; // 末影
-    public static BlockTEBasic[] EnderIOTurbineGenerators = new BlockTEBasic[5];
-    public static BlockTEBasic[] EnderIOWaterGenerators = new BlockTEBasic[5];
-    public static String[] EnderIOName = {"vibrantalloy", "darksteel", "endsteel", "melodicalloy", "stellaralloy", "脉冲合金", "玄钢", "末影钢", "旋律合金", "恒星合金"};
-    public static String[] EnderIOIngotOre = {"VibrantAlloy", "DarkSteel", "EndSteel", "MelodicAlloy", "StellarAlloy"};
+    public static BlockGeneratorBasic TURBINE_GENERATOR_LEVEL1; // 铁
+    public static BlockGeneratorBasic TURBINE_GENERATOR_LEVEL2; // 镀金
+    public static BlockGeneratorBasic TURBINE_GENERATOR_LEVEL3; // 钻石
+    public static BlockGeneratorBasic TURBINE_GENERATOR_LEVEL4; // 黑曜石
+    public static BlockGeneratorBasic TURBINE_GENERATOR_LEVEL5; // 绿宝石
 
-    public static BlockTEBasic WATER_GENERATOR_LEVEL1;
-    public static BlockTEBasic WATER_GENERATOR_LEVEL2;
-    public static BlockTEBasic WATER_GENERATOR_LEVEL3;
-    public static BlockTEBasic WATER_GENERATOR_LEVEL4;
-    public static BlockTEBasic WATER_GENERATOR_LEVEL5;
-    public static BlockTEBasic WATER_GENERATOR_Steel;
-    public static BlockTEBasic WATER_GENERATOR_Invar;
-    public static BlockTEBasic WATER_GENERATOR_Electrum;
-    public static BlockTEBasic WATER_GENERATOR_Signalum;
-    public static BlockTEBasic WATER_GENERATOR_Enderium;
+    public static BlockGeneratorBasic WATER_GENERATOR_LEVEL1;
+    public static BlockGeneratorBasic WATER_GENERATOR_LEVEL2;
+    public static BlockGeneratorBasic WATER_GENERATOR_LEVEL3;
+    public static BlockGeneratorBasic WATER_GENERATOR_LEVEL4;
+    public static BlockGeneratorBasic WATER_GENERATOR_LEVEL5;
 
-    public static boolean[] generator = new boolean[6];
+    public static BlockGeneratorTurbine[] blockGeneratorTurbine = new BlockGeneratorTurbine[5];
+    public static BlockGeneratorWater[] blockGeneratorWater = new BlockGeneratorWater[5];
+    public static BlockGeneratorSteam[] blockGeneratorSteam = new BlockGeneratorSteam[5];
 
+
+    public static String[] oreIngots = {"ingotIron", "ingotGoldPlatedIron", "gemDiamond", "obsidian", "gemEmerald"};
+    public static String[] blockName = {"level1", "level2", "level3", "level4", "level5"};
+    public static String[] gearName = {"gearIron", "gearGoldPlated", "gearDiamond", "gearObsidian", "gearEmerald"};
+    public static int[] level = {1, 2, 3, 4, 5};
 
     public void init() {
-        generator[0] = Loader.isModLoaded("thermalfoundation");
-        for (int i = 0; i < EnderIOIngotOre.length; i++) {
-            generator[i+1] = OreDictionary.doesOreNameExist("ingot"+EnderIOIngotOre[i]);
-            generator[i+1] = true;
+        createGenerator = new BlockGeneratorCreate("create_generator", Integer.MAX_VALUE);
+
+        for (int i = 0; i < 5; i++) {
+//            BlockGeneratorBasic[] generatorBasics = registerGenerator(blockName[i], i);
+//            blockGeneratorTurbine[i] = (BlockGeneratorTurbine) generatorBasics[0];
+//            blockGeneratorWater[i] = (BlockGeneratorWater) generatorBasics[1];
+//            blockGeneratorSteam[i] = (BlockGeneratorSteam) generatorBasics[2];
+            blockGeneratorTurbine[i] = registerTurbine(blockName[i], level[i]);
+        }
+        for (int i = 0; i < 5; i++) {
+            blockGeneratorWater[i] = registerWater(blockName[i], level[i]);
+        }
+        for (int i = 0; i < 5; i++) {
+            blockGeneratorSteam[i] = registerSteam(blockName[i], level[i]);
         }
 
-        createGenerator = new BlockCreateGenerator("create_generator", (int) (Math.pow(2, 31) - 1));
+        TURBINE_GENERATOR_LEVEL1 = blockGeneratorTurbine[0]; // 铁
+        TURBINE_GENERATOR_LEVEL2 = blockGeneratorTurbine[1]; // 镀金
+        TURBINE_GENERATOR_LEVEL3 = blockGeneratorTurbine[2]; // 钻石
+        TURBINE_GENERATOR_LEVEL4 = blockGeneratorTurbine[3]; // 黑曜石
+        TURBINE_GENERATOR_LEVEL5 = blockGeneratorTurbine[4]; // 绿宝石
 
-        TURBINE_GENERATOR_LEVEL1 = turbineGeneratorLevel0("turbine_generator_level1", energyBasic, "1"); // 铁
-        TURBINE_GENERATOR_LEVEL2 = turbineGeneratorLevel0("turbine_generator_level2", energyBasic*2, "2"); // 镀金
-        TURBINE_GENERATOR_LEVEL3 = turbineGeneratorLevel0("turbine_generator_level3", energyBasic*8, "3"); // 钻石
-        TURBINE_GENERATOR_LEVEL4 = turbineGeneratorLevel1("turbine_generator_level4", energyBasic*32, "4"); // 黑曜石
-        TURBINE_GENERATOR_LEVEL5 = turbineGeneratorLevel1("turbine_generator_level5", energyBasic*128, "5"); // 绿宝石
-        if (Loader.isModLoaded("thermalfoundation")) {
-            TURBINE_GENERATOR_Steel = turbineGeneratorLevel1("turbine_generator_steel", energyBasic*128*4, "钢"); // 钢
-            TURBINE_GENERATOR_Invar = turbineGeneratorLevel1("turbine_generator_invar", energyBasic*128*16, "殷钢"); // 殷钢
-            TURBINE_GENERATOR_Electrum = turbineGeneratorLevel1("turbine_generator_electrum", energyBasic*128*64, "琥珀金"); // 琥珀金
-            TURBINE_GENERATOR_Signalum = turbineGeneratorLevel1("turbine_generator_signalum", energyBasic*128*64*4, "信素"); // 信素
-            TURBINE_GENERATOR_Enderium = turbineGeneratorLevel1("turbine_generator_enderium", energyBasic*128*64*16, "末影"); // 末影
-        }
-        // enderIO
-        for (int i = 0; i < EnderIOTurbineGenerators.length; i++) {
-            if(generator[i+1]) EnderIOTurbineGenerators[i] = turbineGeneratorLevel1("turbine_generator_" + EnderIOName[i], (int) (energyBasic*128*16*(Math.pow(4, i))), EnderIOName[i+5]);
-        }
-
-        WATER_GENERATOR_LEVEL1 = waterGeneratorLevel0("water_generator_level1", energyBasic*2, "1"); // 铁
-        WATER_GENERATOR_LEVEL2 = waterGeneratorLevel0("water_generator_level2", energyBasic*4, "2"); // 镀金
-        WATER_GENERATOR_LEVEL3 = waterGeneratorLevel0("water_generator_level3", energyBasic*16, "3"); // 钻石
-        WATER_GENERATOR_LEVEL4 = waterGeneratorLevel1("water_generator_level4", energyBasic*64, "4"); // 黑曜石
-        WATER_GENERATOR_LEVEL5 = waterGeneratorLevel1("water_generator_level5", energyBasic*64*4, "5"); // 绿宝石
-        if (Loader.isModLoaded("thermalfoundation")) {
-            WATER_GENERATOR_Steel = waterGeneratorLevel1("water_generator_steel", energyBasic*64*16, "钢"); // 钢
-            WATER_GENERATOR_Invar = waterGeneratorLevel1("water_generator_invar", energyBasic*64*64, "殷钢"); // 殷钢
-            WATER_GENERATOR_Electrum = waterGeneratorLevel1("water_generator_electrum", energyBasic*64*64*4, "琥珀金"); // 琥珀金
-            WATER_GENERATOR_Signalum = waterGeneratorLevel1("water_generator_signalum", energyBasic*64*64*16, "信素"); // 信素
-            WATER_GENERATOR_Enderium = waterGeneratorLevel1("water_generator_enderium", energyBasic*64*64*64, "末影"); // 末影
-        }
-        // enderIO
-        for (int i = 0; i < EnderIOWaterGenerators.length; i++) {
-            if(generator[i+1]) EnderIOWaterGenerators[i] = waterGeneratorLevel1("water_generator_" + EnderIOName[i], (int) (energyBasic*128*32*(Math.pow(4, i))), EnderIOName[i+5]);
-        }
+        WATER_GENERATOR_LEVEL1 = blockGeneratorWater[0]; // 铁
+        WATER_GENERATOR_LEVEL2 = blockGeneratorWater[1]; // 镀金
+        WATER_GENERATOR_LEVEL3 = blockGeneratorWater[2]; // 钻石
+        WATER_GENERATOR_LEVEL4 = blockGeneratorWater[3]; // 黑曜石
+        WATER_GENERATOR_LEVEL5 = blockGeneratorWater[4]; // 绿宝石
 
     }
-    public void initRegistry() {
+
+    public void initRecipes() {
         ModRecipes.registryGenerator_old(TURBINE_GENERATOR_LEVEL1, (byte) 1, (byte) 1);
         ModRecipes.registryGenerator_old(TURBINE_GENERATOR_LEVEL2, (byte) 2, (byte) 1);
         ModRecipes.registryGenerator_old(TURBINE_GENERATOR_LEVEL3, (byte) 3, (byte) 1);
         ModRecipes.registryGenerator_old(TURBINE_GENERATOR_LEVEL4, (byte) 4, (byte) 1);
         ModRecipes.registryGenerator_old(TURBINE_GENERATOR_LEVEL5, (byte) 5, (byte) 1);
-        if (Loader.isModLoaded("thermalfoundation")) {
-            ModRecipes.registryGenerator_old(TURBINE_GENERATOR_Steel, (byte) 6, (byte) 1);
-            ModRecipes.registryGenerator_old(TURBINE_GENERATOR_Invar, (byte) 7, (byte) 1);
-            ModRecipes.registryGenerator_old(TURBINE_GENERATOR_Electrum, (byte) 8, (byte) 1);
-            ModRecipes.registryGenerator_old(TURBINE_GENERATOR_Signalum, (byte) 9, (byte) 1);
-            ModRecipes.registryGenerator_old(TURBINE_GENERATOR_Enderium, (byte) 10, (byte) 1);
-        }
-        // enderIO
-        for (int i = 0; i < EnderIOTurbineGenerators.length; i++) {
-            if(generator[i+1]) ModRecipes.registryGenerator(EnderIOTurbineGenerators[i],
-                    ItemsMaterial.enderIOConduit[i], ItemsMaterial.enderIOTurbineRotor[i], "gear_"+EnderIOIngotOre[i],
-                    i == 0?TURBINE_GENERATOR_LEVEL5:EnderIOTurbineGenerators[i-1]);
-        }
 
         ModRecipes.registryGenerator_old(WATER_GENERATOR_LEVEL1, (byte) 1, (byte) 2);
         ModRecipes.registryGenerator_old(WATER_GENERATOR_LEVEL2, (byte) 2, (byte) 2);
         ModRecipes.registryGenerator_old(WATER_GENERATOR_LEVEL3, (byte) 3, (byte) 2);
         ModRecipes.registryGenerator_old(WATER_GENERATOR_LEVEL4, (byte) 4, (byte) 2);
         ModRecipes.registryGenerator_old(WATER_GENERATOR_LEVEL5, (byte) 5, (byte) 2);
-        if (Loader.isModLoaded("thermalfoundation")) {
-            ModRecipes.registryGenerator_old(WATER_GENERATOR_Steel, (byte) 6, (byte) 2);
-            ModRecipes.registryGenerator_old(WATER_GENERATOR_Invar, (byte) 7, (byte) 2);
-            ModRecipes.registryGenerator_old(WATER_GENERATOR_Electrum, (byte) 8, (byte) 2);
-            ModRecipes.registryGenerator_old(WATER_GENERATOR_Signalum, (byte) 9, (byte) 2);
-            ModRecipes.registryGenerator_old(WATER_GENERATOR_Enderium, (byte) 10, (byte) 2);
+
+        for (int i = 0; i < 5; i++) {
+            registerGenerator(i);
         }
-        GameRegistry.registerTileEntity(TETurbineGenerator.class, new ResourceLocation(Reference.MOD_ID, "tileTurbineGenerator"));
-        GameRegistry.registerTileEntity(TEWaterGenerator.class, new ResourceLocation(Reference.MOD_ID, "tileWaterGenerator"));
-        GameRegistry.registerTileEntity(TECreateGenerator.class, new ResourceLocation(Reference.MOD_ID, "TileCreateGenerator"));
+
+        GameRegistry.registerTileEntity(TEGeneratorTurbine.class, new ResourceLocation(ModInformation.MOD_ID, "TETurbineGenerator"));
+        GameRegistry.registerTileEntity(TEGeneratorWater.class, new ResourceLocation(ModInformation.MOD_ID, "TEWaterGenerator"));
+        GameRegistry.registerTileEntity(TEGeneratorCreate.class, new ResourceLocation(ModInformation.MOD_ID, "TECreateGenerator"));
+        GameRegistry.registerTileEntity(TEGeneratorSteam.class, new ResourceLocation(ModInformation.MOD_ID, "TESteamGenerator"));
 
     }
 
-    public BlockTEBasic turbineGeneratorLevel0(String name, int basePower, String level) {
-        return new BlockTurbineGenerator(name, basePower, 0).setLevel(level);
+    private void registerGenerator(int i) {
+        ModRecipes.registryGenerator_main(
+                blockGeneratorSteam[i],
+                ItemsMaterial.conduits[i].getDefaultInstance(),
+                ItemsMaterial.turbines[i],
+                gearName[i],
+                BlocksMachine.machineShells[i],
+                i == 0 ? Items.WATER_BUCKET : Item.getItemFromBlock(blockGeneratorSteam[i - 1]));
     }
-    public BlockTEBasic turbineGeneratorLevel1(String name, int basePower, String level) {
-        return new BlockTurbineGenerator(name, basePower, 1).setLevel(level);
+
+    public BlockGeneratorTurbine registerTurbine(String name, int level) {
+        return (BlockGeneratorTurbine) new BlockGeneratorTurbine(name, (long) (energyBasic * Math.pow(4, level)), level).setLevelName(String.valueOf(level));
     }
-    public BlockTEBasic waterGeneratorLevel0(String name, int basePower, String level) {
-        return new BlockWaterGenerator(name, basePower, 0).setLevel(level);
+
+    public BlockGeneratorWater registerWater(String name, int level) {
+        return (BlockGeneratorWater) new BlockGeneratorWater(name, (long) (energyBasic * Math.pow(4, level) * 1.5), level).setLevelName(String.valueOf(level));
     }
-    public BlockTEBasic waterGeneratorLevel1(String name, int basePower, String level) {
-        return new BlockWaterGenerator(name, basePower, 1).setLevel(level);
+
+    public BlockGeneratorSteam registerSteam(String name, int level) {
+        long steamBasePowerGeneration = (long) (energyBasic / 2 * Math.pow(4, level));
+        return (BlockGeneratorSteam) new BlockGeneratorSteam(name, steamBasePowerGeneration <= 0 ? 1 : steamBasePowerGeneration, level).setLevelName(String.valueOf(level));
     }
 }

@@ -1,52 +1,47 @@
 package com.xiaoxianben.watergenerators.blocks;
 
+import com.xiaoxianben.watergenerators.API.IHasModel;
 import com.xiaoxianben.watergenerators.Main;
-import com.xiaoxianben.watergenerators.util.IHasModel;
-import com.xiaoxianben.watergenerators.util.Reference;
+import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
+import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
-import java.util.Random;
 
 public class BlockBase extends Block implements IHasModel {
     public BlockBase(String name, Material material, CreativeTabs tab) {
         super(material);
-        setUnlocalizedName(Reference.MOD_ID+'.'+name);
+        setUnlocalizedName(ModInformation.MOD_ID + '.' + name);
         setRegistryName(name);
         setCreativeTab(tab);
 
         Main.BLOCKS.add(this);
         Main.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
-        /*
-        setHardness(5.0F);
-        setResistance(1000.0F);
-        setLightLevel(1f);
-        setLightOpacity(1);
-        */
     }
 
+    @Nonnull
     @Deprecated
-    public EnumBlockRenderType getRenderType(IBlockState state)
-    {
+    public EnumBlockRenderType getRenderType(@Nonnull IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
 
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return super.getItemDropped(state, rand, fortune);
-    }
-
-    @Override
-    public int quantityDropped(Random rand) {
-        return super.quantityDropped(rand);
+    public int getLightValue(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if(tileEntity instanceof TEEnergyBasic) {
+            this.lightValue = ((TEEnergyBasic) tileEntity).getLightValue();
+        }
+        return this.lightValue;
     }
 
     @Override

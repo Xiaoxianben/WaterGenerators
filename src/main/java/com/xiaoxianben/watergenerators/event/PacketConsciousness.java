@@ -16,7 +16,8 @@ public class PacketConsciousness implements IMessage {
     public NBTTagCompound compound;
 
     // 默认构造函数（必需）
-    public PacketConsciousness() {}
+    public PacketConsciousness() {
+    }
 
     public PacketConsciousness(NBTTagCompound compound) {
         this.compound = compound;
@@ -36,19 +37,19 @@ public class PacketConsciousness implements IMessage {
         @Override
         public IMessage onMessage(PacketConsciousness message, MessageContext ctx) {
             //判断是否为客户端（接收端）
-            if(ctx.side == Side.CLIENT) {
+            if (ctx.side == Side.CLIENT) {
                 //获取接受数据中"consciousness"这一NBT标识
-                final NBTTagCompound nbt = message.compound.getCompoundTag("consciousness");
-                Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-                    @Override
-                    public void run() {
-                        //获取客户端（接收端）玩家对象
-                        EntityPlayer player = Minecraft.getMinecraft().player;
-                        BlockPos blockPos = new BlockPos(nbt.getInteger("x"), nbt.getInteger("y"), nbt.getInteger("z"));
-                        TEEnergyBasic tileEntity = (TEEnergyBasic) player.getEntityWorld().getTileEntity(blockPos);
-                        if (tileEntity != null) {
-                            tileEntity.readFromNBT(nbt);
-                        }
+                final NBTTagCompound capabilityNBT = message.compound.getCompoundTag("capability");
+                final NBTTagCompound updateNBT = message.compound.getCompoundTag("updateNBT");
+                final NBTTagCompound blockPosNBT = message.compound.getCompoundTag("blockPos");
+                Minecraft.getMinecraft().addScheduledTask(() -> {
+                    //获取客户端（接收端）玩家对象
+                    EntityPlayer player = Minecraft.getMinecraft().player;
+                    BlockPos blockPos = new BlockPos(blockPosNBT.getInteger("x"), blockPosNBT.getInteger("y"), blockPosNBT.getInteger("z"));
+                    TEEnergyBasic tileEntity = (TEEnergyBasic) player.getEntityWorld().getTileEntity(blockPos);
+                    if (tileEntity != null) {
+                        tileEntity.readCapabilityNBT(capabilityNBT);
+                        tileEntity.updateNBT(updateNBT);
                     }
                 });
             }

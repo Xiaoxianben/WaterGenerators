@@ -5,6 +5,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class ContainerBasic extends Container {
 
     public int sizeInventory = 9;
@@ -25,12 +27,13 @@ public class ContainerBasic extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
         return true;
     }
 
+    @Nonnull
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+    public ItemStack transferStackInSlot(@Nonnull EntityPlayer playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = inventorySlots.get(index);
 
@@ -38,7 +41,7 @@ public class ContainerBasic extends Container {
             ItemStack stack = slot.getStack();
             itemstack = stack.copy();
             if (index < this.sizeInventory) { // 从玩家的物品栏中移动物品到容器中
-                if (!this.mergeItemStack(stack, this.sizeInventory, this.inventorySlots.size(), true)) {
+                if (!this.mergeItemStack(stack, this.sizeInventory, this.inventorySlots.size(), false)) {
                     return ItemStack.EMPTY;
                 }
             } else { // 从容器中移动物品到玩家的物品栏中
