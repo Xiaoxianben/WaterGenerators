@@ -12,6 +12,7 @@ public class EnergyStorage implements IEnergyStorage {
 
     protected String[] NBT_KEYS = {"EnergyStorage", "Energy", "Capacity", "MaxReceive", "MaxExtract"};
 
+
     public EnergyStorage(long capacity) {
         this(capacity, capacity, capacity);
     }
@@ -81,6 +82,7 @@ public class EnergyStorage implements IEnergyStorage {
     public long getEnergyStoredLong() {
         return energy;
     }
+
     public long getMaxEnergyStoredLong() {
         return capacity;
     }
@@ -126,6 +128,5 @@ public class EnergyStorage implements IEnergyStorage {
         nbt.setTag(NBT_KEYS[0], nbt1);
         return nbt;
     }
-
 
 }

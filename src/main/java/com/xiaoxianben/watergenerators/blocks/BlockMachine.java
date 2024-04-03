@@ -85,13 +85,6 @@ public class BlockMachine extends BlockBase implements ITileEntityProvider {
     @ParametersAreNonnullByDefault
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        TEMachineBase TEBlock = (TEMachineBase) worldIn.getTileEntity(pos);
-
-        // 右键
-        if (TEBlock != null && !worldIn.isRemote && playerIn.getHeldItem(hand).getItem() == ModItems.information_finder) {
-            playerIn.sendMessage(new TextComponentString(String.valueOf(TEBlock.writeToNBT(new NBTTagCompound()))));
-        }
-
         return true;
     }
 

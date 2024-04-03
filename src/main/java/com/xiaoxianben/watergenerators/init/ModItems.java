@@ -56,6 +56,7 @@ public class ModItems {
             @Nonnull
             public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
                 TileEntity TEBlock = world.getTileEntity(pos);
+
                 if (!world.isRemote && TEBlock instanceof TEEnergyBasic) {
                     player.sendMessage(new TextComponentString(String.valueOf(TEBlock.writeToNBT(new NBTTagCompound()))));
                 }

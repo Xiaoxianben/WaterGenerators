@@ -9,9 +9,14 @@ import com.xiaoxianben.watergenerators.tileEntity.TEGeneratorSteam;
 import com.xiaoxianben.watergenerators.tileEntity.TEGeneratorTurbine;
 import com.xiaoxianben.watergenerators.tileEntity.TEGeneratorWater;
 import com.xiaoxianben.watergenerators.util.ModInformation;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlocksGenerator implements IHasInit {
@@ -47,10 +52,6 @@ public class BlocksGenerator implements IHasInit {
         createGenerator = new BlockGeneratorCreate("create_generator", Integer.MAX_VALUE);
 
         for (int i = 0; i < 5; i++) {
-//            BlockGeneratorBasic[] generatorBasics = registerGenerator(blockName[i], i);
-//            blockGeneratorTurbine[i] = (BlockGeneratorTurbine) generatorBasics[0];
-//            blockGeneratorWater[i] = (BlockGeneratorWater) generatorBasics[1];
-//            blockGeneratorSteam[i] = (BlockGeneratorSteam) generatorBasics[2];
             blockGeneratorTurbine[i] = registerTurbine(blockName[i], level[i]);
         }
         for (int i = 0; i < 5; i++) {
@@ -99,13 +100,27 @@ public class BlocksGenerator implements IHasInit {
     }
 
     private void registerGenerator(int i) {
+        ItemStack oldItem;
+        if (i == 0) {
+            UniversalBucket bucket = ForgeModContainer.getInstance().universalBucket;
+            oldItem = new ItemStack(bucket);
+            FluidStack fluidContents = new FluidStack(FluidRegistry.getFluid("steam"), bucket.getCapacity());
+
+            NBTTagCompound tag = new NBTTagCompound();
+            fluidContents.writeToNBT(tag);
+
+            oldItem.setTagCompound(tag);
+        } else {
+            oldItem = Item.getItemFromBlock(blockGeneratorSteam[i - 1]).getDefaultInstance();
+        }
         ModRecipes.registryGenerator_main(
                 blockGeneratorSteam[i],
                 ItemsMaterial.conduits[i].getDefaultInstance(),
                 ItemsMaterial.turbines[i],
                 gearName[i],
                 BlocksMachine.machineShells[i],
-                i == 0 ? Items.WATER_BUCKET : Item.getItemFromBlock(blockGeneratorSteam[i - 1]));
+                oldItem
+        );
     }
 
     public BlockGeneratorTurbine registerTurbine(String name, int level) {

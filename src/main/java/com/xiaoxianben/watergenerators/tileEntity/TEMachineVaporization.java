@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.tileEntity;
 
 import com.xiaoxianben.watergenerators.fluid.FluidTankBase;
-import com.xiaoxianben.watergenerators.fluid.FluidTankRecipeInt;
+import com.xiaoxianben.watergenerators.fluid.FluidTankFluidInput;
 import com.xiaoxianben.watergenerators.recipe.recipeList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -20,7 +20,7 @@ public class TEMachineVaporization extends TEMachineBase {
     /**
      * 输入流体的tank
      */
-    protected FluidTankRecipeInt fluidTankInt;
+    protected FluidTankFluidInput<FluidStack, FluidStack> fluidTankInt;
     /**
      * 输出流体的tank
      */
@@ -32,7 +32,7 @@ public class TEMachineVaporization extends TEMachineBase {
 
     public TEMachineVaporization(long capacity, float level) {
         super(capacity, level);
-        fluidTankInt = new FluidTankRecipeInt((int) (5000 * level), recipeList.recipeVaporizations);
+        fluidTankInt = new FluidTankFluidInput<>((int) (5000 * level), recipeList.recipeVaporization);
         fluidTankOut = new FluidTankBase((int) (5000 * level));
 
         fluidTankInt.setCanDrain(false);
@@ -42,7 +42,7 @@ public class TEMachineVaporization extends TEMachineBase {
         fluidTankOut.setCanFill(false);
     }
 
-    public FluidTankRecipeInt getFluidTankInt() {
+    public FluidTankFluidInput<FluidStack, FluidStack> getFluidTankInt() {
         return fluidTankInt;
     }
 
@@ -57,16 +57,17 @@ public class TEMachineVaporization extends TEMachineBase {
 //        FluidStack intFluid = this.getFluidTankInt().getFluid();
         FluidStack outFluid = this.getFluidTankOut().getFluid();
 
-        FluidStack tryDrainFluidStack = this.getFluidTankInt().drainInternal(1, false);
+        FluidStack tryDrainFluidStack = this.getFluidTankInt().drainInternal(this.getFluidTankInt().getInputCount(), false);
         boolean canFill = outFluid == null || outFluid.amount < this.getFluidTankOut().getCapacity();
-        boolean hasEnoughEnergy = this.getEnergyStored() >= 2;
+        boolean hasEnoughEnergy = this.getEnergyStored() >= 2 * this.getFluidTankInt().getInputCount();
 
         // 判断容器是否可以运行
         if (tryDrainFluidStack != null && canFill && hasEnoughEnergy) {
             open = true;
             this.modifyEnergyStored(-2L);
-            this.getFluidTankOut().fillInternal(new FluidStack(Objects.requireNonNull(this.getFluidTankInt().getRecipeOutput()), 1), true);
-            this.getFluidTankInt().drainInternal(1, true);
+            FluidStack outputFluidStack = this.getFluidTankInt().getRecipeOutput();
+            this.getFluidTankOut().fillInternal(new FluidStack(Objects.requireNonNull(outputFluidStack).getFluid(), outputFluidStack.amount), true);
+            this.getFluidTankInt().drainInternal(this.getFluidTankInt().getInputCount(), true);
         } else
             open = false;
     }

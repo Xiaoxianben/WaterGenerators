@@ -72,6 +72,7 @@ public class BlockGeneratorSteam extends BlockGeneratorBasic {
             int ID = GUIHandler.GUISteamGenerator;
             playerIn.openGui(Main.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
+
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 

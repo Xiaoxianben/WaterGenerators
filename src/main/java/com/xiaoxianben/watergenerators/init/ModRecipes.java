@@ -29,7 +29,8 @@ public class ModRecipes {
                 "IGI",
                 "III",
                 'I', "ingotIron",
-                'G', "ingotGold");
+                'G', "ingotGold"
+        );
         GameRegistry.addShapedRecipe(Item.getItemFromBlock(ModBlocks.GOLD_PLATED_IRON_BLOCK).getRegistryName(),
                 new ResourceLocation(ModInformation.MOD_ID, "block"),
                 new ItemStack(Item.getItemFromBlock(ModBlocks.GOLD_PLATED_IRON_BLOCK), 8),
@@ -37,7 +38,8 @@ public class ModRecipes {
                 "IGI",
                 "III",
                 'I', "blockIron",
-                'G', "blockGold");
+                'G', "blockGold"
+        );
         GameRegistry.addShapedRecipe(ModItems.information_finder.getRegistryName(), null, ModItems.information_finder.getDefaultInstance(),
                 "IBI",
                 "IRI",
@@ -45,7 +47,8 @@ public class ModRecipes {
                 'I', "ingotIron",
                 'B', "blockGlassColorless",
                 'R', "dustRedstone",
-                'G', "ingotGoldPlatedIron");
+                'G', "ingotGoldPlatedIron"
+        );
     }
 
     public static void registryBlock(Item output, Item ingot) {
@@ -129,13 +132,13 @@ public class ModRecipes {
     }
 
     public static void registryGenerator(BlockGeneratorBasic output, ItemStack conduit, Item turbineRotor, String gearOreName, BlockMachineShell blockMachineShell, Block oldGenerator) {
-        registryGenerator_main(output, conduit, turbineRotor, gearOreName, blockMachineShell, Item.getItemFromBlock(oldGenerator));
+        registryGenerator_main(output, conduit, turbineRotor, gearOreName, blockMachineShell, Item.getItemFromBlock(oldGenerator).getDefaultInstance());
     }
 
     /**
      *
      */
-    public static void registryGenerator_main(BlockGeneratorBasic output, ItemStack conduit, Item turbineRotor, String gearOreName, BlockMachineShell blockMachineShell, Item oldGenerator) {
+    public static void registryGenerator_main(BlockGeneratorBasic output, ItemStack conduit, Item turbineRotor, String gearOreName, BlockMachineShell blockMachineShell, ItemStack oldGenerator) {
         Object[] params = {
                 "FZF",
                 "DCD",
@@ -155,7 +158,7 @@ public class ModRecipes {
             Item waterG = Item.getItemFromBlock(output);
 
             GameRegistry.addShapelessRecipe(
-                    new ResourceLocation(ModInformation.MOD_ID, waterG.getRegistryName().getResourcePath() + "_2"),
+                    new ResourceLocation(ModInformation.MOD_ID, Objects.requireNonNull(waterG.getRegistryName()).getResourcePath() + "_2"),
                     new ResourceLocation(ModInformation.MOD_ID, "generator2"),
 
                     waterG.getDefaultInstance(),
@@ -164,7 +167,7 @@ public class ModRecipes {
                     Ingredient.fromItem(Items.WATER_BUCKET));
 
             GameRegistry.addShapelessRecipe(
-                    new ResourceLocation(ModInformation.MOD_ID, turbineG.getRegistryName().getResourcePath() + "_2"),
+                    new ResourceLocation(ModInformation.MOD_ID, Objects.requireNonNull(turbineG.getRegistryName()).getResourcePath() + "_2"),
                     new ResourceLocation(ModInformation.MOD_ID, "generator2"),
 
                     turbineG.getDefaultInstance(),
@@ -195,7 +198,7 @@ public class ModRecipes {
         BlockMachineShell blockMachineShell = (BlockMachineShell) material[4];
         Item oldGenerator = material[3] instanceof Block ? Item.getItemFromBlock((Block) material[3]) : (Item) material[3];
 
-        registryGenerator_main(output, conduit, turbineRotor, gearOreName, blockMachineShell, oldGenerator);
+        registryGenerator_main(output, conduit, turbineRotor, gearOreName, blockMachineShell, oldGenerator.getDefaultInstance());
     }
 
     public static Object[] getGeneratorMaterial(byte level, byte generatorTab) {

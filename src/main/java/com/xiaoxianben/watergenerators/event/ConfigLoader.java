@@ -9,18 +9,17 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nonnull;
 
 public class ConfigLoader {
-    private static Configuration config;
-
-    private static Logger logger;
-
     public static String generator = "generator";
-
+    public static String modConfigurationDirectory;
     public static int basicAmountOfFluidToProduceEnergy;
     public static int basicAmountOfSteamToProduceEnergy;
     public static int energyBasic;
+    private static Configuration config;
+    private static Logger logger;
 
     public static void preInitConfigLoader(@Nonnull FMLPreInitializationEvent event) {
         logger = event.getModLog();
+        modConfigurationDirectory = event.getModConfigurationDirectory().getAbsolutePath();
         config = new Configuration(event.getSuggestedConfigurationFile());
 
         //实例化了一个Configuration类,括号中填的是Forge推荐的配置文件位置,这个位置在游戏根目录的config文件夹下，

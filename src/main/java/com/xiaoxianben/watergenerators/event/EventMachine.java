@@ -16,15 +16,15 @@ public class EventMachine {
     public static void onBlockStateUpdate(BlockEvent.PlaceEvent event) {
         Block block = event.getState().getBlock();
 
-        if(block == Blocks.GRASS) {
+        if(block == Blocks.DIRT) {
 
             // 生成一个随机数
             Random random = new Random();
-            int chance = random.nextInt(3);
+            int chance = random.nextInt(100);
 
-            // 如果随机数小于等于50，则生成一个铁块
+            // 如果随机数等于0，则生成一个草方块
             if(chance == 0) {
-                event.getWorld().setBlockState(event.getPos(), ModBlocks.GOLD_PLATED_IRON_BLOCK.getDefaultState());
+                event.getWorld().setBlockState(event.getPos(), Blocks.GRASS.getDefaultState());
             }
         }
     }

@@ -13,8 +13,6 @@
         "credits": "Idealland - they provided this framework.",
         "logoFile": "",
         "screenshots": [],
-        "dependencies": [
-            "redstoneflux"
-        ]
+        "dependencies": []
   }
 ]

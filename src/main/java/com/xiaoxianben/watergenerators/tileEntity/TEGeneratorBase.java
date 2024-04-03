@@ -19,10 +19,6 @@ public class TEGeneratorBase extends TEEnergyBasic {
     public long basePowerGeneration;
     public long[] finallyExtractEnergyList = new long[]{0, 0, 0, 0, 0, 0};
 
-    public TEGeneratorBase() {
-        this(Long.MAX_VALUE, 0, "");
-    }
-
     /**
      * 不接受能量，只传输能量
      */
