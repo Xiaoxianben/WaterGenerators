@@ -100,7 +100,7 @@ public class TFBlocks extends otherBlocks {
         ItemStack itemStack = getConduitStack(i);
         ModRecipes.registryMachineVaporization(
                 output,
-                EnderIOInit.enderIO_machineShell[i],
+                TFBlocks.machineShells[i],
                 itemStack.getItem(),
                 "gear" + EnderIOInit.EnderIOIngotOre[i].replace("Alloy", "")
         );
