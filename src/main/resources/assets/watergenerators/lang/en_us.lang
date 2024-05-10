@@ -102,6 +102,8 @@ tile.watergenerators-machineshell.name=machine shell
 config.basicAmountOfFluidToProduceEnergy.comment=config of the fluid generator: the amount of liquid required to produce 1 RF energy
 config.basicAmountOfWaterToProduceEnergy.comment=Config of the water generator: the amount of water required to produce 1 RF energy
 config.basicAmountOfSteamToProduceEnergy.comment=config of the steam generator: the amount of steam required to produce 1 RF energy
+config.waterMagnification.comment=Config of the water generator: fluid magnification of a water generator
+config.steamMagnification.comment=config of the steam generator: fluid magnification of a steam generator
 config.energyBasic.comment=Generator config: The energy basic of all generators, and the base power generation of all generators is calculated by this value
 
 category.generator.comment=Basic config of all generators

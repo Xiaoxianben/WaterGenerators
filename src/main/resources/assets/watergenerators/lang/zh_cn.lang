@@ -102,6 +102,8 @@ tile.watergenerators-machineshell.name=机器外壳
 config.basicAmountOfFluidToProduceEnergy.comment=液体发电机的配置：产生1RF能量所需的液体量
 config.basicAmountOfWaterToProduceEnergy.comment=水发电机的配置：产生1RF能量所需的液体量
 config.basicAmountOfSteamToProduceEnergy.comment=蒸汽发电机的配置：产生1RF能量所需的蒸汽量
+config.waterMagnification.comment=水发电机的配置：水发电机的液体发电倍率
+config.steamMagnification.comment=蒸汽发电机的配置：蒸汽发电机的液体发电倍率
 config.energyBasic.comment=发电机的配置：所有发电机的最基础的生产能量，所有的的发电机的基础生产能量都通过此值计算获得
 
 category.generator.comment=所有发电机的基础配置

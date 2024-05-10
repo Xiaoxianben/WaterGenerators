@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class GuiContainerGeneratorBasic extends GuiContainerBasic {
+public class GuiContainerGeneratorBasic extends GuiContainerBasic {
 
     private final TEGeneratorBase tileEntity;
 
