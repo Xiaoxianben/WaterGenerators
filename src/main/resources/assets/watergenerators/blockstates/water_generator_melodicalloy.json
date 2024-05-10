@@ -6,7 +6,7 @@
             "top": "watergenerators:blocks/machine/top/melodicalloy",
             "side": "watergenerators:blocks/machine/side/melodicalloy"
         },
-        "model": "watergenerators:water_machine"
+        "model": "watergenerators:generator_water"
     },
     "variants": {
         "normal": [

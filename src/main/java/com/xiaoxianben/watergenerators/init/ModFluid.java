@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.init;
 
-import com.xiaoxianben.watergenerators.API.IHasInit;
-import com.xiaoxianben.watergenerators.blocks.BlocksFluid;
+import com.xiaoxianben.watergenerators.api.IHasInit;
+import com.xiaoxianben.watergenerators.fluid.Fluids;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,18 @@ public class ModFluid {
     protected static List<IHasInit> initList = new ArrayList<>();
 
     public static void init() {
-        BlocksFluid blocksFluid = new BlocksFluid();
+        Fluids Fluids = new Fluids();
 
-        initList.add(blocksFluid);
+        initList.add(Fluids);
 
         for (IHasInit i : initList) {
             i.init();
+        }
+    }
+
+    public static void initRecipes() {
+        for (IHasInit i : initList) {
+            i.initRecipes();
         }
     }
 }

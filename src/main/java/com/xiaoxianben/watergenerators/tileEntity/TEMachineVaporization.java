@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.tileEntity;
 
-import com.xiaoxianben.watergenerators.fluid.FluidTankBase;
-import com.xiaoxianben.watergenerators.fluid.FluidTankFluidInput;
+import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankBase;
+import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankFluidInput;
 import com.xiaoxianben.watergenerators.recipe.recipeList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -12,7 +12,6 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Objects;
 import java.util.Random;
 
 public class TEMachineVaporization extends TEMachineBase {
@@ -54,19 +53,22 @@ public class TEMachineVaporization extends TEMachineBase {
      * 运行机器
      */
     private void runMachine() {
-//        FluidStack intFluid = this.getFluidTankInt().getFluid();
         FluidStack outFluid = this.getFluidTankOut().getFluid();
+
+        FluidStack outputFluidStack = this.getFluidTankInt().getRecipeOutput();
 
         FluidStack tryDrainFluidStack = this.getFluidTankInt().drainInternal(this.getFluidTankInt().getInputCount(), false);
         boolean canFill = outFluid == null || outFluid.amount < this.getFluidTankOut().getCapacity();
-        boolean hasEnoughEnergy = this.getEnergyStored() >= 2 * this.getFluidTankInt().getInputCount();
+        boolean hasEnoughEnergy = false;
+        if (outputFluidStack != null) {
+            hasEnoughEnergy = this.getEnergyStored() >= 2 * outputFluidStack.amount;
+        }
 
         // 判断容器是否可以运行
         if (tryDrainFluidStack != null && canFill && hasEnoughEnergy) {
             open = true;
-            this.modifyEnergyStored(-2L);
-            FluidStack outputFluidStack = this.getFluidTankInt().getRecipeOutput();
-            this.getFluidTankOut().fillInternal(new FluidStack(Objects.requireNonNull(outputFluidStack).getFluid(), outputFluidStack.amount), true);
+            this.modifyEnergyStored(-2L * outputFluidStack.amount);
+            this.getFluidTankOut().fillInternal(outputFluidStack.copy(), true);
             this.getFluidTankInt().drainInternal(this.getFluidTankInt().getInputCount(), true);
         } else
             open = false;
@@ -119,4 +121,35 @@ public class TEMachineVaporization extends TEMachineBase {
         fluidTankInt.readFromNBT(nbtFluidTank.getCompoundTag("Int"));
         fluidTankOut.readFromNBT(nbtFluidTank.getCompoundTag("Out"));
     }
+
+    @Override
+    public NBTTagCompound getItemNbt() {
+        NBTTagCompound NBT = super.getItemNbt();
+
+        NBTTagCompound inputFluidNbt = new NBTTagCompound();
+        if (this.fluidTankInt.getFluid() != null) {
+            inputFluidNbt = this.fluidTankInt.getFluid().writeToNBT(inputFluidNbt);
+        }
+        NBT.setTag("inputFluid", inputFluidNbt);
+
+        NBTTagCompound outputFluidNbt = new NBTTagCompound();
+        if (this.fluidTankOut.getFluid() != null) {
+            outputFluidNbt = this.fluidTankOut.getFluid().writeToNBT(outputFluidNbt);
+        }
+        NBT.setTag("outputFluid", outputFluidNbt);
+
+        return NBT;
+    }
+
+    @Override
+    public void readItemNbt(NBTTagCompound NBT) {
+        super.readItemNbt(NBT);
+
+        NBTTagCompound inputFluidNbt = NBT.getCompoundTag("inputFluid");
+        this.getFluidTankInt().setFluid(FluidStack.loadFluidStackFromNBT(inputFluidNbt));
+
+        NBTTagCompound outputFluidNbt = NBT.getCompoundTag("outputFluid");
+        this.getFluidTankOut().setFluid(FluidStack.loadFluidStackFromNBT(outputFluidNbt));
+    }
+
 }

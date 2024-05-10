@@ -21,6 +21,4 @@ build
 eclipse
 run
 runServer
-tem
-打包前记得改版本号.bat
 /temp/

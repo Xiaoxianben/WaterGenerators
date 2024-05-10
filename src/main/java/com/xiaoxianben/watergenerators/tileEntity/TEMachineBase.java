@@ -23,6 +23,18 @@ public class TEMachineBase extends TEEnergyBasic {
     }
 
     // NBT
+    @Override
+    public NBTTagCompound getUpdateNBT() {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        nbtTagCompound.setBoolean("open", this.open);
+        return nbtTagCompound;
+    }
+
+    @Override
+    public void updateNBT(NBTTagCompound NBT) {
+        this.open = NBT.getBoolean("open");
+    }
+
     @Nonnull
     @Override
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
@@ -32,18 +44,6 @@ public class TEMachineBase extends TEEnergyBasic {
         nbtMachine.setFloat("Level", this.getLevel());
         nbtTagCompound.setTag("Attribute", nbtMachine);
 
-        return nbtTagCompound;
-    }
-
-    @Override
-    public void updateNBT(NBTTagCompound NBT) {
-        this.open = NBT.getBoolean("open");
-    }
-
-    @Override
-    public NBTTagCompound getUpdateNBT() {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
-        nbtTagCompound.setBoolean("open", this.open);
         return nbtTagCompound;
     }
 

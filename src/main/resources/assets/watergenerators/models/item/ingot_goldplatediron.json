@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "watergenerators:items/ingot/gold_plated_iron"
-  }
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "watergenerators:items/ingot/gold_plated_iron"
+    }
 }

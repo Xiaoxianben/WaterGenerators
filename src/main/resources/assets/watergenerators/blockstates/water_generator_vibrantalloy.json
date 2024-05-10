@@ -6,7 +6,7 @@
             "top": "watergenerators:blocks/machine/top/vibrantalloy",
             "side": "watergenerators:blocks/machine/side/vibrantalloy"
         },
-        "model": "watergenerators:water_machine"
+        "model": "watergenerators:generator_water"
     },
     "variants": {
         "normal": [

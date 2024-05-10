@@ -6,7 +6,7 @@
             "top": "watergenerators:blocks/machine/top/electrum",
             "side": "watergenerators:blocks/machine/side/electrum"
         },
-        "model": "watergenerators:water_machine"
+        "model": "watergenerators:generator_water"
     },
     "variants": {
         "normal": [

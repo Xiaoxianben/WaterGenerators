@@ -89,8 +89,12 @@ public class EnergyStorage implements IEnergyStorage {
 
     /**
      * This function is included to allow the containing tile to directly and efficiently modify the energy contained in the EnergyStorage. Do not rely on this externally, as not all IEnergyHandlers are guaranteed to have it.
+     *
+     * @param energy The amount of energy to be injected into the storage.
+     * @return 实际注入的能量。
      */
-    public void modifyEnergyStored(long energy) {
+    public long modifyEnergyStored(long energy) {
+        long energyR = this.energy;
         this.energy += energy;
 
         if (this.energy > capacity) {
@@ -98,6 +102,7 @@ public class EnergyStorage implements IEnergyStorage {
         } else if (this.energy < 0) {
             this.energy = 0;
         }
+        return this.energy - energyR;
     }
 
     public EnergyStorage readFromNBT(NBTTagCompound nbt) {

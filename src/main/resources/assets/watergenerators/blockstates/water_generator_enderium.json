@@ -6,7 +6,7 @@
             "top": "watergenerators:blocks/machine/top/enderium",
             "side": "watergenerators:blocks/machine/side/enderium"
         },
-        "model": "watergenerators:water_machine"
+        "model": "watergenerators:generator_water"
     },
     "variants": {
         "normal": [

@@ -1,9 +1,12 @@
 package com.xiaoxianben.watergenerators.blocks;
 
-import com.xiaoxianben.watergenerators.API.IHasInit;
+import com.xiaoxianben.watergenerators.api.IHasInit;
+import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
+import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineVaporization;
 import com.xiaoxianben.watergenerators.init.ModBlocks;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
+import com.xiaoxianben.watergenerators.otherModsItems.otherInit;
 import com.xiaoxianben.watergenerators.tileEntity.TEMachineVaporization;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
@@ -12,7 +15,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Arrays;
 
-import static com.xiaoxianben.watergenerators.JEI.modPlugin.vaporizationList;
+import static com.xiaoxianben.watergenerators.jei.modPlugin.vaporizationList;
 
 public class BlocksMachine implements IHasInit {
 
@@ -24,13 +27,14 @@ public class BlocksMachine implements IHasInit {
         // machine
         for (int i = 0; i < 5; i++) {
             int level = i + 1;
-            machineShells[i] = new BlockMachineShell("level" + level, level);
-        }
-        // va
-        for (int i = 0; i < 5; i++) {
-            int level = i + 1;
             blockMachineVaporizations[i] = new BlockMachineVaporization("level" + level, level);
         }
+        otherInit.initMachineVaporization();
+        for (int i = 0; i < 5; i++) {
+            int level = i + 1;
+            machineShells[i] = new BlockMachineShell("level" + level, level);
+        }
+        otherInit.initMachineShell();
     }
 
     @Override
@@ -43,7 +47,7 @@ public class BlocksMachine implements IHasInit {
         }
 
         for (int i = 0; i < blockMachineVaporizations.length; i++) {
-            ModRecipes.registryMachineVaporization(
+            ModRecipes.registerMachineVaporization(
                     blockMachineVaporizations[i],
                     machineShells[i],
                     ItemsMaterial.conduits[i],

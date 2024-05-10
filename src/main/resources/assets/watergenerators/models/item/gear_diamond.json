@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "watergenerators:items/gear/diamond"
-  }
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "watergenerators:items/gear/diamond"
+    }
 }

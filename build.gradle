@@ -28,7 +28,7 @@ apply plugin: "net.minecraftforge.gradle.forge"
 apply from: "runmanager.gradle"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-version = "1.1.2"
+version = "1.2.0"
 group = "com.xiaoxianben.watergenerators" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "watergenerators-1.12.2"
 
@@ -67,9 +67,10 @@ dependencies {
 
 //    compileOnly "cofh:RedstoneFlux:1.12-2.1.0.+:universal"
 
-	deobfCompile "mezz.jei:jei_${project.minecraft.version}:${jei_version}:api"
+	compile "mezz.jei:jei_${project.minecraft.version}:${jei_version}:api"
 	runtime "mezz.jei:jei_${project.minecraft.version}:${jei_version}"
 
+//    compile files("temp/[末影接口]EnderIO-1.12.2-5.3.70.jar")
 //    compile files("temp/[热力-管道]ThermalDynamics-1.12.2-2.5.6.1-universal.jar")
 //    compile files("temp/[热力-膨胀]ThermalExpansion-1.12.2-5.5.7.1-universal.jar")
     // you may put jars on which you depend on in ./libs

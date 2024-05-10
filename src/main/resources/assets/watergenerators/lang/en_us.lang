@@ -1,5 +1,5 @@
 # ###### tabs
-itemGroup.ingotBlock_tap=water generators/ingot Block
+itemGroup.ingotBlock_tap=water generators/item
 itemGroup.machine_tap=water generators/machine
 itemGroup.material_tap=water generators/material
 
@@ -17,6 +17,7 @@ item.watergenerators.gear_emerald.name=emerald gear
 item.watergenerators.gear_endsteel.name=ender steel gear
 item.watergenerators.gear_melodic.name=melodyAlloy gear
 item.watergenerators.gear_stellar.name=stellarAlloy gear
+
 # ## coil
 item.watergenerators.coil_iron.name=iron coil
 item.watergenerators.coil_goldPlated.name=goldPlated coil
@@ -29,6 +30,7 @@ item.watergenerators.coil_invar.name=invar coil
 item.watergenerators.coil_electrum.name=electrum coil
 item.watergenerators.coil_signalum.name=signalum coil
 item.watergenerators.coil_enderium.name=enderium coil
+
 # ## turbine_rotor
 item.watergenerators.turbine_rotor_iron.name=iron turbine rotor
 item.watergenerators.turbine_rotor_goldPlated.name=goldPlated turbine rotor
@@ -47,6 +49,7 @@ item.watergenerators.turbine_rotor_darksteel.name=dark steel turbine rotor
 item.watergenerators.turbine_rotor_endsteel.name=end steel turbine rotor
 item.watergenerators.turbine_rotor_melodicalloy.name=melodic alloy turbine rotor
 item.watergenerators.turbine_rotor_stellaralloy.name=stellar alloy turbine rotor
+
 # ## ductCoil
 item.watergenerators.conduit_iron.name=iron conduit
 item.watergenerators.conduit_goldPlated.name=gold plated conduit
@@ -62,119 +65,60 @@ item.watergenerators.conduit_enderium.name=enderium conduit
 
 item.watergenerators.ductShell_1.name=duct shell
 item.watergenerators.ductShell_0.name=duct shell bank
+
+# ## 组件
+item.watergenerators-component.information=Upgrade components for generators
+
+item.watergenerators.component_null.name=Component Upgrade-Null
+item.watergenerators-component_null.information=The most basic upgrade components can only be used to make crafting materials
+
+item.watergenerators.component_fluidExtract.name=Component Upgrades-Liquid Extraction
+item.watergenerators-component_fluidExtract.information=Increases the maximum extraction of liquid generators
+
+item.watergenerators.component_powerGeneration.name=Component Upgrade-Power Generation Upgrades
+item.watergenerators-component_powerGeneration.information=Increase the base power generation of all generator
+
 # ###### block/tile
 tile.watergenerators.block_goldPlatedIron.name=gold plated iron block
 tile.watergenerators.machineShell_frame.name=machine shell frame
 
 tile.watergenerators.steam.name=steam
+fluid.steam=steam
 
-tile.watergenerators.create_generator.name=create generator
-
-# ## waterGenerator
-tile.watergenerators.water_generator_level1.name=water generator level1
-tile.watergenerators.water_generator_level2.name=water generator level2
-tile.watergenerators.water_generator_level3.name=water generator level3
-tile.watergenerators.water_generator_level4.name=water generator level4
-tile.watergenerators.water_generator_level5.name=water generator level5
-
-tile.watergenerators.water_generator_steel.name=water generator level steel
-tile.watergenerators.water_generator_invar.name=water generator level invar
-tile.watergenerators.water_generator_electrum.name=water generator level electrum
-tile.watergenerators.water_generator_signalum.name=water generator level signalum
-tile.watergenerators.water_generator_enderium.name=turbine generator level enderium
-
-tile.watergenerators.water_generator_vibrantalloy.name=water generator level vibrantalloy
-tile.watergenerators.water_generator_darksteel.name=water generator level darksteel
-tile.watergenerators.water_generator_endsteel.name=water generator level endsteel
-tile.watergenerators.water_generator_melodicalloy.name=water generator level melodicalloy
-tile.watergenerators.water_generator_stellaralloy.name=water generator level stellaralloy
-
-# ## turbineGenerator
-tile.watergenerators.turbine_generator_level1.name=turbine generator level 1
-tile.watergenerators.turbine_generator_level2.name=turbine generator level 2
-tile.watergenerators.turbine_generator_level3.name=turbine generator level 3
-tile.watergenerators.turbine_generator_level4.name=turbine generator level 4
-tile.watergenerators.turbine_generator_level5.name=turbine generator level 5
-
-tile.watergenerators.turbine_generator_steel.name=turbine generator level steel
-tile.watergenerators.turbine_generator_invar.name=turbine generator level invar
-tile.watergenerators.turbine_generator_electrum.name=turbine generator level electrum
-tile.watergenerators.turbine_generator_signalum.name=turbine generator level signalum
-tile.watergenerators.turbine_generator_enderium.name=turbine generator level enderium
-
-tile.watergenerators.turbine_generator_vibrantalloy.name=turbine generator level vibrantalloy
-tile.watergenerators.turbine_generator_darksteel.name=turbine generator level darksteel
-tile.watergenerators.turbine_generator_endsteel.name=turbine generator level endsteel
-tile.watergenerators.turbine_generator_melodicalloy.name=turbine generator level melodicalloy
-tile.watergenerators.turbine_generator_stellaralloy.name=turbine generator level stellaralloy
-
-# ## steamGenerator
-tile.watergenerators.steam_generator_level1.name=steam generator level 1
-tile.watergenerators.steam_generator_level2.name=steam generator level 2
-tile.watergenerators.steam_generator_level3.name=steam generator level 3
-tile.watergenerators.steam_generator_level4.name=steam generator level 4
-tile.watergenerators.steam_generator_level5.name=steam generator level 5
-
-tile.watergenerators.steam_generator_steel.name=steam generator level steel
-tile.watergenerators.steam_generator_invar.name=steam generator level invar
-tile.watergenerators.steam_generator_electrum.name=steam generator level electrum
-tile.watergenerators.steam_generator_signalum.name=steam generator level signalum
-tile.watergenerators.steam_generator_enderium.name=steam generator level enderium
-
-tile.watergenerators.steam_generator_vibrantalloy.name=steam generator level vibrantalloy
-tile.watergenerators.steam_generator_darksteel.name=steam generator level darksteel
-tile.watergenerators.steam_generator_endsteel.name=steam generator level endsteel
-tile.watergenerators.steam_generator_melodicalloy.name=steam generator level melodicalloy
-tile.watergenerators.steam_generator_stellaralloy.name=steam generator level stellaralloy
+# ## Generator
+tile.watergenerators-generator.name=generator
+tile.watergenerators-fluid_generator.name=fluid generator
+tile.watergenerators-water_generator.name=water generator
+tile.watergenerators-turbine_generator.name=turbine generator
+tile.watergenerators-steam_generator.name=steam generator
 
 # ## machine
-tile.watergenerators.machine_vaporization_level1.name=vaporizer level 1
-tile.watergenerators.machine_vaporization_level2.name=vaporizer level 2
-tile.watergenerators.machine_vaporization_level3.name=vaporizer level 3
-tile.watergenerators.machine_vaporization_level4.name=vaporizer level 4
-tile.watergenerators.machine_vaporization_level5.name=vaporizer level 5
-
-tile.watergenerators.machine_vaporization_steel.name=vaporizer level steel
-tile.watergenerators.machine_vaporization_invar.name=vaporizer level invar
-tile.watergenerators.machine_vaporization_electrum.name=vaporizer level electrum
-tile.watergenerators.machine_vaporization_signalum.name=vaporizer level signalum
-tile.watergenerators.machine_vaporization_enderium.name=vaporizer level enderium
-
-tile.watergenerators.machine_vaporization_vibrantalloy.name=vaporizer level vibrantalloy
-tile.watergenerators.machine_vaporization_darksteel.name=vaporizer level darksteel
-tile.watergenerators.machine_vaporization_endsteel.name=vaporizer level endsteel
-tile.watergenerators.machine_vaporization_melodicalloy.name=vaporizer level melodicalloy
-tile.watergenerators.machine_vaporization_stellaralloy.name=vaporizer level stellaralloy
+tile.watergenerators-machine_vaporization.name=vaporizer
 
 # ## machine shell
-tile.watergenerators.machineshell_level1.name=machine shell level 1
-tile.watergenerators.machineshell_level2.name=machine shell level 2
-tile.watergenerators.machineshell_level3.name=machine shell level 3
-tile.watergenerators.machineshell_level4.name=machine shell level 4
-tile.watergenerators.machineshell_level5.name=machine shell level 5
-
-tile.watergenerators.machineshell_steel.name=machine shell level steel
-tile.watergenerators.machineshell_invar.name=machine shell level invar
-tile.watergenerators.machineshell_electrum.name=machine shell level electrum
-tile.watergenerators.machineshell_signalum.name=machine shell level signalum
-tile.watergenerators.machineshell_enderium.name=machine shell level enderium
-
-tile.watergenerators.machineshell_vibrantalloy.name=machine shell level vibrantalloy
-tile.watergenerators.machineshell_darksteel.name=machine shell level darksteel
-tile.watergenerators.machineshell_endsteel.name=machine shell level endsteel
-tile.watergenerators.machineshell_melodicalloy.name=machine shell level melodicalloy
-tile.watergenerators.machineshell_stellaralloy.name=machine shell level stellaralloy
+tile.watergenerators-machineshell.name=machine shell
 
 # ##### config
-config.basicAmountOfFluidToProduceEnergy.comment=config of the water generator: the amount of liquid required to produce 1 RF energy
+config.basicAmountOfFluidToProduceEnergy.comment=config of the fluid generator: the amount of liquid required to produce 1 RF energy
+config.basicAmountOfWaterToProduceEnergy.comment=Config of the water generator: the amount of water required to produce 1 RF energy
 config.basicAmountOfSteamToProduceEnergy.comment=config of the steam generator: the amount of steam required to produce 1 RF energy
-config.energyBasic.comment=config of the generator: The basic production energy of the generator
+config.energyBasic.comment=Generator config: The energy basic of all generators, and the base power generation of all generators is calculated by this value
 
-category.generator.comment=basic production energy configuration for all generators
+category.generator.comment=Basic config of all generators
 
-RC.title.name=vaporization
+# ###### JEI
+RC.vaporization.title=vaporization
+
 
 # level name
+level.create.name=create
+
+level.level1.name=level 1
+level.level2.name=level 2
+level.level3.name=level 3
+level.level4.name=level 4
+level.level5.name=level 5
+
 level.vibrantalloy.name=vibrantalloy
 level.darksteel.name=darksteel
 level.endsteel.name=endsteel
@@ -188,5 +132,7 @@ level.signalum.name=signalum
 level.enderium.name=enderium
 
 # Gui
-gui.basePowerGeneration.text=base power generation:
-gui.realPowerGeneration.text=actual power generation:
+gui.basePowerGeneration.text=base power generation: %dFE
+gui.energyIncreaseDecrease.text=Energy increase/decrease: %dFE/t / %dFE/t
+gui.fluidBV.text=fluid magnification: %d%
+gui.fluidHeight.text=fluid height: %dm

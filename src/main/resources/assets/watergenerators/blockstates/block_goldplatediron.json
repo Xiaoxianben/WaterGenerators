@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "normal": {
-      "model": "watergenerators:block_goldplatediron"
+    "variants": {
+        "normal": {
+            "model": "watergenerators:block_goldplatediron"
+        }
     }
-  }
 }

@@ -13,23 +13,20 @@ public class TFItems extends otherItems {
     public static Item turbineRotorSignalum;
     public static Item turbineRotorEnderium;
 
-    @Override
-    public void init() {
+
+    public static void initTurbineRotor() {
         for (int i = 0; i < 5; i++) {
             TFTurbine[i] = registryMaterial("turbine_rotor_" + TFBlocks.TFName[i]);
         }
-
         // 支持旧代码
         turbineRotorSteel = TFTurbine[0];
         turbineRotorInvar = TFTurbine[1];
         turbineRotorElectrum = TFTurbine[2];
         turbineRotorSignalum = TFTurbine[3];
         turbineRotorEnderium = TFTurbine[4];
-
     }
 
-    @Override
-    public void initRecipes() {
+    public static void initRecipes() {
         TFConduit = Item.getByNameOrId("thermaldynamics:duct_0");
         if (TFConduit == null)
             TFConduit = Items.AIR;

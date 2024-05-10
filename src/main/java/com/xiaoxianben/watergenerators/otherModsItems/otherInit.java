@@ -1,6 +1,5 @@
 package com.xiaoxianben.watergenerators.otherModsItems;
 
-import com.xiaoxianben.watergenerators.API.IOtherModInit;
 import com.xiaoxianben.watergenerators.event.ConfigLoader;
 import net.minecraftforge.fml.common.Loader;
 
@@ -23,34 +22,78 @@ public class otherInit {
         if (aBooleans[0]) {
             TFInit TFInit = new TFInit();
             IOtherModInit.add(TFInit);
-            ConfigLoader.logger().info("The thermal extension generator have loaded");
+            ConfigLoader.logger().info("The thermal extension have loaded");
+
         } else
-            ConfigLoader.logger().info("The thermal extension generator is not loaded");
+            ConfigLoader.logger().info("The thermal extension is not loaded");
 
         if (aBooleans[1]) {
             EnderIOInit enderIOInit = new EnderIOInit();
             IOtherModInit.add(enderIOInit);
             enderIOInit.init();
             ConfigLoader.logger().info("The enderio extension have loaded");
+
         } else
-            ConfigLoader.logger().info("The enderio extension generator is not loaded");
+            ConfigLoader.logger().info("The enderio extension is not loaded");
     }
 
-    public static void initBlock() {
+    public static void initGeneratorTurbine() {
         for (IOtherModInit otherModInit : IOtherModInit) {
-            otherModInit.initBlock();
+            otherModInit.initGeneratorTurbine();
         }
     }
 
-    public static void initItem() {
+    public static void initGeneratorFluid() {
         for (IOtherModInit otherModInit : IOtherModInit) {
-            otherModInit.initItem();
+            otherModInit.initGeneratorFluid();
+        }
+    }
+
+    public static void initGeneratorWater() {
+        for (IOtherModInit otherModInit : IOtherModInit) {
+            otherModInit.initGeneratorWater();
+        }
+    }
+
+    public static void initGeneratorSteam() {
+        for (IOtherModInit otherModInit : IOtherModInit) {
+            otherModInit.initGeneratorSteam();
+        }
+    }
+
+    public static void initMachineShell() {
+        for (IOtherModInit otherModInit : IOtherModInit) {
+            otherModInit.initMachineShell();
+        }
+    }
+
+    public static void initMachineVaporization() {
+        for (IOtherModInit otherModInit : IOtherModInit) {
+            otherModInit.initMachineVaporization();
+        }
+    }
+
+    public static void initGear() {
+        for (IOtherModInit otherModInit : IOtherModInit) {
+            otherModInit.initGear();
+        }
+    }
+
+    public static void initTurbineRotor() {
+        for (IOtherModInit otherModInit : IOtherModInit) {
+            otherModInit.initTurbineRotor();
         }
     }
 
     public static void initOre() {
         for (IOtherModInit otherModInit : IOtherModInit) {
             otherModInit.initOre();
+        }
+    }
+
+    public static void initRecipes() {
+        for (IOtherModInit otherModInit : IOtherModInit) {
+            otherModInit.initRecipes();
         }
     }
 }

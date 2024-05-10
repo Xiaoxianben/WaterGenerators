@@ -1,5 +1,5 @@
 # ###### tabs
-itemGroup.ingotBlock_tap=水发电机/锭和块
+itemGroup.ingotBlock_tap=水发电机/物品
 itemGroup.machine_tap=水发电机/机器
 itemGroup.material_tap=水发电机/材料
 
@@ -17,6 +17,7 @@ item.watergenerators.gear_emerald.name=绿宝石齿轮
 item.watergenerators.gear_endsteel.name=末影钢齿轮
 item.watergenerators.gear_melodic.name=旋律齿轮
 item.watergenerators.gear_stellar.name=恒星齿轮
+
 # ## 线圈
 item.watergenerators.coil_iron.name=铁线圈
 item.watergenerators.coil_goldPlated.name=镀金线圈
@@ -29,6 +30,7 @@ item.watergenerators.coil_invar.name=殷钢线圈
 item.watergenerators.coil_electrum.name=琥珀金线圈
 item.watergenerators.coil_signalum.name=信素线圈
 item.watergenerators.coil_enderium.name=末影线圈
+
 # ## 涡轮转片
 item.watergenerators.turbine_rotor_iron.name=铁涡轮转片
 item.watergenerators.turbine_rotor_goldPlated.name=镀金涡轮转片
@@ -47,6 +49,7 @@ item.watergenerators.turbine_rotor_darksteel.name=玄钢涡轮转片
 item.watergenerators.turbine_rotor_endsteel.name=末影钢涡轮转片
 item.watergenerators.turbine_rotor_melodicalloy.name=旋律合金涡轮转片
 item.watergenerators.turbine_rotor_stellaralloy.name=恒星合金涡轮转片
+
 # ## 导管
 item.watergenerators.conduit_iron.name=铁导管
 item.watergenerators.conduit_goldPlated.name=镀金导管
@@ -62,119 +65,60 @@ item.watergenerators.conduit_enderium.name=末影导管
 
 item.watergenerators.ductShell_1.name=导管外壳胚料
 item.watergenerators.ductShell_0.name=导管外壳
+
+# ## 组件
+item.watergenerators-component.information=用于各种发电机的升级组件
+
+item.watergenerators.component_null.name=组件升级-空
+item.watergenerators-component_null.information=最基础的升级组件，只能用于做合成材料
+
+item.watergenerators.component_fluidExtract.name=组件升级-液体提取
+item.watergenerators-component_fluidExtract.information=提高 液体类发电机 的最大提取
+
+item.watergenerators.component_powerGeneration.name=组件升级-发电升级
+item.watergenerators-component_powerGeneration.information=提高 所有发电机 的基础发电量
+
 # ##### 方块
 tile.watergenerators.block_goldPlatedIron.name=镀金铁块
 tile.watergenerators.machineShell_frame.name=机器外壳框架
 
 tile.watergenerators.steam.name=蒸汽
+fluid.steam=蒸汽
 
-tile.watergenerators.create_generator.name=创造发电机
-
-# ## waterGenerator
-tile.watergenerators.water_generator_level1.name=水发电机-1级
-tile.watergenerators.water_generator_level2.name=水发电机-2级
-tile.watergenerators.water_generator_level3.name=水发电机-3级
-tile.watergenerators.water_generator_level4.name=水发电机-4级
-tile.watergenerators.water_generator_level5.name=水发电机-5级
-
-tile.watergenerators.water_generator_steel.name=水发电机-钢级
-tile.watergenerators.water_generator_invar.name=水发电机-殷钢级
-tile.watergenerators.water_generator_electrum.name=水发电机-琥珀金级
-tile.watergenerators.water_generator_signalum.name=水发电机-信素级
-tile.watergenerators.water_generator_enderium.name=水发电机-末影级
-
-tile.watergenerators.water_generator_vibrantalloy.name=水发电机-脉冲合金级
-tile.watergenerators.water_generator_darksteel.name=水发电机-玄钢级
-tile.watergenerators.water_generator_endsteel.name=水发电机-末影钢级
-tile.watergenerators.water_generator_melodicalloy.name=水发电机-旋律合金级
-tile.watergenerators.water_generator_stellaralloy.name=水发电机-恒星合金级
-
-# ## turbineGenerator
-tile.watergenerators.turbine_generator_level1.name=涡轮发电机-1级
-tile.watergenerators.turbine_generator_level2.name=涡轮发电机-2级
-tile.watergenerators.turbine_generator_level3.name=涡轮发电机-3级
-tile.watergenerators.turbine_generator_level4.name=涡轮发电机-4级
-tile.watergenerators.turbine_generator_level5.name=涡轮发电机-5级
-
-tile.watergenerators.turbine_generator_steel.name=涡轮发电机-钢级
-tile.watergenerators.turbine_generator_invar.name=涡轮发电机-殷钢级
-tile.watergenerators.turbine_generator_electrum.name=涡轮发电机-琥珀金级
-tile.watergenerators.turbine_generator_signalum.name=涡轮发电机-信素级
-tile.watergenerators.turbine_generator_enderium.name=涡轮发电机-末影级
-
-tile.watergenerators.turbine_generator_vibrantalloy.name=涡轮发电机-脉冲合金级
-tile.watergenerators.turbine_generator_darksteel.name=涡轮发电机-玄钢级
-tile.watergenerators.turbine_generator_endsteel.name=涡轮发电机-末影钢级
-tile.watergenerators.turbine_generator_melodicalloy.name=涡轮发电机-旋律合金级
-tile.watergenerators.turbine_generator_stellaralloy.name=涡轮发电机-恒星合金级
-
-# ## steamGenerator
-tile.watergenerators.steam_generator_level1.name=蒸汽发电机-1级
-tile.watergenerators.steam_generator_level2.name=蒸汽发电机-2级
-tile.watergenerators.steam_generator_level3.name=蒸汽发电机-3级
-tile.watergenerators.steam_generator_level4.name=蒸汽发电机-4级
-tile.watergenerators.steam_generator_level5.name=蒸汽发电机-5级
-
-tile.watergenerators.steam_generator_steel.name=蒸汽发电机-钢级
-tile.watergenerators.steam_generator_invar.name=蒸汽发电机-殷钢级
-tile.watergenerators.steam_generator_electrum.name=蒸汽发电机-琥珀金级
-tile.watergenerators.steam_generator_signalum.name=蒸汽发电机-信素级
-tile.watergenerators.steam_generator_enderium.name=蒸汽发电机-末影级
-
-tile.watergenerators.steam_generator_vibrantalloy.name=蒸汽发电机-脉冲合金级
-tile.watergenerators.steam_generator_darksteel.name=蒸汽发电机-玄钢级
-tile.watergenerators.steam_generator_endsteel.name=蒸汽发电机-末影钢级
-tile.watergenerators.steam_generator_melodicalloy.name=蒸汽发电机-旋律合金级
-tile.watergenerators.steam_generator_stellaralloy.name=蒸汽发电机-恒星合金级
+# ## Generator
+tile.watergenerators-generator.name=发电机
+tile.watergenerators-fluid_generator.name=液体发电机
+tile.watergenerators-water_generator.name=水发电机
+tile.watergenerators-turbine_generator.name=涡轮发电机
+tile.watergenerators-steam_generator.name=蒸汽发电机
 
 # ## machine
-tile.watergenerators.machine_vaporization_level1.name=汽化机-1级
-tile.watergenerators.machine_vaporization_level2.name=汽化机-2级
-tile.watergenerators.machine_vaporization_level3.name=汽化机-3级
-tile.watergenerators.machine_vaporization_level4.name=汽化机-4级
-tile.watergenerators.machine_vaporization_level5.name=汽化机-5级
-
-tile.watergenerators.machine_vaporization_steel.name=汽化机-钢级
-tile.watergenerators.machine_vaporization_invar.name=汽化机-殷钢级
-tile.watergenerators.machine_vaporization_electrum.name=汽化机-琥珀金级
-tile.watergenerators.machine_vaporization_signalum.name=汽化机-信素级
-tile.watergenerators.machine_vaporization_enderium.name=汽化机-末影级
-
-tile.watergenerators.machine_vaporization_vibrantalloy.name=汽化机-脉冲合金级
-tile.watergenerators.machine_vaporization_darksteel.name=汽化机-玄钢级
-tile.watergenerators.machine_vaporization_endsteel.name=汽化机-末影钢级
-tile.watergenerators.machine_vaporization_melodicalloy.name=汽化机-旋律合金级
-tile.watergenerators.machine_vaporization_stellaralloy.name=汽化机-恒星合金级
+tile.watergenerators-machine_vaporization.name=汽化机
 
 # ## machine shell
-tile.watergenerators.machineshell_level1.name=机器外壳-1级
-tile.watergenerators.machineshell_level2.name=机器外壳-2级
-tile.watergenerators.machineshell_level3.name=机器外壳-3级
-tile.watergenerators.machineshell_level4.name=机器外壳-4级
-tile.watergenerators.machineshell_level5.name=机器外壳-5级
-
-tile.watergenerators.machineshell_steel.name=机器外壳-钢级
-tile.watergenerators.machineshell_invar.name=机器外壳-殷钢级
-tile.watergenerators.machineshell_electrum.name=机器外壳-琥珀金级
-tile.watergenerators.machineshell_signalum.name=机器外壳-信素级
-tile.watergenerators.machineshell_enderium.name=机器外壳-末影级
-
-tile.watergenerators.machineshell_vibrantalloy.name=机器外壳-脉冲合金级
-tile.watergenerators.machineshell_darksteel.name=机器外壳-玄钢级
-tile.watergenerators.machineshell_endsteel.name=机器外壳-末影钢级
-tile.watergenerators.machineshell_melodicalloy.name=机器外壳-旋律合金级
-tile.watergenerators.machineshell_stellaralloy.name=机器外壳-恒星合金级
+tile.watergenerators-machineshell.name=机器外壳
 
 # ##### config
-config.basicAmountOfFluidToProduceEnergy.comment=水发电机的配置：产生1RF能量所需的液体量
+config.basicAmountOfFluidToProduceEnergy.comment=液体发电机的配置：产生1RF能量所需的液体量
+config.basicAmountOfWaterToProduceEnergy.comment=水发电机的配置：产生1RF能量所需的液体量
 config.basicAmountOfSteamToProduceEnergy.comment=蒸汽发电机的配置：产生1RF能量所需的蒸汽量
-config.energyBasic.comment=发电机的配置：所有发电机的最基础的生产能量，所有的的发电机的基础生产能量都通过可通过此值计算获得
+config.energyBasic.comment=发电机的配置：所有发电机的最基础的生产能量，所有的的发电机的基础生产能量都通过此值计算获得
 
-category.generator.comment=所有发电机的基础发电量配置
+category.generator.comment=所有发电机的基础配置
 
-RC.title.name=汽化
+# ##### JEI
+RC.vaporization.title=汽化
+
 
 # level name
+level.create.name=创造级
+
+level.level1.name=1级
+level.level2.name=2级
+level.level3.name=3级
+level.level4.name=4级
+level.level5.name=5级
+
 level.vibrantalloy.name=脉冲合金
 level.darksteel.name=玄钢
 level.endsteel.name=末影钢
@@ -188,5 +132,7 @@ level.signalum.name=信素
 level.enderium.name=末影
 
 # Gui
-gui.basePowerGeneration.text=基础发电量:
-gui.realPowerGeneration.text=实际发电量:
+gui.basePowerGeneration.text=基础发电量: %dFE
+gui.energyIncreaseDecrease.text=能量增/减: %dFE/t / %dFE/t
+gui.fluidBV.text=流体倍率: %d%
+gui.fluidHeight.text=流体高度: %dm

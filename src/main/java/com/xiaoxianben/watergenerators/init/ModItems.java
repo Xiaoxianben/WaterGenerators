@@ -1,10 +1,9 @@
 package com.xiaoxianben.watergenerators.init;
 
-import com.xiaoxianben.watergenerators.API.IHasInit;
-import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.api.IHasInit;
 import com.xiaoxianben.watergenerators.items.ItemBase;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
-import com.xiaoxianben.watergenerators.otherModsItems.otherInit;
+import com.xiaoxianben.watergenerators.items.component.ItemsComponent;
 import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,13 +44,16 @@ public class ModItems {
      * 导管外壳
      */
     public static Item ductShell;
+    /**
+     * 信息查找器
+     */
     public static Item information_finder;
 
     public static void preInit() {
-        GOLD_PLATED_IRON_INGOT = new ItemBase("ingot_goldPlatedIron", Main.INGOT_BLOCK_TAB);
-        ductShell_bank = new ItemBase("ductShell_1", Main.MATERIAL_TAB);
-        ductShell = new ItemBase("ductShell_0", Main.MATERIAL_TAB);
-        information_finder = new ItemBase("information_finder", Main.MACHINE_TAB) {
+        GOLD_PLATED_IRON_INGOT = new ItemBase("ingot_goldPlatedIron");
+        ductShell_bank = new ItemBase("ductShell_1");
+        ductShell = new ItemBase("ductShell_0");
+        information_finder = new ItemBase("information_finder") {
             @ParametersAreNonnullByDefault
             @Nonnull
             public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
@@ -67,15 +69,15 @@ public class ModItems {
             @ParametersAreNonnullByDefault
             @SideOnly(Side.CLIENT)
             public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-                tooltip.add("用于查看实体的NBT");
+                tooltip.add("用于查看机器的NBT");
             }
         }.setMaxStackSize(1);
 
         ItemsMaterial material = new ItemsMaterial();
+        ItemsComponent component = new ItemsComponent();
 
         initList.add(material);
-
-        otherInit.initItem();
+        initList.add(component);
 
         for (IHasInit init : initList) {
             init.init();

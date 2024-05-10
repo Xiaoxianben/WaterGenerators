@@ -1,11 +1,10 @@
 package com.xiaoxianben.watergenerators.items;
 
-import com.xiaoxianben.watergenerators.API.IHasInit;
-import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.api.IHasInit;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
+import com.xiaoxianben.watergenerators.otherModsItems.otherInit;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.Loader;
 
 public class ItemsMaterial implements IHasInit {
     // 齿轮
@@ -37,13 +36,13 @@ public class ItemsMaterial implements IHasInit {
     public static String[] itemName = {"iron", "goldPlated", "diamond", "obsidian", "emerald"};
 
     public void init() {
-        boolean hasTF = Loader.isModLoaded("thermalfoundation");
         // 齿轮
         gearIron = registryMaterial("gear_iron");
         gearGoldPlated = registryMaterial("gear_goldPlated");
         gearDiamond = registryMaterial("gear_diamond");
         gearObsidian = registryMaterial("gear_obsidian");
         gearEmerald = registryMaterial("gear_emerald");
+        otherInit.initGear();
 
         // 线圈
         coilIron = registryMaterial("coil_iron");
@@ -60,8 +59,9 @@ public class ItemsMaterial implements IHasInit {
         conduits = new Item[]{conduitIron, conduitGoldPlated, conduitDiamond, conduitObsidian, conduitEmerald};
         // 涡轮转片
         for (int i = 0; i < 5; i++) {
-            turbines[i] = registryMaterial("turbine_rotor_"+ itemName[i]);
+            turbines[i] = registryMaterial("turbine_rotor_" + itemName[i]);
         }
+        otherInit.initTurbineRotor();
         turbineRotorIron = turbines[0];
         turbineRotorGoldPlated = turbines[1];
         turbineRotorDiamond = turbines[2];
@@ -97,6 +97,6 @@ public class ItemsMaterial implements IHasInit {
     }
 
     public Item registryMaterial(String registryName) {
-        return new ItemBase(registryName, Main.MATERIAL_TAB);
+        return new ItemMaterial(registryName);
     }
 }

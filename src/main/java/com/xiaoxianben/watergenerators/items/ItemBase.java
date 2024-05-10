@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.items;
 
-import com.xiaoxianben.watergenerators.API.IHasModel;
 import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.api.IHasModel;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -13,6 +13,10 @@ public class ItemBase extends Item implements IHasModel {
 
         setCreativeTab(tab);
         Main.ITEMS.add(this);
+    }
+
+    public ItemBase(String name) {
+        this(name, Main.Item_TAB);
     }
 
     @Override

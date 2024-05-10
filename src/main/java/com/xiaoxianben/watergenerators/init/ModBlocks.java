@@ -1,11 +1,11 @@
 package com.xiaoxianben.watergenerators.init;
 
-import com.xiaoxianben.watergenerators.API.IHasInit;
 import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.api.IHasInit;
 import com.xiaoxianben.watergenerators.blocks.BlockBase;
+import com.xiaoxianben.watergenerators.blocks.BlocksFluid;
 import com.xiaoxianben.watergenerators.blocks.BlocksGenerator;
 import com.xiaoxianben.watergenerators.blocks.BlocksMachine;
-import com.xiaoxianben.watergenerators.otherModsItems.otherInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -26,7 +26,7 @@ public class ModBlocks {
     public static Block machineShell_frame;
 
     public static void preInit() {
-        GOLD_PLATED_IRON_BLOCK = new BlockBase("block_goldPlatedIron", Material.IRON, Main.INGOT_BLOCK_TAB);
+        GOLD_PLATED_IRON_BLOCK = new BlockBase("block_goldPlatedIron", Material.IRON, Main.Item_TAB);
         machineShell_frame = new BlockBase("machineShell_frame", Material.IRON, Main.MACHINE_TAB) {
             public boolean canPlaceBlockAt(@Nonnull World worldIn, @Nonnull BlockPos pos) {
                 return false;
@@ -35,11 +35,11 @@ public class ModBlocks {
 
         BlocksGenerator generator = new BlocksGenerator();
         BlocksMachine machine = new BlocksMachine();
+        BlocksFluid blocksFluid = new BlocksFluid();
 
         initList.add(generator);
         initList.add(machine);
-
-        otherInit.initBlock();
+        initList.add(blocksFluid);
 
         for (IHasInit init : initList) {
             init.init();

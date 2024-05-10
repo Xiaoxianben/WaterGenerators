@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.enery;
 
+import com.xiaoxianben.watergenerators.recipe.recipeList;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import java.util.HashMap;
 
@@ -10,7 +10,9 @@ public class EnergyLiquid {
 
     public static void init() {
         // 初始化其他液体
-        liquidEnergy.put(FluidRegistry.getFluid("water"), 1.0f);
+        for (int i = 0; i < recipeList.recipeFluidGenerator.size(); i++) {
+            add(recipeList.recipeFluidGenerator.getInput(i).getFluid(), recipeList.recipeFluidGenerator.getOutput(i));
+        }
     }
 
     public static float getEnergyFromLiquid(Fluid fluid) {

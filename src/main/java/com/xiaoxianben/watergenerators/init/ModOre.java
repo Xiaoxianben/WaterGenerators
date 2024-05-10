@@ -1,7 +1,6 @@
 package com.xiaoxianben.watergenerators.init;
 
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
-import com.xiaoxianben.watergenerators.otherModsItems.EnderIOInit;
 import com.xiaoxianben.watergenerators.otherModsItems.otherInit;
 import net.minecraftforge.oredict.OreDictionary;
 

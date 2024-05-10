@@ -4,7 +4,7 @@
         "textures": {
             "top": "watergenerators:blocks/machine/turbine_generator/stellaralloy"
         },
-        "model": "watergenerators:turbine_machine"
+        "model": "watergenerators:generator_turbine"
     },
     "variants": {
         "normal": [

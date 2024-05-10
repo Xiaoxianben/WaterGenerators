@@ -8,11 +8,11 @@
         "url": "",
         "updateUrl": "",
         "authorList": [
-          "xiaoxianben"
+            "xiaoxianben"
         ],
         "credits": "Idealland - they provided this framework.",
         "logoFile": "",
         "screenshots": [],
         "dependencies": []
-  }
+    }
 ]

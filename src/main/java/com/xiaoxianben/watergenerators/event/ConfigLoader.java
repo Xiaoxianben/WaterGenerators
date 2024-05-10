@@ -1,5 +1,6 @@
 package com.xiaoxianben.watergenerators.event;
 
+import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -7,20 +8,35 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 
 public class ConfigLoader {
-    public static String generator = "generator";
+    public static String categoryGenerator = "generator";
     public static String modConfigurationDirectory;
+
+    /**
+     * 默认为 1b/1000mb
+     */
     public static int basicAmountOfFluidToProduceEnergy;
+    /**
+     * 默认为 1b/1000mb
+     */
+    public static int basicAmountOfWaterToProduceEnergy;
+    /**
+     * 默认为 1mb
+     */
     public static int basicAmountOfSteamToProduceEnergy;
     public static int energyBasic;
+    public static float waterMagnification;
+    public static float steamMagnification;
+
     private static Configuration config;
     private static Logger logger;
 
     public static void preInitConfigLoader(@Nonnull FMLPreInitializationEvent event) {
         logger = event.getModLog();
         modConfigurationDirectory = event.getModConfigurationDirectory().getAbsolutePath();
-        config = new Configuration(event.getSuggestedConfigurationFile());
+        config = new Configuration(new File(modConfigurationDirectory + "/" + ModInformation.MOD_ID + "/" + ModInformation.MOD_ID + ".cfg"));
 
         //实例化了一个Configuration类,括号中填的是Forge推荐的配置文件位置,这个位置在游戏根目录的config文件夹下，
         //名为<modid>.cfg，这里就是bm.cfg。
@@ -29,12 +45,20 @@ public class ConfigLoader {
         load();
     }
 
+    public static int addInt(String name, String category, int defaultValue) {
+        return addInt(name, category, defaultValue, "config." + name + ".comment");
+    }
+
     public static int addInt(String name, int defaultValue) {
         return addInt(name, defaultValue, "config." + name + ".comment");
     }
 
     public static int addInt(String name, int defaultValue, String common) {
-        int tempInt = config.getInt(name, Configuration.CATEGORY_GENERAL, defaultValue, 1, Integer.MAX_VALUE, I18n.format(common));
+        return addInt(name, Configuration.CATEGORY_GENERAL, defaultValue, common);
+    }
+
+    public static int addInt(String name, String category, int defaultValue, String common) {
+        int tempInt = config.getInt(name, category, defaultValue, 1, Integer.MAX_VALUE, I18n.format(common));
         config.save();
         return tempInt;
     }
@@ -54,18 +78,33 @@ public class ConfigLoader {
         return returnLong;
     }
 
+    public static float addFloat(String name, String category, float defaultValue) {
+        return addFloat(name, category, defaultValue, I18n.format("config." + name + ".comment"));
+    }
+
+    public static float addFloat(String name, String category, float defaultValue, String common) {
+        Property tempProperty = config.get(category, name, Float.toString(defaultValue), common, Property.Type.INTEGER);
+        tempProperty.setMinValue(0);
+        tempProperty.setMaxValue(Float.MAX_VALUE);
+        tempProperty.setComment(tempProperty.getComment() + " [range: 0 ~ " + Float.MAX_VALUE + ", default: " + defaultValue + "]");
+
+        float returnLong = (float) tempProperty.getDouble();
+        config.save();
+        return returnLong;
+    }
+
+
     public static void load() {
         logger.info("Started loading config.");
-        config.setCategoryComment(generator, I18n.format("category.generator.comment"));
+        config.setCategoryComment(categoryGenerator, I18n.format("category.generator.comment"));
 
-        basicAmountOfFluidToProduceEnergy = addInt("basicAmountOfFluidToProduceEnergy", 100);
-        basicAmountOfSteamToProduceEnergy = addInt("basicAmountOfSteamToProduceEnergy", 1);
-        //forge配置文件中会有多个类别，forge提供了general(Configuration.CATEGORY_GENERAL)
-        //get函数的第一个参数就是表示general类型
-        //get的第二个参数就是配置文件中的键的名称(难以看懂)
-        //get的第三个参数就是键的默认值(默认100),如果该键不存在，返回默认值
-        //get的第四个参数是该键的注释，就是获取basicAmountOfFluidToProduceEnergy相对应的值,getInt函数的作用就是获取整数（配置文件里面键的值一定是字符串）
-        //从这里阔以看出get就是为了获取diamondBurnTime的值
+        basicAmountOfFluidToProduceEnergy = addInt("basicAmountOfFluidToProduceEnergy", categoryGenerator, 1000);
+        basicAmountOfWaterToProduceEnergy = addInt("basicAmountOfWaterToProduceEnergy", categoryGenerator, 100);
+        basicAmountOfSteamToProduceEnergy = addInt("basicAmountOfSteamToProduceEnergy", categoryGenerator, 10);
+
+        waterMagnification = addFloat("waterMagnification", categoryGenerator, 1.5f);
+        steamMagnification = addFloat("steamMagnification", categoryGenerator, 2.5f);
+
         energyBasic = addInt("energyBasic", 10);
 
 

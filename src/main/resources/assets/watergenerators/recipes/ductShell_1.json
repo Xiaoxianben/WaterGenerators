@@ -1,25 +1,25 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "CPC",
-    "S S",
-    "CPC"
-  ],
-  "key": {
-    "C": {
-      "item": "minecraft:clay_ball"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "CPC",
+        "S S",
+        "CPC"
+    ],
+    "key": {
+        "C": {
+            "item": "minecraft:clay_ball"
+        },
+        "S": {
+            "type": "forge:ore_dict",
+            "ore": "sand"
+        },
+        "P": {
+            "type": "forge:ore_dict",
+            "ore": "ingotGoldPlatedIron"
+        }
     },
-    "S": {
-      "type": "forge:ore_dict",
-      "ore": "sand"
-    },
-    "P": {
-      "type": "forge:ore_dict",
-      "ore": "ingotGoldPlatedIron"
+    "result": {
+        "item": "watergenerators:ductShell_1",
+        "count": 8
     }
-  },
-  "result": {
-    "item": "watergenerators:ductShell_1",
-    "count": 8
-  }
 }

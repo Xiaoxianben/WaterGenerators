@@ -1,8 +1,8 @@
 package com.xiaoxianben.watergenerators.util.handlers;
 
-import com.xiaoxianben.watergenerators.API.IHasModel;
 import com.xiaoxianben.watergenerators.Main;
-import com.xiaoxianben.watergenerators.blocks.BlocksFluid;
+import com.xiaoxianben.watergenerators.api.IHasModel;
+import com.xiaoxianben.watergenerators.fluid.Fluids;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -24,21 +24,17 @@ public class RegistryHandler {
 
     @SubscribeEvent
     public static void onItemRegister(RegistryEvent.Register<Item> event) {
-        for (Item item : Main.ITEMS) {
-            event.getRegistry().register(item);
-        }
+        event.getRegistry().registerAll(Main.ITEMS.toArray(new Item[0]));
     }
 
     @SubscribeEvent
     public static void onBlockRegister(RegistryEvent.Register<Block> event) {
-        for (Block block : Main.BLOCKS) {
-            event.getRegistry().register(block);
-        }
+        event.getRegistry().registerAll(Main.BLOCKS.toArray(new Block[0]));
     }
 
     @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
-        ModelLoader.setCustomStateMapper(BlocksFluid.steam.getBlock(), new StateMapperBase() {
+        ModelLoader.setCustomStateMapper(Fluids.steam.getBlock(), new StateMapperBase() {
             @Nonnull
             @Override
             protected ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state) {

@@ -6,7 +6,7 @@
             "top": "watergenerators:blocks/machine/top/level3",
             "side": "watergenerators:blocks/machine/side/level3"
         },
-        "model": "watergenerators:water_machine"
+        "model": "watergenerators:generator_water"
     },
     "variants": {
         "normal": [

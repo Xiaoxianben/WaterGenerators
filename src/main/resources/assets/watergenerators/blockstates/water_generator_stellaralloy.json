@@ -6,7 +6,7 @@
             "top": "watergenerators:blocks/machine/top/stellaralloy",
             "side": "watergenerators:blocks/machine/side/stellaralloy"
         },
-        "model": "watergenerators:water_machine"
+        "model": "watergenerators:generator_water"
     },
     "variants": {
         "normal": [
