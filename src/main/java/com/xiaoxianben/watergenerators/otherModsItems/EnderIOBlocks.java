@@ -11,10 +11,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.Arrays;
-
-import static com.xiaoxianben.watergenerators.jei.modPlugin.vaporizationList;
-
 public class EnderIOBlocks extends otherBlocks {
 
     public static void initGeneratorTurbine() {
@@ -93,7 +89,6 @@ public class EnderIOBlocks extends otherBlocks {
 
             registerMachineVaporization(i, EnderIOInit.enderIO_machineVaporization[i]);
         }
-        vaporizationList.addAll(Arrays.asList(EnderIOInit.enderIO_machineVaporization));
     }
 
     private static ItemStack getConduitStack(int i) {

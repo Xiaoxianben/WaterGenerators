@@ -28,7 +28,7 @@ apply plugin: "net.minecraftforge.gradle.forge"
 apply from: "runmanager.gradle"
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-version = "1.2.0"
+version = "1.2.1"
 group = "com.xiaoxianben.watergenerators" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "watergenerators-1.12.2"
 
@@ -112,5 +112,17 @@ processResources {
     // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude "mcmod.info"
+    }
+}
+
+tasks.register('buildJar', Delete) {
+    delete "build\\combined"
+    delete "build\\retromapping"
+    delete "build\\sources"
+    delete "build\\tmp"
+
+    dependsOn 'build'
+    doLast {
+        println "Jar is building now."
     }
 }

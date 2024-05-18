@@ -1,9 +1,12 @@
 package com.xiaoxianben.watergenerators.jei;
 
+import com.xiaoxianben.watergenerators.blocks.BlocksMachine;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineVaporization;
 import com.xiaoxianben.watergenerators.jei.advancedGuiHandlers.GeneratorAdvancedGuiHandlers;
 import com.xiaoxianben.watergenerators.jei.recipeCategory.vaporizationRecipeCategory;
 import com.xiaoxianben.watergenerators.jei.wrapper.steamWrapper;
+import com.xiaoxianben.watergenerators.otherModsItems.EnderIOInit;
+import com.xiaoxianben.watergenerators.otherModsItems.TFBlocks;
 import com.xiaoxianben.watergenerators.recipe.recipeList;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModPlugin;
@@ -15,6 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.xiaoxianben.watergenerators.jei.recipeCategory.vaporizationRecipeCategory.vaporizationUID;
@@ -32,8 +36,12 @@ public class modPlugin implements IModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registration) {
+        vaporizationList.addAll(Arrays.asList(BlocksMachine.blockMachineVaporizations));
+        vaporizationList.addAll(Arrays.asList(TFBlocks.machineVaporization));
+        vaporizationList.addAll(Arrays.asList(EnderIOInit.enderIO_machineVaporization));
         for (BlockMachineVaporization vaporization : vaporizationList) {
-            registration.addRecipeCatalyst(Item.getItemFromBlock(vaporization).getDefaultInstance(), vaporizationUID);
+            if (vaporization != null)
+                registration.addRecipeCatalyst(Item.getItemFromBlock(vaporization).getDefaultInstance(), vaporizationUID);
         }
 
         registration.addRecipes(steamRecipes(), vaporizationUID);

@@ -13,9 +13,9 @@ public class ModFluid {
     protected static List<IHasInit> initList = new ArrayList<>();
 
     public static void init() {
-        Fluids Fluids = new Fluids();
+        Fluids fluids = new Fluids();
 
-        initList.add(Fluids);
+        initList.add(fluids);
 
         for (IHasInit i : initList) {
             i.init();

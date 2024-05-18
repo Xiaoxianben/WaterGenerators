@@ -9,10 +9,6 @@ import com.xiaoxianben.watergenerators.init.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
-import java.util.Arrays;
-
-import static com.xiaoxianben.watergenerators.jei.modPlugin.vaporizationList;
-
 public class TFBlocks extends otherBlocks {
 
     public static BlockGeneratorBasic[][] TF_generatorTW = new BlockGeneratorBasic[2][5];
@@ -76,7 +72,6 @@ public class TFBlocks extends otherBlocks {
             // machine va
             registerMachineVaporization(i, machineVaporization[i]);
         }
-        vaporizationList.addAll(Arrays.asList(machineVaporization));
     }
 
     private static ItemStack getConduitStack(int i) {

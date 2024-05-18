@@ -6,6 +6,7 @@ import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineVaporization;
 import com.xiaoxianben.watergenerators.init.ModBlocks;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
+import com.xiaoxianben.watergenerators.jei.modPlugin;
 import com.xiaoxianben.watergenerators.otherModsItems.otherInit;
 import com.xiaoxianben.watergenerators.tileEntity.TEMachineVaporization;
 import com.xiaoxianben.watergenerators.util.ModInformation;
@@ -14,8 +15,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Arrays;
-
-import static com.xiaoxianben.watergenerators.jei.modPlugin.vaporizationList;
 
 public class BlocksMachine implements IHasInit {
 
@@ -53,6 +52,5 @@ public class BlocksMachine implements IHasInit {
                     ItemsMaterial.conduits[i],
                     BlocksGenerator.oreIngots[i]);
         }
-        vaporizationList.addAll(Arrays.asList(blockMachineVaporizations));
     }
 }
