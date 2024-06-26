@@ -1,4 +1,4 @@
-package com.xiaoxianben.watergenerators.rander;
+package com.xiaoxianben.watergenerators.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -13,8 +13,9 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
@@ -24,14 +25,15 @@ import javax.annotation.Nullable;
  * 参考 EnderCore 的 com.enderio.core.client.render.RenderUtil
  * <p>
  * 感谢 SleepyTrousers团队 的 EnderCore 的 开源的代码
- * */
-@Mod.EventBusSubscriber
+ */
+@SideOnly(Side.CLIENT)
 public class RenderFluid {
 
     public static final @Nonnull ResourceLocation BLOCK_TEX = TextureMap.LOCATION_BLOCKS_TEXTURE;
     public static TextureMap fluidTextures = null;
 
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onStitch(TextureStitchEvent.Pre event) {
         fluidTextures = event.getMap();

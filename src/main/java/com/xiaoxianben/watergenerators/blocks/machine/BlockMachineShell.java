@@ -1,8 +1,10 @@
 package com.xiaoxianben.watergenerators.blocks.machine;
 
-import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.blocks.BlockBase;
+import com.xiaoxianben.watergenerators.init.ModBlocks;
 import com.xiaoxianben.watergenerators.util.ModInformation;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.math.BlockPos;
@@ -15,15 +17,13 @@ public class BlockMachineShell extends BlockBase {
     public float level;
     public String levelName;
 
-    public BlockMachineShell(String levelName, float level) {
-        super("machineshell_" + levelName, Material.IRON, Main.MACHINE_TAB);
+
+    public BlockMachineShell(float level, String levelName) {
+        super("machineshell_" + levelName, Material.IRON, WaterGenerators.MACHINE_TAB, SoundType.METAL, ModBlocks.allMachineShell);
         this.level = level;
         this.levelName = levelName;
     }
 
-    public BlockMachineShell(String levelName, int level) {
-        this(levelName, (float) level);
-    }
 
     public String getLevelName() {
         return I18n.format("level." + this.levelName + ".name");

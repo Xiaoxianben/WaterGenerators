@@ -10,7 +10,7 @@ public class PrivateMath {
      *
      * @return 获取粗略值
      */
-    public static String getRoughData(long I, int flag) {
+    public static String getRoughData(double I, int flag) {
         String[] strings = getRoughData(I);
 
         if (flag == 0) return Arrays.toString(strings);
@@ -18,7 +18,7 @@ public class PrivateMath {
         else return strings[2];
     }
 
-    public static String[] getRoughData(long I) {
+    public static String[] getRoughData(double I) {
         String[] strings;
 
         // 如果最终接收能量大于800000000，则将最终接收能量转换为G
@@ -28,7 +28,7 @@ public class PrivateMath {
             // 如果最终接收能量大于800，则将最终接收能量转换为K
         else if (I > 800) strings = new String[]{String.format("%.2f", I / 1000.0), "K", "3"};
             // 否则，将最终接收能量转换为0
-        else strings = new String[]{String.valueOf(I), "", "0"};
+        else strings = new String[]{String.format("%.2f", I), "", "0"};
 
         return strings;
     }

@@ -1,5 +1,6 @@
 package com.xiaoxianben.watergenerators.blocks.generator;
 
+import com.xiaoxianben.watergenerators.init.ModBlocks;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorWater;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -10,7 +11,7 @@ public class BlockGeneratorWater extends BlockGeneratorFluid {
 
 
     public BlockGeneratorWater(float level, String levelName) {
-        super("water_generator", level, levelName);
+        super("water_generator", levelName, level, ModBlocks.allGeneratorWater);
     }
 
 

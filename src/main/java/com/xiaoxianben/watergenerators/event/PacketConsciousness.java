@@ -40,7 +40,7 @@ public class PacketConsciousness implements IMessage {
             if (ctx.side == Side.CLIENT) {
                 //获取接受数据中"consciousness"这一NBT标识
                 final NBTTagCompound capabilityNBT = message.compound.getCompoundTag("capability");
-                final NBTTagCompound updateNBT = message.compound.getCompoundTag("updateNBT");
+                final NBTTagCompound updateNBT = message.compound.getCompoundTag("readNetworkUpdateNBT");
                 final NBTTagCompound blockPosNBT = message.compound.getCompoundTag("blockPos");
                 Minecraft.getMinecraft().addScheduledTask(() -> {
                     //获取客户端（接收端）玩家对象
@@ -49,7 +49,7 @@ public class PacketConsciousness implements IMessage {
                     TEEnergyBasic tileEntity = (TEEnergyBasic) player.getEntityWorld().getTileEntity(blockPos);
                     if (tileEntity != null) {
                         tileEntity.readCapabilityNBT(capabilityNBT);
-                        tileEntity.updateNBT(updateNBT);
+                        tileEntity.readNetworkUpdateNBT(updateNBT);
                     }
                 });
             }

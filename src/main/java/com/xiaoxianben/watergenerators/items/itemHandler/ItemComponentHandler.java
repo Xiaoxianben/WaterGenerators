@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.items.itemHandler;
 
+import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.component.ItemComponent;
-import com.xiaoxianben.watergenerators.items.component.ItemsComponent;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -20,21 +20,18 @@ public class ItemComponentHandler extends ItemStackHandler {
     public List<ItemComponent> canPutItem;
 
     /**
-     * @param level 等级, 必须 >= 1
+     *
      */
-    public ItemComponentHandler(float level, @Nullable List<ItemComponent> canPutItem) {
-        super(canPutItem != null ? canPutItem.size() : 0, level);
+    public ItemComponentHandler(@Nullable List<ItemComponent> canPutItem) {
+        super(canPutItem != null ? canPutItem.size() : 0);
         this.canPutItem = canPutItem != null ? canPutItem : new ArrayList<>();
     }
 
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         boolean isTrueSlot = false;
-        for (ItemComponent itemComponent : canPutItem) {
-            if (itemComponent == stack.getItem()) {
-                isTrueSlot = true;
-                break;
-            }
+        if (stack.getItem() instanceof ItemComponent) {
+            isTrueSlot = canPutItem.contains((ItemComponent) stack.getItem()) && canPutItem.indexOf((ItemComponent) stack.getItem()) == slot;
         }
         return super.isItemValid(slot, stack) && isTrueSlot;
     }

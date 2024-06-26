@@ -4,85 +4,85 @@ itemGroup.machine_tap=water generators/machine
 itemGroup.material_tap=water generators/material
 
 # ###### item
-item.watergenerators.ingot_goldPlatedIron.name=gold plated iron ingot
-item.watergenerators.information_finder.name=information finder
+item.watergenerators-ingot_goldPlatedIron.name=gold plated iron ingot
+item.watergenerators-information_finder.name=information finder
 
 # ## gear
-item.watergenerators.gear_iron.name=iron gear
-item.watergenerators.gear_goldPlated.name=goldPlated gear
-item.watergenerators.gear_diamond.name=diamond gear
-item.watergenerators.gear_obsidian.name=obsidian gear
-item.watergenerators.gear_emerald.name=emerald gear
+item.watergenerators-gear_iron.name=iron gear
+item.watergenerators-gear_goldPlated.name=goldPlated gear
+item.watergenerators-gear_diamond.name=diamond gear
+item.watergenerators-gear_obsidian.name=obsidian gear
+item.watergenerators-gear_emerald.name=emerald gear
 
-item.watergenerators.gear_endsteel.name=ender steel gear
-item.watergenerators.gear_melodic.name=melodyAlloy gear
-item.watergenerators.gear_stellar.name=stellarAlloy gear
+item.watergenerators-gear_endsteel.name=ender steel gear
+item.watergenerators-gear_melodic.name=melodyAlloy gear
+item.watergenerators-gear_stellar.name=stellarAlloy gear
 
 # ## coil
-item.watergenerators.coil_iron.name=iron coil
-item.watergenerators.coil_goldPlated.name=goldPlated coil
-item.watergenerators.coil_diamond.name=diamond coil
-item.watergenerators.coil_obsidian.name=obsidian coil
-item.watergenerators.coil_emerald.name=emerald coil
+item.watergenerators-coil_iron.name=iron coil
+item.watergenerators-coil_goldPlated.name=goldPlated coil
+item.watergenerators-coil_diamond.name=diamond coil
+item.watergenerators-coil_obsidian.name=obsidian coil
+item.watergenerators-coil_emerald.name=emerald coil
 
-item.watergenerators.coil_steel.name=steel coil
-item.watergenerators.coil_invar.name=invar coil
-item.watergenerators.coil_electrum.name=electrum coil
-item.watergenerators.coil_signalum.name=signalum coil
-item.watergenerators.coil_enderium.name=enderium coil
+item.watergenerators-coil_steel.name=steel coil
+item.watergenerators-coil_invar.name=invar coil
+item.watergenerators-coil_electrum.name=electrum coil
+item.watergenerators-coil_signalum.name=signalum coil
+item.watergenerators-coil_enderium.name=enderium coil
 
 # ## turbine_rotor
-item.watergenerators.turbine_rotor_iron.name=iron turbine rotor
-item.watergenerators.turbine_rotor_goldPlated.name=goldPlated turbine rotor
-item.watergenerators.turbine_rotor_diamond.name=diamond turbine rotor
-item.watergenerators.turbine_rotor_obsidian.name=obsidian turbine rotor
-item.watergenerators.turbine_rotor_emerald.name=emerald turbine rotor
+item.watergenerators-turbine_rotor_iron.name=iron turbine rotor
+item.watergenerators-turbine_rotor_goldPlated.name=goldPlated turbine rotor
+item.watergenerators-turbine_rotor_diamond.name=diamond turbine rotor
+item.watergenerators-turbine_rotor_obsidian.name=obsidian turbine rotor
+item.watergenerators-turbine_rotor_emerald.name=emerald turbine rotor
 
-item.watergenerators.turbine_rotor_steel.name=steel turbine rotor
-item.watergenerators.turbine_rotor_invar.name=invar turbine rotor
-item.watergenerators.turbine_rotor_electrum.name=electrum turbine rotor
-item.watergenerators.turbine_rotor_signalum.name=signalum turbine rotor
-item.watergenerators.turbine_rotor_enderium.name=enderium turbine rotor
+item.watergenerators-turbine_rotor_steel.name=steel turbine rotor
+item.watergenerators-turbine_rotor_invar.name=invar turbine rotor
+item.watergenerators-turbine_rotor_electrum.name=electrum turbine rotor
+item.watergenerators-turbine_rotor_signalum.name=signalum turbine rotor
+item.watergenerators-turbine_rotor_enderium.name=enderium turbine rotor
 
-item.watergenerators.turbine_rotor_vibrantalloy.name=vibrant alloy turbine rotor
-item.watergenerators.turbine_rotor_darksteel.name=dark steel turbine rotor
-item.watergenerators.turbine_rotor_endsteel.name=end steel turbine rotor
-item.watergenerators.turbine_rotor_melodicalloy.name=melodic alloy turbine rotor
-item.watergenerators.turbine_rotor_stellaralloy.name=stellar alloy turbine rotor
+item.watergenerators-turbine_rotor_vibrantalloy.name=vibrant alloy turbine rotor
+item.watergenerators-turbine_rotor_darksteel.name=dark steel turbine rotor
+item.watergenerators-turbine_rotor_endsteel.name=end steel turbine rotor
+item.watergenerators-turbine_rotor_melodicalloy.name=melodic alloy turbine rotor
+item.watergenerators-turbine_rotor_stellaralloy.name=stellar alloy turbine rotor
 
 # ## ductCoil
-item.watergenerators.conduit_iron.name=iron conduit
-item.watergenerators.conduit_goldPlated.name=gold plated conduit
-item.watergenerators.conduit_diamond.name=diamond conduit
-item.watergenerators.conduit_obsidian.name=obsidian conduit
-item.watergenerators.conduit_emerald.name=emerald conduit
+item.watergenerators-conduit_iron.name=iron conduit
+item.watergenerators-conduit_goldPlated.name=gold plated conduit
+item.watergenerators-conduit_diamond.name=diamond conduit
+item.watergenerators-conduit_obsidian.name=obsidian conduit
+item.watergenerators-conduit_emerald.name=emerald conduit
 
-item.watergenerators.conduit_steel.name=steel conduit
-item.watergenerators.conduit_invar.name=invar conduit
-item.watergenerators.conduit_electrum.name=electrum conduit
-item.watergenerators.conduit_signalum.name=signalum conduit
-item.watergenerators.conduit_enderium.name=enderium conduit
+item.watergenerators-conduit_steel.name=steel conduit
+item.watergenerators-conduit_invar.name=invar conduit
+item.watergenerators-conduit_electrum.name=electrum conduit
+item.watergenerators-conduit_signalum.name=signalum conduit
+item.watergenerators-conduit_enderium.name=enderium conduit
 
-item.watergenerators.ductShell_1.name=duct shell
-item.watergenerators.ductShell_0.name=duct shell bank
+item.watergenerators-ductShell_1.name=duct shell
+item.watergenerators-ductShell_0.name=duct shell bank
 
 # ## 组件
-item.watergenerators-component.information=Upgrade components for generators
+item.watergenerators-component.tooltip=Upgrade components for generators
 
-item.watergenerators.component_null.name=Component Upgrade-Null
-item.watergenerators-component_null.information=The most basic upgrade components can only be used to make crafting materials
+item.watergenerators-component_null.name=Component Upgrade-Null
+item.watergenerators-component_null.tooltip=The most basic upgrade components can only be used to make crafting materials
 
-item.watergenerators.component_fluidExtract.name=Component Upgrades-Liquid Extraction
-item.watergenerators-component_fluidExtract.information=Increases the maximum extraction of liquid generators
+item.watergenerators-component_fluidExtract.name=Component Upgrades-Liquid Extraction
+item.watergenerators-component_fluidExtract.tooltip=Increases the maximum extraction of liquid generators
 
-item.watergenerators.component_powerGeneration.name=Component Upgrade-Power Generation Upgrades
-item.watergenerators-component_powerGeneration.information=Increase the base power generation of all generator
+item.watergenerators-component_powerGeneration.name=Component Upgrade-Power Generation Upgrades
+item.watergenerators-component_powerGeneration.tooltip=Increase the base power generation of all generator
 
 # ###### block/tile
-tile.watergenerators.block_goldPlatedIron.name=gold plated iron block
-tile.watergenerators.machineShell_frame.name=machine shell frame
+tile.watergenerators-block_goldPlatedIron.name=gold plated iron block
+tile.watergenerators-machineShell_frame.name=machine shell frame
 
-tile.watergenerators.steam.name=steam
+tile.watergenerators-steam.name=steam
 fluid.steam=steam
 
 # ## Generator
@@ -135,6 +135,6 @@ level.enderium.name=enderium
 
 # Gui
 gui.basePowerGeneration.text=base power generation: %dFE
-gui.energyIncreaseDecrease.text=Energy increase/decrease: %dFE/t / %dFE/t
-gui.fluidBV.text=fluid magnification: %d%
+gui.energyIncreaseDecrease.text=Energy increase/decrease: %dFE/t|%dFE/t
+gui.fluidBV.text=fluid magnification: %d
 gui.fluidHeight.text=fluid height: %dm

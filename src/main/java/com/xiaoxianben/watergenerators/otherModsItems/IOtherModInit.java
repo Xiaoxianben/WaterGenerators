@@ -2,21 +2,9 @@ package com.xiaoxianben.watergenerators.otherModsItems;
 
 public interface IOtherModInit {
 
-    void initGeneratorTurbine();
+    void initBlocks();
 
-    void initGeneratorFluid();
-
-    void initGeneratorWater();
-
-    void initGeneratorSteam();
-
-    void initMachineShell();
-
-    void initMachineVaporization();
-
-    void initGear();
-
-    void initTurbineRotor();
+    void initItems();
 
     void initOre();
 

@@ -1,11 +1,13 @@
 package com.xiaoxianben.watergenerators.blocks.generator;
 
-import com.xiaoxianben.watergenerators.Main;
-import com.xiaoxianben.watergenerators.event.ConfigLoader;
+import com.xiaoxianben.watergenerators.WaterGenerators;
+import com.xiaoxianben.watergenerators.config.ConfigValue;
 import com.xiaoxianben.watergenerators.gui.GUIHandler;
+import com.xiaoxianben.watergenerators.init.ModBlocks;
 import com.xiaoxianben.watergenerators.init.ModItems;
 import com.xiaoxianben.watergenerators.items.component.ItemComponent;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorFluid;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -24,6 +26,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 
 public class BlockGeneratorFluid extends BlockGeneratorBasic {
@@ -32,11 +35,11 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
 
 
     public BlockGeneratorFluid(float level, String levelName) {
-        this("fluid_generator", level, levelName);
+        this("fluid_generator", levelName, level, ModBlocks.allGeneratorFluid);
     }
 
-    public BlockGeneratorFluid(String type, float level, String levelName) {
-        super(type, level, (long) (ConfigLoader.energyBasic * Math.pow(2, level - 1) * 1.5), levelName);
+    public BlockGeneratorFluid(String type, String levelName, float level, LinkedHashSet<Block> set) {
+        super(type, levelName, level, (long) (ConfigValue.energyBasic * Math.pow(1.5, level - 1) * 1.5), set);
     }
 
 
@@ -88,7 +91,7 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
                     playerIn.setHeldItem(hand, new ItemStack(playerItem.getItem(), playerItem.getCount() - (component.getCount() - itemC), playerItem.getMetadata()));
                 } else if (playerItem.getItem() != ModItems.information_finder) {
                     int ID = GUIHandler.GUIFluidGenerator;
-                    playerIn.openGui(Main.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                    playerIn.openGui(WaterGenerators.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
                 }
             }
         }

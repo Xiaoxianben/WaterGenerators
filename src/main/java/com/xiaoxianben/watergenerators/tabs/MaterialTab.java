@@ -28,6 +28,6 @@ public class MaterialTab extends CreativeTabs {
     @Override
     @Nonnull
     public ItemStack getTabIconItem() {
-        return new ItemStack(ItemsMaterial.gearGoldPlated);
+        return new ItemStack(ItemsMaterial.gears[0]);
     }
 }

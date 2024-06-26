@@ -1,8 +1,9 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
-import com.xiaoxianben.watergenerators.event.ConfigLoader;
-import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankGenerator;
+import com.xiaoxianben.watergenerators.config.ConfigValue;
 import net.minecraftforge.fluids.FluidRegistry;
+
+import java.math.BigDecimal;
 
 public class TEGeneratorSteam extends TEGeneratorFluid {
 
@@ -17,14 +18,16 @@ public class TEGeneratorSteam extends TEGeneratorFluid {
     public TEGeneratorSteam(long basePowerGeneration, float level) {
         super(basePowerGeneration, level);
 
-        this.basicAmountOfFluidToProduceEnergy = ConfigLoader.basicAmountOfSteamToProduceEnergy;
-        this.fluidTank = new FluidTankGenerator(Math.max((int) (65 * this.basicAmountOfFluidToProduceEnergy * level), 1000), FluidRegistry.getFluid("steam"));
-        this.fluidTank.setCanDrain(false);
+        this.basicAmountOfFluidToProduceEnergy = ConfigValue.basicAmountOfSteamToProduceEnergy;
+
+        this.fluidTank.setCanFillFluidType(FluidRegistry.getFluid("steam"));
+        this.fluidTank.setCapacity(Math.max(new BigDecimal(65 * basicAmountOfFluidToProduceEnergy).intValue(), 1000));
+
     }
 
     @Override
     public float getFluidMagnification() {
-        return ConfigLoader.steamMagnification;
+        return ConfigValue.steamMagnification;
     }
 
 }

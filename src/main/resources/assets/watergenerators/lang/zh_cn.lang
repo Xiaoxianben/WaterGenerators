@@ -4,85 +4,85 @@ itemGroup.machine_tap=水发电机/机器
 itemGroup.material_tap=水发电机/材料
 
 # ##### 物品
-item.watergenerators.ingot_goldPlatedIron.name=镀金铁锭
-item.watergenerators.information_finder.name=信息查询器
+item.watergenerators-ingot_goldPlatedIron.name=镀金铁锭
+item.watergenerators-information_finder.name=信息查询器
 
 # ## 齿轮
-item.watergenerators.gear_iron.name=铁齿轮
-item.watergenerators.gear_goldPlated.name=镀金齿轮
-item.watergenerators.gear_diamond.name=钻石齿轮
-item.watergenerators.gear_obsidian.name=黑曜石齿轮
-item.watergenerators.gear_emerald.name=绿宝石齿轮
+item.watergenerators-gear_iron.name=铁齿轮
+item.watergenerators-gear_goldPlated.name=镀金齿轮
+item.watergenerators-gear_diamond.name=钻石齿轮
+item.watergenerators-gear_obsidian.name=黑曜石齿轮
+item.watergenerators-gear_emerald.name=绿宝石齿轮
 
-item.watergenerators.gear_endsteel.name=末影钢齿轮
-item.watergenerators.gear_melodic.name=旋律齿轮
-item.watergenerators.gear_stellar.name=恒星齿轮
+item.watergenerators-gear_endsteel.name=末影钢齿轮
+item.watergenerators-gear_melodic.name=旋律齿轮
+item.watergenerators-gear_stellar.name=恒星齿轮
 
 # ## 线圈
-item.watergenerators.coil_iron.name=铁线圈
-item.watergenerators.coil_goldPlated.name=镀金线圈
-item.watergenerators.coil_diamond.name=钻石线圈
-item.watergenerators.coil_obsidian.name=黑曜石线圈
-item.watergenerators.coil_emerald.name=绿宝石线圈
+item.watergenerators-coil_iron.name=铁线圈
+item.watergenerators-coil_goldPlated.name=镀金线圈
+item.watergenerators-coil_diamond.name=钻石线圈
+item.watergenerators-coil_obsidian.name=黑曜石线圈
+item.watergenerators-coil_emerald.name=绿宝石线圈
 
-item.watergenerators.coil_steel.name=钢线圈
-item.watergenerators.coil_invar.name=殷钢线圈
-item.watergenerators.coil_electrum.name=琥珀金线圈
-item.watergenerators.coil_signalum.name=信素线圈
-item.watergenerators.coil_enderium.name=末影线圈
+item.watergenerators-coil_steel.name=钢线圈
+item.watergenerators-coil_invar.name=殷钢线圈
+item.watergenerators-coil_electrum.name=琥珀金线圈
+item.watergenerators-coil_signalum.name=信素线圈
+item.watergenerators-coil_enderium.name=末影线圈
 
 # ## 涡轮转片
-item.watergenerators.turbine_rotor_iron.name=铁涡轮转片
-item.watergenerators.turbine_rotor_goldPlated.name=镀金涡轮转片
-item.watergenerators.turbine_rotor_diamond.name=钻石涡轮转片
-item.watergenerators.turbine_rotor_obsidian.name=黑曜石涡轮转片
-item.watergenerators.turbine_rotor_emerald.name=绿宝石涡轮转片
+item.watergenerators-turbine_rotor_iron.name=铁涡轮转片
+item.watergenerators-turbine_rotor_goldPlated.name=镀金涡轮转片
+item.watergenerators-turbine_rotor_diamond.name=钻石涡轮转片
+item.watergenerators-turbine_rotor_obsidian.name=黑曜石涡轮转片
+item.watergenerators-turbine_rotor_emerald.name=绿宝石涡轮转片
 
-item.watergenerators.turbine_rotor_steel.name=钢涡轮转片
-item.watergenerators.turbine_rotor_invar.name=殷钢涡轮转片
-item.watergenerators.turbine_rotor_electrum.name=琥珀金涡轮转片
-item.watergenerators.turbine_rotor_signalum.name=信素涡轮转片
-item.watergenerators.turbine_rotor_enderium.name=末影涡轮转片
+item.watergenerators-turbine_rotor_steel.name=钢涡轮转片
+item.watergenerators-turbine_rotor_invar.name=殷钢涡轮转片
+item.watergenerators-turbine_rotor_electrum.name=琥珀金涡轮转片
+item.watergenerators-turbine_rotor_signalum.name=信素涡轮转片
+item.watergenerators-turbine_rotor_enderium.name=末影涡轮转片
 
-item.watergenerators.turbine_rotor_vibrantalloy.name=脉冲合金涡轮转片
-item.watergenerators.turbine_rotor_darksteel.name=玄钢涡轮转片
-item.watergenerators.turbine_rotor_endsteel.name=末影钢涡轮转片
-item.watergenerators.turbine_rotor_melodicalloy.name=旋律合金涡轮转片
-item.watergenerators.turbine_rotor_stellaralloy.name=恒星合金涡轮转片
+item.watergenerators-turbine_rotor_vibrantalloy.name=脉冲合金涡轮转片
+item.watergenerators-turbine_rotor_darksteel.name=玄钢涡轮转片
+item.watergenerators-turbine_rotor_endsteel.name=末影钢涡轮转片
+item.watergenerators-turbine_rotor_melodicalloy.name=旋律合金涡轮转片
+item.watergenerators-turbine_rotor_stellaralloy.name=恒星合金涡轮转片
 
 # ## 导管
-item.watergenerators.conduit_iron.name=铁导管
-item.watergenerators.conduit_goldPlated.name=镀金导管
-item.watergenerators.conduit_diamond.name=钻石导管
-item.watergenerators.conduit_obsidian.name=黑曜石导管
-item.watergenerators.conduit_emerald.name=绿宝石导管
+item.watergenerators-conduit_iron.name=铁导管
+item.watergenerators-conduit_goldPlated.name=镀金导管
+item.watergenerators-conduit_diamond.name=钻石导管
+item.watergenerators-conduit_obsidian.name=黑曜石导管
+item.watergenerators-conduit_emerald.name=绿宝石导管
 
-item.watergenerators.conduit_steel.name=钢导管
-item.watergenerators.conduit_invar.name=殷钢导管
-item.watergenerators.conduit_electrum.name=琥珀金导管
-item.watergenerators.conduit_signalum.name=信素导管
-item.watergenerators.conduit_enderium.name=末影导管
+item.watergenerators-conduit_steel.name=钢导管
+item.watergenerators-conduit_invar.name=殷钢导管
+item.watergenerators-conduit_electrum.name=琥珀金导管
+item.watergenerators-conduit_signalum.name=信素导管
+item.watergenerators-conduit_enderium.name=末影导管
 
-item.watergenerators.ductShell_1.name=导管外壳胚料
-item.watergenerators.ductShell_0.name=导管外壳
+item.watergenerators-ductShell_1.name=导管外壳胚料
+item.watergenerators-ductShell_0.name=导管外壳
 
 # ## 组件
-item.watergenerators-component.information=用于各种发电机的升级组件
+item.watergenerators-component.tooltip=用于各种发电机的升级组件
 
-item.watergenerators.component_null.name=组件升级-空
-item.watergenerators-component_null.information=最基础的升级组件，只能用于做合成材料
+item.watergenerators-component_null.name=组件升级-空
+item.watergenerators-component_null.tooltip=最基础的升级组件，只能用于做合成材料
 
-item.watergenerators.component_fluidExtract.name=组件升级-液体提取
-item.watergenerators-component_fluidExtract.information=提高 液体类发电机 的最大提取
+item.watergenerators-component_fluidExtract.name=组件升级-液体提取
+item.watergenerators-component_fluidExtract.tooltip=提高 液体类发电机 的最大提取
 
-item.watergenerators.component_powerGeneration.name=组件升级-发电升级
-item.watergenerators-component_powerGeneration.information=提高 所有发电机 的基础发电量
+item.watergenerators-component_powerGeneration.name=组件升级-发电升级
+item.watergenerators-component_powerGeneration.tooltip=提高 所有发电机 的基础发电量
 
 # ##### 方块
-tile.watergenerators.block_goldPlatedIron.name=镀金铁块
-tile.watergenerators.machineShell_frame.name=机器外壳框架
+tile.watergenerators-block_goldPlatedIron.name=镀金铁块
+tile.watergenerators-machineShell_frame.name=机器外壳框架
 
-tile.watergenerators.steam.name=蒸汽
+tile.watergenerators-steam.name=蒸汽
 fluid.steam=蒸汽
 
 # ## Generator
@@ -135,6 +135,6 @@ level.enderium.name=末影
 
 # Gui
 gui.basePowerGeneration.text=基础发电量: %dFE
-gui.energyIncreaseDecrease.text=能量增/减: %dFE/t / %dFE/t
-gui.fluidBV.text=流体倍率: %d%
+gui.energyIncreaseDecrease.text=能量增/减: %dFE/t|%dFE/t
+gui.fluidBV.text=流体倍率: %d
 gui.fluidHeight.text=流体高度: %dm

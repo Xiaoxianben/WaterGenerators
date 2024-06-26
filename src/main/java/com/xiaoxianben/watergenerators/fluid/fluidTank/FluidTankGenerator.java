@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FluidTankGenerator extends FluidTankBase {
 
-    private final List<Fluid> canFillFluidType;
+    private List<Fluid> canFillFluidType;
 
     public FluidTankGenerator(int capacity, List<Fluid> canFillFluidType) {
         super(capacity);
@@ -17,6 +17,10 @@ public class FluidTankGenerator extends FluidTankBase {
 
     public FluidTankGenerator(int capacity, Fluid canFillFluidType) {
         this(capacity, Collections.singletonList(canFillFluidType));
+    }
+
+    public void setCanFillFluidType(Fluid fluid) {
+        canFillFluidType = Collections.singletonList(fluid);
     }
 
     @Override

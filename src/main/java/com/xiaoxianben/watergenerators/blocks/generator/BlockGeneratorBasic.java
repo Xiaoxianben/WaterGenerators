@@ -1,11 +1,13 @@
 package com.xiaoxianben.watergenerators.blocks.generator;
 
 
-import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.blocks.BlockBase;
 import com.xiaoxianben.watergenerators.blocks.material.BlockMaterial;
 import com.xiaoxianben.watergenerators.util.ModInformation;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +19,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.LinkedHashSet;
 
 
 public class BlockGeneratorBasic extends BlockBase implements ITileEntityProvider {
@@ -26,9 +29,9 @@ public class BlockGeneratorBasic extends BlockBase implements ITileEntityProvide
     public float level;
     protected long basePowerGeneration;
 
-    public BlockGeneratorBasic(String type, float level, long basePowerGeneration, String levelName) {
+    public BlockGeneratorBasic(String type, String levelName, float level, long basePowerGeneration, LinkedHashSet<Block> set) {
         // 设置属性
-        super(type + "_" + levelName, BlockMaterial.generator, Main.MACHINE_TAB);
+        super(type + "_" + levelName, BlockMaterial.generator, WaterGenerators.MACHINE_TAB, SoundType.METAL, set);
         this.setHardness(10.0f);
         this.setHarvestLevel("pickaxe", 1);
         this.setResistance(6000.0f * (level > 3 ? 1 : 0));
@@ -38,6 +41,7 @@ public class BlockGeneratorBasic extends BlockBase implements ITileEntityProvide
         this.type = type;
         this.basePowerGeneration = basePowerGeneration;
     }
+
 
     public String getLevelName() {
         return I18n.format("level." + this.levelName + ".name");

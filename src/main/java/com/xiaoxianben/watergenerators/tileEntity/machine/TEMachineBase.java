@@ -1,5 +1,6 @@
-package com.xiaoxianben.watergenerators.tileEntity;
+package com.xiaoxianben.watergenerators.tileEntity.machine;
 
+import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import net.minecraft.nbt.NBTTagCompound;
 
 import javax.annotation.Nonnull;
@@ -12,9 +13,8 @@ public class TEMachineBase extends TEEnergyBasic {
     /**
      * 接受能量，不传输能量
      */
-
-    public TEMachineBase(long capacity, float level) {
-        super(capacity, Integer.MAX_VALUE, 0);
+    public TEMachineBase(float level) {
+        super((long) Math.pow((level * 500), 2), false);
         this.level = level;
     }
 
@@ -22,16 +22,17 @@ public class TEMachineBase extends TEEnergyBasic {
         return level;
     }
 
+
     // NBT
     @Override
-    public NBTTagCompound getUpdateNBT() {
+    public NBTTagCompound getNetworkUpdateNBT() {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         nbtTagCompound.setBoolean("open", this.open);
         return nbtTagCompound;
     }
 
     @Override
-    public void updateNBT(NBTTagCompound NBT) {
+    public void readNetworkUpdateNBT(NBTTagCompound NBT) {
         this.open = NBT.getBoolean("open");
     }
 
@@ -55,4 +56,8 @@ public class TEMachineBase extends TEEnergyBasic {
         super.readFromNBT(NBT);
     }
 
+    @Override
+    protected long updateEnergy() {
+        return 0;
+    }
 }

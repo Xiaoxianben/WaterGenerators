@@ -2,9 +2,10 @@ package com.xiaoxianben.watergenerators.recipe;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.xiaoxianben.watergenerators.event.ConfigLoader;
+import com.xiaoxianben.watergenerators.config.ConfigLoader;
+import com.xiaoxianben.watergenerators.recipe.recipeType.RecipeTypes;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -15,30 +16,28 @@ import org.apache.commons.io.IOUtils;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class recipeList {
 
-    public static recipes<FluidStack, FluidStack> recipeVaporization;
-    public static recipes<FluidStack, Float> recipeFluidGenerator;
+    public static Recipes<FluidStack, FluidStack> recipeVaporization = new Recipes<>(RecipeTypes.recipe_fluid, RecipeTypes.recipe_fluid);
+    public static Recipes<FluidStack, Float> recipeFluidGenerator = new Recipes<>(RecipeTypes.recipe_fluid, RecipeTypes.recipe_float);
 
     public static void init() {
-        recipeVaporization = new recipes<>(
-                recipeType.FLUID,
-                recipeType.FLUID,
-                Collections.singletonList(new FluidStack(FluidRegistry.WATER, 1)),
-                Collections.singletonList(new FluidStack(FluidRegistry.getFluid("steam"), 1))
+        recipeVaporization.addRecipe(
+                new FluidStack(FluidRegistry.WATER, 1),
+                new FluidStack(FluidRegistry.getFluid("steam"), 1),
+                2
         );
 
-        recipeFluidGenerator = new recipes<>(
-                recipeType.FLUID,
-                recipeType.FLOAT,
-                Arrays.asList(
-                        new FluidStack(FluidRegistry.WATER, 1),
-                        new FluidStack(FluidRegistry.getFluid("steam"), 1)
-                ),
-                Arrays.asList(1.0f, 1.5f)
+        recipeFluidGenerator.addRecipe(
+                new FluidStack(FluidRegistry.WATER, 1),
+                1.0f,
+                0
+        );
+        recipeFluidGenerator.addRecipe(
+                new FluidStack(FluidRegistry.getFluid("steam"), 1),
+                1.5f,
+                0
         );
 
         //读取配置文件
@@ -54,15 +53,22 @@ public class recipeList {
      * <p>如果文件存在，则将文件转化为配方<tt>recipes</tt>。
      */
     @Nonnull
-    public static <Input, Output> recipes<Input, Output> readJson(String path, recipes<Input, Output> defaultRecipe) {
-        JsonArray jsonArray = readFileToJsonArray(path);
+    public static <Input, Output> Recipes<Input, Output> readJson(String path, Recipes<Input, Output> defaultRecipe) {
+        JsonObject jsonObject = readFileToJsonArray(path);
         // 如果文件不存在，则返回默认值
-        if (jsonArray == null) {
+        if (jsonObject == null) {
             saveRecipe(path, defaultRecipe);
             return defaultRecipe;
         }
-        recipes<Input, Output> newRecipes = new recipes<>(defaultRecipe.recipeTypeInput, defaultRecipe.recipeTypeOutput);
-        newRecipes.JsonToRecipe(jsonArray);
+        Recipes<Input, Output> newRecipes;
+        try {
+            newRecipes = new Recipes<>(defaultRecipe.inputRecipeType, defaultRecipe.outputRecipeType);
+            newRecipes.readRecipeJson(jsonObject);
+        } catch (Exception e) {
+            ConfigLoader.logger().error("无法读取文件：" + path, e);
+            throw new RuntimeException("无法读取文件：" + path, e);
+        }
+
         return newRecipes;
     }
 
@@ -72,40 +78,37 @@ public class recipeList {
      * @param path          文件的路径。
      * @param defaultRecipe 默认的配方。
      */
-    public static <Input, Output> void saveRecipe(String path, @Nonnull recipes<Input, Output> defaultRecipe) {
-        JsonArray jsonArray = defaultRecipe.recipeToJson();
-        saveJson(jsonArray, path);
+    public static <Input, Output> void saveRecipe(String path, @Nonnull Recipes<Input, Output> defaultRecipe) {
+        JsonObject jsonObject = defaultRecipe.getRecipeJson();
+        saveJson(jsonObject, path);
     }
 
     /**
      * 保存json到文件中。
      *
-     * @param jsonArray 要保存的json数组。
-     * @param path      保存json数组的文件路径。
+     * @param jsonObject 要保存的json数组。
+     * @param path       保存json数组的文件路径。
      */
-    public static void saveJson(JsonArray jsonArray, String path) {
-        saveJson(jsonArray, new File(path));
+    public static void saveJson(JsonObject jsonObject, String path) {
+        saveJson(jsonObject, new File(path));
     }
 
     /**
      * 保存json到文件中。
      *
-     * @param jsonArray 要保存的json数组。
-     * @param file      保存json数组的文件。
+     * @param jsonObject 要保存的json数组。
+     * @param file       保存json数组的文件。
      */
-    public static void saveJson(JsonArray jsonArray, @Nonnull File file) {
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void saveJson(JsonObject jsonObject, @Nonnull File file) {
         try {
-            // 创建文件所在的目录（如果不存在）
-            if (!file.getParentFile().exists() || !file.getParentFile().isDirectory()) {
-                file.getParentFile().mkdirs();
-            }
             // 创建文件（如果不存在）
             if (!file.exists()) {
                 file.createNewFile();
             }
             FileWriter writer = new FileWriter(file);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            gson.toJson(jsonArray, writer);
+            gson.toJson(jsonObject, writer);
             writer.close();
         } catch (IOException e) {
             ConfigLoader.logger().throwing(e);
@@ -118,21 +121,23 @@ public class recipeList {
      * <p>如果文件存在，则将文件转化为<tt>JsonArray</tt>。
      */
     @Nullable
-    private static JsonArray readFileToJsonArray(String filePath) {
+    private static JsonObject readFileToJsonArray(String filePath) {
         // 读取文件内容
         String content;
-        JsonArray jsonArray = null;
+        JsonObject jsonObject;
         InputStream in;
         try {
             in = FileUtils.openInputStream(new File(filePath));
             content = IOUtils.toString(in, Charsets.toCharset("UTF-8"));
-            jsonArray = new JsonParser().parse(content).getAsJsonArray();
-        } catch (FileNotFoundException ignored) {
+            jsonObject = new JsonParser().parse(content).getAsJsonObject();
+        } catch (FileNotFoundException e) {
+            jsonObject = null;
         } catch (Exception e) {
-            ConfigLoader.logger().throwing(e);
+            ConfigLoader.logger().error(filePath + " 文件读取出错", e);
+            throw new RuntimeException(filePath + " 文件读取出错", e);
         }
         // 解析JSON数组
-        return jsonArray;
+        return jsonObject;
     }
 
 }

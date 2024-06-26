@@ -1,18 +1,18 @@
 package com.xiaoxianben.watergenerators.gui.guiContainer;
 
-import com.xiaoxianben.watergenerators.tileEntity.TEMachineVaporization;
-import net.minecraft.inventory.Container;
+import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
+import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
 import net.minecraftforge.fluids.FluidTank;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiContainerMachineVa extends GuiContainerBasic {
+public class GuiMachineVa extends GuiEnergyBase {
 
     private final TEMachineVaporization tileEntity;
 
 
-    public GuiContainerMachineVa(Container Container, TEMachineVaporization tileEntity) {
+    public GuiMachineVa(ContainerBasic Container, TEMachineVaporization tileEntity) {
         super(Container, tileEntity, 3);
         this.tileEntity = tileEntity;
     }
@@ -28,7 +28,7 @@ public class GuiContainerMachineVa extends GuiContainerBasic {
 
 
     protected void drawAllGUIText() {
-        super.drawAllGUITextures();
+        super.drawAllGUIText();
     }
 
     protected void drawAllGUITextures() {
@@ -36,7 +36,6 @@ public class GuiContainerMachineVa extends GuiContainerBasic {
         if (tileEntity.open) {
             this.drawTexturedModalRect(this.guiLeft + 70, this.guiTop + 28, 196, 0, 36, 17);
         }
-        this.drawTexturedRectDownToUp(this.tileEntity.getEnergyStoredLong(), this.tileEntity.getMaxEnergyStoredLong(), 176, 7);
 
         this.drawFluid(tileEntity.getFluidTankInt(), 51, 14, 16, 58);
         this.drawFluid(tileEntity.getFluidTankOut(), 109, 14, 16, 58);

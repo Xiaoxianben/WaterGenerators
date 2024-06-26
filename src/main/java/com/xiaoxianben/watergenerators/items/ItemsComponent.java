@@ -1,8 +1,8 @@
-package com.xiaoxianben.watergenerators.items.component;
+package com.xiaoxianben.watergenerators.items;
 
 import com.xiaoxianben.watergenerators.api.IHasInit;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
-import com.xiaoxianben.watergenerators.items.ItemsMaterial;
+import com.xiaoxianben.watergenerators.items.component.ItemComponent;
 import net.minecraft.init.Items;
 
 public class ItemsComponent implements IHasInit {
@@ -20,8 +20,8 @@ public class ItemsComponent implements IHasInit {
 
     @Override
     public void initRecipes() {
-        ModRecipes.registerComponent(component_null, Items.AIR, null);
-        ModRecipes.registerComponent(component_extract, component_null, Items.BUCKET);
-        ModRecipes.registerComponent(component_powerGeneration, component_null, ItemsMaterial.turbineRotorEmerald);
+        ModRecipes.addRecipeComponent(component_null, Items.AIR, null);
+        ModRecipes.addRecipeComponent(component_extract, component_null, Items.BUCKET);
+        ModRecipes.addRecipeComponent(component_powerGeneration, component_null, ItemsMaterial.turbines[4]);
     }
 }

@@ -44,7 +44,7 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
             if (_level <= 8) {
                 return _level / 8.0f;
             }
-            return _level;
+            return _level / 10.0f;
         } else {
             return 0;
         }

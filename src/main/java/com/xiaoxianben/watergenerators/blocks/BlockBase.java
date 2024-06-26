@@ -1,11 +1,11 @@
 package com.xiaoxianben.watergenerators.blocks;
 
-import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.api.IHasItemNBT;
 import com.xiaoxianben.watergenerators.api.IHasModel;
-import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,27 +24,43 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Random;
 
 public class BlockBase extends Block implements IHasModel {
-    public BlockBase(String name, Material material, CreativeTabs tab) {
-        super(material);
+
+
+    public BlockBase(String name, Material materialIn, CreativeTabs tab, @Nullable SoundType soundType, LinkedHashSet<Block> linkedHashSet) {
+        super(materialIn);
         setUnlocalizedName(ModInformation.MOD_ID + '.' + name);
         setRegistryName(ModInformation.MOD_ID, name);
         this.setCreativeTab(tab);
 
-        Item itemBlock = new ItemBlock(this) {
-            @Nonnull
-            public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-                return this.getBlock().getLocalizedName().trim();
-            }
-        }.setRegistryName(Objects.requireNonNull(this.getRegistryName()));
+        this.setSoundType(soundType == null ? SoundType.METAL : soundType);
 
-        Main.BLOCKS.add(this);
-        Main.ITEMS.add(itemBlock);
+        this.setHardness(10.0F);
+        this.setHarvestLevel("pickaxe", 1);
+
+        linkedHashSet.add(this);
     }
+
+    public BlockBase(String name, Material materialIn, CreativeTabs tab, @Nullable SoundType soundType, Byte inx) {
+        this(name, materialIn, tab, soundType, Objects.requireNonNull(WaterGenerators.BLOCKS));
+        Objects.requireNonNull(inx);
+        Objects.requireNonNull(WaterGenerators.ITEMS).add(
+                new ItemBlock(this) {
+                    @Nonnull
+                    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
+                        return this.getBlock().getLocalizedName().trim();
+                    }
+                }.setRegistryName(Objects.requireNonNull(this.getRegistryName()))
+        );
+
+    }
+
 
     @SuppressWarnings("deprecation")
     @Nonnull
@@ -54,12 +70,26 @@ public class BlockBase extends Block implements IHasModel {
     }
 
     @Override
-    public int getLightValue(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+    public void harvestBlock(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, @Nonnull ItemStack stack) {
+        super.harvestBlock(world, player, pos, state, te, stack);
+        world.setBlockToAir(pos);
+    }
+
+    @ParametersAreNonnullByDefault
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof TEEnergyBasic) {
-            this.lightValue = ((TEEnergyBasic) tileEntity).getLightValue();
+        NBTTagCompound tagCompound = stack.getTagCompound();
+
+        if (tileEntity instanceof IHasItemNBT && tagCompound != null && tagCompound.hasKey("itemNBT")) {
+            ((IHasItemNBT) tileEntity).readItemNbt(Objects.requireNonNull(tagCompound).getCompoundTag("itemNBT"));
         }
-        return this.lightValue;
+    }
+
+    @ParametersAreNonnullByDefault
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        return willHarvest || super.removedByPlayer(state, world, pos, player, false);
     }
 
     @Override
@@ -67,8 +97,7 @@ public class BlockBase extends Block implements IHasModel {
         TileEntity tileEntity = world.getTileEntity(pos);
 
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
-        Item item = this.getItemDropped(state, rand, fortune);
-        ItemStack itemStack = new ItemStack(item, 1, 0);
+        ItemStack itemStack = new ItemStack(this.getItemDropped(state, rand, fortune), 1, 0);
 
         if (tileEntity instanceof IHasItemNBT) {
             NBTTagCompound NBT = new NBTTagCompound();
@@ -84,33 +113,9 @@ public class BlockBase extends Block implements IHasModel {
         drops.add(itemStack);
     }
 
-    @ParametersAreNonnullByDefault
-    @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-        return willHarvest || super.removedByPlayer(state, world, pos, player, false);
-    }
-
-    @Override
-    public void harvestBlock(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, @Nonnull ItemStack stack) {
-        super.harvestBlock(world, player, pos, state, te, stack);
-        world.setBlockToAir(pos);
-    }
-
-    @ParametersAreNonnullByDefault
-    @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof IHasItemNBT) {
-            NBTTagCompound tagCompound = stack.getTagCompound();
-            if (tagCompound != null) {
-                ((IHasItemNBT) tileEntity).readItemNbt(tagCompound.getCompoundTag("itemNBT"));
-            }
-        }
-    }
-
     @Override
     public void registerModels() {
-        Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+        WaterGenerators.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 
 }

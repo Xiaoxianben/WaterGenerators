@@ -4,14 +4,14 @@ import com.xiaoxianben.watergenerators.gui.container.ContainerGeneratorCreate;
 import com.xiaoxianben.watergenerators.gui.container.ContainerGeneratorFluid;
 import com.xiaoxianben.watergenerators.gui.container.ContainerGeneratorTurbine;
 import com.xiaoxianben.watergenerators.gui.container.ContainerMachineVa;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiContainerGeneratorCreate;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiContainerGeneratorFluid;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiContainerGeneratorTurbine;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiContainerMachineVa;
-import com.xiaoxianben.watergenerators.tileEntity.TEMachineVaporization;
+import com.xiaoxianben.watergenerators.gui.guiContainer.GuiGeneratorCreate;
+import com.xiaoxianben.watergenerators.gui.guiContainer.GuiGeneratorFluid;
+import com.xiaoxianben.watergenerators.gui.guiContainer.GuiGeneratorTurbine;
+import com.xiaoxianben.watergenerators.gui.guiContainer.GuiMachineVa;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorCreate;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorFluid;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorTurbine;
+import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -52,13 +52,13 @@ public class GUIHandler implements IGuiHandler {
         TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
         switch (ID) {
             case GUIFluidGenerator:
-                return new GuiContainerGeneratorFluid(new ContainerGeneratorFluid(player, tileEntity), (TEGeneratorFluid) tileEntity);
+                return new GuiGeneratorFluid(new ContainerGeneratorFluid(player, tileEntity), (TEGeneratorFluid) tileEntity);
             case GUITurbineGenerator:
-                return new GuiContainerGeneratorTurbine(new ContainerGeneratorTurbine(player, tileEntity), (TEGeneratorTurbine) tileEntity);
+                return new GuiGeneratorTurbine(new ContainerGeneratorTurbine(player, tileEntity), (TEGeneratorTurbine) tileEntity);
             case GUICreateGenerator:
-                return new GuiContainerGeneratorCreate(new ContainerGeneratorCreate(player, tileEntity), (TEGeneratorCreate) tileEntity);
+                return new GuiGeneratorCreate(new ContainerGeneratorCreate(player, tileEntity), (TEGeneratorCreate) tileEntity);
             case GUIMachineVa:
-                return new GuiContainerMachineVa(new ContainerMachineVa(player, tileEntity), (TEMachineVaporization) tileEntity);
+                return new GuiMachineVa(new ContainerMachineVa(player, tileEntity), (TEMachineVaporization) tileEntity);
             default:
                 return null;
         }

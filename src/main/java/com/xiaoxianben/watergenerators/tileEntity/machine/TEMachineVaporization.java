@@ -1,4 +1,4 @@
-package com.xiaoxianben.watergenerators.tileEntity;
+package com.xiaoxianben.watergenerators.tileEntity.machine;
 
 import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankBase;
 import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankFluidInput;
@@ -12,7 +12,6 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Random;
 
 public class TEMachineVaporization extends TEMachineBase {
 
@@ -25,12 +24,14 @@ public class TEMachineVaporization extends TEMachineBase {
      */
     protected FluidTankBase fluidTankOut;
 
+
+    @SuppressWarnings("unused")
     public TEMachineVaporization() {
-        this(Long.MAX_VALUE, 5);
+        this(5);
     }
 
-    public TEMachineVaporization(long capacity, float level) {
-        super(capacity, level);
+    public TEMachineVaporization(float level) {
+        super(level);
         fluidTankInt = new FluidTankFluidInput<>((int) (5000 * level), recipeList.recipeVaporization);
         fluidTankOut = new FluidTankBase((int) (5000 * level));
 
@@ -53,37 +54,40 @@ public class TEMachineVaporization extends TEMachineBase {
      * 运行机器
      */
     private void runMachine() {
-        FluidStack outFluid = this.getFluidTankOut().getFluid();
 
         FluidStack outputFluidStack = this.getFluidTankInt().getRecipeOutput();
+        FluidStack inputFluidStack = this.getFluidTankInt().getRecipeFluidInput();
 
-        FluidStack tryDrainFluidStack = this.getFluidTankInt().drainInternal(this.getFluidTankInt().getInputCount(), false);
-        boolean canFill = outFluid == null || outFluid.amount < this.getFluidTankOut().getCapacity();
-        boolean hasEnoughEnergy = false;
-        if (outputFluidStack != null) {
-            hasEnoughEnergy = this.getEnergyStored() >= 2 * outputFluidStack.amount;
-        }
+        open = true;
+        this.modifyEnergyStored(recipeList.recipeVaporization.getEnergyDeplete(inputFluidStack));
+        this.getFluidTankOut().fillInternal(outputFluidStack.copy(), true);
+        this.getFluidTankInt().drainInternal(inputFluidStack.copy(), true);
+    }
 
-        // 判断容器是否可以运行
-        if (tryDrainFluidStack != null && canFill && hasEnoughEnergy) {
-            open = true;
-            this.modifyEnergyStored(-2L * outputFluidStack.amount);
-            this.getFluidTankOut().fillInternal(outputFluidStack.copy(), true);
-            this.getFluidTankInt().drainInternal(this.getFluidTankInt().getInputCount(), true);
-        } else
-            open = false;
+    private boolean canRunMachine() {
+        if (this.getFluidTankInt().getRecipeOutput() == null) return false;
+        FluidStack inputFluidStack = this.getFluidTankInt().getRecipeFluidInput();
+        if (this.getFluidTankInt().drainInternal(inputFluidStack.copy(), false) == null) return false;
+
+        FluidStack outFluid = this.getFluidTankOut().getFluid();
+        return outFluid == null || outFluid.amount < this.getFluidTankOut().getCapacity() || this.getEnergyStored() >= recipeList.recipeVaporization.getEnergyDeplete(inputFluidStack.copy());
     }
 
     @Override
-    protected void updateState() {
+    public void updateStateInSever() {
         // 这段代码用于计算tempNumber的值，是否有小数部分。
         int tempNumber = ((int) (this.level * 10)) - ((int) this.level) * 10;
 
-        Random random = new Random();
-        int number = random.nextInt(tempNumber / 5 + 1);
+        int number = this.getWorld().rand.nextInt(tempNumber > 0 ? 2 : 1);
 
         for (int i = 0; i < ((int) this.getLevel()) + number; i++) {
-            this.runMachine();
+            if (this.canRunMachine()) {
+                this.open = true;
+                this.runMachine();
+            } else {
+                this.open = false;
+                break;
+            }
         }
     }
 

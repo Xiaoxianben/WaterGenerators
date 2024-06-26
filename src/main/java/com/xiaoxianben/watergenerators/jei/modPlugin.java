@@ -6,7 +6,7 @@ import com.xiaoxianben.watergenerators.jei.advancedGuiHandlers.GeneratorAdvanced
 import com.xiaoxianben.watergenerators.jei.recipeCategory.vaporizationRecipeCategory;
 import com.xiaoxianben.watergenerators.jei.wrapper.steamWrapper;
 import com.xiaoxianben.watergenerators.otherModsItems.EnderIOInit;
-import com.xiaoxianben.watergenerators.otherModsItems.TFBlocks;
+import com.xiaoxianben.watergenerators.otherModsItems.TFInit;
 import com.xiaoxianben.watergenerators.recipe.recipeList;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModPlugin;
@@ -36,8 +36,8 @@ public class modPlugin implements IModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registration) {
-        vaporizationList.addAll(Arrays.asList(BlocksMachine.blockMachineVaporizations));
-        vaporizationList.addAll(Arrays.asList(TFBlocks.machineVaporization));
+        vaporizationList.addAll(Arrays.asList(BlocksMachine.machineVaporizations));
+        vaporizationList.addAll(Arrays.asList(TFInit.TF_machineVaporization));
         vaporizationList.addAll(Arrays.asList(EnderIOInit.enderIO_machineVaporization));
         for (BlockMachineVaporization vaporization : vaporizationList) {
             if (vaporization != null)

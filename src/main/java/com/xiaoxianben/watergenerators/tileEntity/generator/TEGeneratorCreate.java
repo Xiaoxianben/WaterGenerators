@@ -10,8 +10,8 @@ public class TEGeneratorCreate extends TEGeneratorBase {
     }
 
     public TEGeneratorCreate(long basePowerGeneration) {
-        super(basePowerGeneration, 999);
-        this.itemComponentHandler = new ItemComponentHandler(level, null);
+        super(basePowerGeneration, 92.5f);
+        this.itemComponentHandler = new ItemComponentHandler(null);
     }
 
     @Override

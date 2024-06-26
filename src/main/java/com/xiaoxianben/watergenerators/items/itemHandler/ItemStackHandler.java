@@ -8,25 +8,22 @@ import net.minecraftforge.common.util.Constants;
 import javax.annotation.Nonnull;
 
 public class ItemStackHandler extends net.minecraftforge.items.ItemStackHandler {
-    public float level;
 
     /**
-     * @param size  槽位数量
-     * @param level 等级, 必须 >= 1
+     * @param size 槽位数量
      */
-    public ItemStackHandler(int size, float level) {
+    public ItemStackHandler(int size) {
         super(size);
-        this.level = level;
     }
 
-    @Override
-    public int getSlotLimit(int slot) {
-        return (int) (64 * this.level);
-    }
-
-    protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
-        return Math.min(getSlotLimit(slot), Integer.MAX_VALUE);
-    }
+//    @Override
+//    public int getSlotLimit(int slot) {
+//        return (int) (64 * this.level);
+//    }
+//
+//    protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+//        return Math.min(getSlotLimit(slot), Integer.MAX_VALUE);
+//    }
 
     @Override
     @Nonnull

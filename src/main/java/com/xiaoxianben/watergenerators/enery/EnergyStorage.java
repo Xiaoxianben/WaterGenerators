@@ -23,6 +23,10 @@ public class EnergyStorage implements IEnergyStorage {
         this.maxExtract = maxExtract;
     }
 
+    public EnergyStorage(long capacity, boolean canReceive, boolean canExtract) {
+        this(capacity, canReceive ? capacity : 0, canExtract ? capacity : 0);
+    }
+
 
     public EnergyStorage setCapacity(int capacity) {
         this.capacity = capacity;

@@ -1,9 +1,11 @@
 package com.xiaoxianben.watergenerators.init;
 
+import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.api.IHasInit;
+import com.xiaoxianben.watergenerators.api.IModInit;
 import com.xiaoxianben.watergenerators.items.ItemBase;
+import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
-import com.xiaoxianben.watergenerators.items.component.ItemsComponent;
 import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,13 +26,24 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 
-public class ModItems {
-    /**
-     * init列表
-     */
-    public static List<IHasInit> initList = new ArrayList<>();
+public class ModItems implements IModInit {
+
+
+    @Nullable
+    public static LinkedHashSet<Item> allGear = new LinkedHashSet<>();
+    @Nullable
+    public static LinkedHashSet<Item> allCoil = new LinkedHashSet<>();
+    @Nullable
+    public static LinkedHashSet<Item> allConduit = new LinkedHashSet<>();
+    @Nullable
+    public static LinkedHashSet<Item> allTurbineRotor = new LinkedHashSet<>();
+    @Nullable
+    public static LinkedHashSet<Item> allComponent = new LinkedHashSet<>();
+
 
     /**
      * 镀金铁锭
@@ -49,11 +62,22 @@ public class ModItems {
      */
     public static Item information_finder;
 
-    public static void preInit() {
+    /**
+     * init列表
+     */
+    public List<IHasInit> initList = new ArrayList<>();
+
+    public void preInit() {
         GOLD_PLATED_IRON_INGOT = new ItemBase("ingot_goldPlatedIron");
         ductShell_bank = new ItemBase("ductShell_1");
         ductShell = new ItemBase("ductShell_0");
         information_finder = new ItemBase("information_finder") {
+            @ParametersAreNonnullByDefault
+            @SideOnly(Side.CLIENT)
+            public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+                tooltip.add("用于查看机器的NBT");
+            }
+
             @ParametersAreNonnullByDefault
             @Nonnull
             public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
@@ -65,29 +89,36 @@ public class ModItems {
 
                 return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
             }
-
-            @ParametersAreNonnullByDefault
-            @SideOnly(Side.CLIENT)
-            public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-                tooltip.add("用于查看机器的NBT");
-            }
         }.setMaxStackSize(1);
 
-        ItemsMaterial material = new ItemsMaterial();
-        ItemsComponent component = new ItemsComponent();
 
-        initList.add(material);
-        initList.add(component);
+        initList.add(new ItemsMaterial());
+        initList.add(new ItemsComponent());
 
         for (IHasInit init : initList) {
             init.init();
         }
+
     }
 
-    public static void init() {
+    public void init() {
+        allGear = null;
+        allCoil = null;
+        allConduit = null;
+        allTurbineRotor = null;
+        allComponent = null;
+
         for (IHasInit init : initList) {
             init.initRecipes();
         }
     }
 
+    public static void addItems() {
+        Objects.requireNonNull(WaterGenerators.ITEMS);
+        WaterGenerators.ITEMS.addAll(Objects.requireNonNull(allGear));
+        WaterGenerators.ITEMS.addAll(Objects.requireNonNull(allCoil));
+        WaterGenerators.ITEMS.addAll(Objects.requireNonNull(allConduit));
+        WaterGenerators.ITEMS.addAll(Objects.requireNonNull(allTurbineRotor));
+        WaterGenerators.ITEMS.addAll(Objects.requireNonNull(allComponent));
+    }
 }

@@ -1,9 +1,10 @@
 package com.xiaoxianben.watergenerators.blocks.machine;
 
+import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.gui.GUIHandler;
-import com.xiaoxianben.watergenerators.Main;
+import com.xiaoxianben.watergenerators.init.ModBlocks;
 import com.xiaoxianben.watergenerators.init.ModItems;
-import com.xiaoxianben.watergenerators.tileEntity.TEMachineVaporization;
+import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -20,9 +21,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
 public class BlockMachineVaporization extends BlockMachineBase {
-    public BlockMachineVaporization(String levelName, float level) {
-        super("machine_vaporization", levelName, level, (long) (level * 4000L));
+
+
+    public BlockMachineVaporization(float level, String levelName) {
+        super("machine_vaporization", levelName, level, ModBlocks.allMachineVaporization);
     }
+
 
     @ParametersAreNonnullByDefault
     @Override
@@ -36,7 +40,7 @@ public class BlockMachineVaporization extends BlockMachineBase {
             if (!isFillFluid) {
                 if (playerIn.getHeldItem(hand).getItem() != ModItems.information_finder) {
                     int ID = GUIHandler.GUIMachineVa;
-                    playerIn.openGui(Main.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                    playerIn.openGui(WaterGenerators.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
                     return true;
                 }
                 return false;
@@ -49,7 +53,7 @@ public class BlockMachineVaporization extends BlockMachineBase {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEMachineVaporization(this.getCapacity(), this.getLevel());
+        return new TEMachineVaporization(this.getLevel());
     }
 
 }

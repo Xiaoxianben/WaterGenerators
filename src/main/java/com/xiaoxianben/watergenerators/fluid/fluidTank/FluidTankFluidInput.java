@@ -1,71 +1,38 @@
 package com.xiaoxianben.watergenerators.fluid.fluidTank;
 
-import com.xiaoxianben.watergenerators.recipe.recipes;
-import net.minecraftforge.fluids.Fluid;
+import com.xiaoxianben.watergenerators.recipe.Recipes;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FluidTankFluidInput<Input extends FluidStack, Output extends FluidStack> extends FluidTankBase {
-    public recipes<Input, Output> recipeList;
-    public List<Fluid> canInputFluids;
-    public List<Output> canOutputFluids;
+    public Recipes<Input, Output> recipeList;
 
-    public FluidTankFluidInput(int capacity, recipes<Input, Output> recipeList) {
+    public FluidTankFluidInput(int capacity, Recipes<Input, Output> recipeList) {
         super(capacity);
         this.recipeList = recipeList;
-        this.canInputFluids = this.getCanInputFluids(recipeList);
-        this.canOutputFluids = this.getCanOutputFluids(recipeList);
     }
 
     public boolean canFillFluidType(FluidStack fluid) {
-        return this.canInputFluids.contains(fluid.getFluid());
+        return this.getInputFluid(fluid) != null;
     }
 
-    private List<Fluid> getCanInputFluids(recipes<Input, Output> recipeList) {
-        List<Fluid> fluids = new ArrayList<>();
 
-        for (Input recipe : recipeList.getInput()) {
-            Fluid fluidss = recipe.getFluid();
-            fluids.add(fluidss);
-        }
-
-        return fluids;
+    protected FluidStack getInputFluid(FluidStack fluid) {
+        return this.recipeList.getInputs().stream().filter(fluid::containsFluid).findFirst().orElse(null);
     }
 
-    private List<Output> getCanOutputFluids(recipes<Input, Output> recipeList) {
-        return new ArrayList<>(recipeList.getOutput());
-    }
-
-    public int getInputCount() {
-        if (this.getFluid() == null) {
-            return 0;
-        }
-        Fluid inputRecipe = this.canInputFluids.stream()
-                .filter(fluid -> fluid == this.getFluid().getFluid())
-                .findFirst()
-                .orElse(null);
-        if (inputRecipe != null) {
-            return this.recipeList
-                    .getInput()
-                    .get(this.canInputFluids.indexOf(inputRecipe))
-                    .amount;
-        }
-        return 0;
+    @Nullable
+    public FluidStack getRecipeFluidInput() {
+        if (this.getFluid() == null) return null;
+        return this.getInputFluid(this.getFluid());
     }
 
     @Nullable
     public Output getRecipeOutput() {
-        FluidStack input = this.getFluid();
+        if (this.getRecipeFluidInput() == null) return null;
+        FluidStack input = getRecipeFluidInput();
+        return this.recipeList.getOutput((Input) input);
 
-        int var = -1;
-        if (input != null) {
-            var = this.canInputFluids.indexOf(input.getFluid());
-        }
-
-        if (var == -1) return null;
-        return this.canOutputFluids.get(var);
     }
 }

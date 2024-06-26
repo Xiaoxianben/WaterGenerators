@@ -1,6 +1,6 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
-import com.xiaoxianben.watergenerators.items.component.ItemsComponent;
+import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.itemHandler.ItemComponentHandler;
 import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,8 +11,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.math.BigDecimal;
 
-public class TEGeneratorBase extends TEEnergyBasic {
+public abstract class TEGeneratorBase extends TEEnergyBasic {
     /**
      * 发电机等级
      */
@@ -28,20 +29,16 @@ public class TEGeneratorBase extends TEEnergyBasic {
      * 不接受能量，只传输能量
      */
     public TEGeneratorBase(long basePowerGeneration, float level) {
-        super(basePowerGeneration * 500, 0, Integer.MAX_VALUE);
+        super(new BigDecimal(basePowerGeneration).multiply(BigDecimal.valueOf(650L)).longValue(), true);
 
         this.basePowerGeneration = basePowerGeneration;
         this.level = level;
-        this.itemComponentHandler = new ItemComponentHandler(level, ItemComponentHandler.canPutItem_generator);
+        this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_generator);
     }
 
 
     public long getRealPowerGeneration() {
         return this.basePowerGeneration * (this.itemComponentHandler.getComponentCount(ItemsComponent.component_powerGeneration) + 1);
-    }
-
-    protected long updateEnergy() {
-        return modifyEnergyStored((long) (this.basePowerGeneration * this.level));
     }
 
 
@@ -58,6 +55,15 @@ public class TEGeneratorBase extends TEEnergyBasic {
 
 
     // NBT
+    @Override
+    public void readFromNBT(@Nonnull NBTTagCompound NBT) {
+        NBTTagCompound nbtGenerator = NBT.getCompoundTag("Attribute");
+        this.basePowerGeneration = nbtGenerator.getLong("basePowerGeneration");
+        this.level = nbtGenerator.getFloat("level");
+
+        super.readFromNBT(NBT);
+    }
+
     @Nonnull
     @Override
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
@@ -69,15 +75,6 @@ public class TEGeneratorBase extends TEEnergyBasic {
         nbtTagCompound.setTag("Attribute", nbtGenerator);
 
         return nbtTagCompound;
-    }
-
-    @Override
-    public void readFromNBT(@Nonnull NBTTagCompound NBT) {
-        NBTTagCompound nbtGenerator = NBT.getCompoundTag("Attribute");
-        this.basePowerGeneration = nbtGenerator.getLong("basePowerGeneration");
-        this.level = nbtGenerator.getFloat("level");
-
-        super.readFromNBT(NBT);
     }
 
     @Override
@@ -94,22 +91,20 @@ public class TEGeneratorBase extends TEEnergyBasic {
         super.readCapabilityNBT(NBT);
 
         itemComponentHandler.deserializeNBT(NBT.getCompoundTag("ItemHandler"));
-        this.itemComponentHandler.level = this.level;
-        this.updateState();
     }
 
     @Override
-    public void updateNBT(NBTTagCompound NBT) {
-        this.finallyReceiveEnergy = NBT.getLong("finallyReceiveEnergy");
-        this.finallyExtractEnergy = NBT.getLong("finallyExtractEnergy");
-    }
-
-    @Override
-    public NBTTagCompound getUpdateNBT() {
+    public NBTTagCompound getNetworkUpdateNBT() {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         nbtTagCompound.setLong("finallyReceiveEnergy", this.finallyReceiveEnergy);
-        nbtTagCompound.setLong("finallyExtractEnergy", this.getFinallyExtractEnergy());
+        nbtTagCompound.setLong("finallyExtractEnergy", this.getFinallyExtractEnergyP());
         return nbtTagCompound;
+    }
+
+    @Override
+    public void readNetworkUpdateNBT(NBTTagCompound NBT) {
+        this.finallyReceiveEnergy = NBT.getLong("finallyReceiveEnergy");
+        this.finallyExtractEnergy = NBT.getLong("finallyExtractEnergy");
     }
 
 }
