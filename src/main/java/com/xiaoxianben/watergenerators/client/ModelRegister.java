@@ -19,12 +19,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
-@Mod.EventBusSubscriber(
-        modid = ModInformation.MOD_ID,
-        value = Side.CLIENT
-)
+@SideOnly(Side.CLIENT)
 public class ModelRegister {
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
         ModelLoader.setCustomStateMapper(Fluids.steam.getBlock(), new StateMapperBase() {

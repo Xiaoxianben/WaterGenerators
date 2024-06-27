@@ -1,6 +1,5 @@
 package com.xiaoxianben.watergenerators.client;
 
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,7 +13,6 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,16 +26,14 @@ import javax.annotation.Nullable;
  * <p>
  * 感谢 SleepyTrousers团队 的 EnderCore 的 开源的代码
  */
-@Mod.EventBusSubscriber(
-        modid = ModInformation.MOD_ID,
-        value = Side.CLIENT
-)
+@SideOnly(Side.CLIENT)
 public class RenderFluid {
 
     public static final @Nonnull ResourceLocation BLOCK_TEX = TextureMap.LOCATION_BLOCKS_TEXTURE;
     public static TextureMap fluidTextures = null;
 
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onStitch(TextureStitchEvent.Pre event) {
         fluidTextures = event.getMap();
