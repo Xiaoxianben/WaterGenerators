@@ -1,10 +1,10 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
 import com.xiaoxianben.watergenerators.config.ConfigValue;
-import com.xiaoxianben.watergenerators.enery.EnergyLiquid;
-import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankGenerator;
+import com.xiaoxianben.watergenerators.fluids.fluidTank.FluidTankGenerator;
 import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.itemHandler.ItemComponentHandler;
+import com.xiaoxianben.watergenerators.recipe.RecipeList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -14,8 +14,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 public class TEGeneratorFluid extends TEGeneratorBase {
 
@@ -31,14 +29,19 @@ public class TEGeneratorFluid extends TEGeneratorBase {
 
     @SuppressWarnings("unused")
     public TEGeneratorFluid() {
-        this(0, 999);
+        this(Long.MAX_VALUE);
     }
 
-    public TEGeneratorFluid(long basePowerGeneration, float level) {
-        super(basePowerGeneration, level);
+    public TEGeneratorFluid(long basePowerGeneration) {
+        super(basePowerGeneration);
+        this.init();
+    }
 
-        this.fluidTank = new FluidTankGenerator(new BigDecimal(65 * basicAmountOfFluidToProduceEnergy).intValue(), new ArrayList<>(EnergyLiquid.liquidEnergy.keySet()));
+
+    public void init() {
+        this.fluidTank = new FluidTankGenerator(65 * basicAmountOfFluidToProduceEnergy, RecipeList.recipeFluidGenerator.getInputs());
         this.fluidTank.setCanDrain(false);
+
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_fluidGenerator);
     }
 
@@ -60,9 +63,9 @@ public class TEGeneratorFluid extends TEGeneratorBase {
     /**
      * 获取当前的流体倍率
      */
-    public float getFluidMagnification() {
+    public float getEnergyMagnification() {
         if (this.fluidTank.getFluid() != null) {
-            return EnergyLiquid.getEnergyFromLiquid(this.fluidTank.getFluid().getFluid());
+            return RecipeList.recipeFluidGenerator.getOutput(this.fluidTank.getFluid().getFluid());
         }
         return 0.0f;
     }
@@ -73,7 +76,7 @@ public class TEGeneratorFluid extends TEGeneratorBase {
         long receiveEnergy = 0;
         FluidStack fluid = this.fluidTank.getFluid();
         if (this.getEnergyStoredLong() < this.getMaxEnergyStoredLong() && fluid != null && fluid.amount >= this.basicAmountOfFluidToProduceEnergy) {
-            long realPowerGeneration = (long) (this.getRealPowerGeneration() * this.getFluidMagnification());
+            long realPowerGeneration = (long) (this.getRealPowerGeneration() * this.getEnergyMagnification());
 
             int theAmountOfFluidRequired = (int) (Math.max((this.getMaxEnergyStoredLong() - this.getEnergyStoredLong()) / realPowerGeneration, 1) * this.basicAmountOfFluidToProduceEnergy);
             int canDrainAmount = Math.min(fluid.amount / this.basicAmountOfFluidToProduceEnergy * this.basicAmountOfFluidToProduceEnergy, this.maxFluidDrain);
@@ -87,7 +90,6 @@ public class TEGeneratorFluid extends TEGeneratorBase {
                 receiveEnergy = (fluidStack.amount / this.basicAmountOfFluidToProduceEnergy) * realPowerGeneration;
             }
 
-            receiveEnergy = Math.max(1, receiveEnergy);
         }
         return this.modifyEnergyStored(receiveEnergy);
     }
@@ -95,23 +97,14 @@ public class TEGeneratorFluid extends TEGeneratorBase {
 
     @Override
     public void updateStateInSever() {
-        this.maxFluidDrain = (this.itemComponentHandler.getComponentCount(ItemsComponent.component_extract) + 1) * this.basicAmountOfFluidToProduceEnergy;
-        super.updateStateInSever();
-    }
-
-
-    // 注入Capability
-    @ParametersAreNonnullByDefault
-    @Nullable
-    @Override
-    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(fluidTank);
-
-        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemComponentHandler);
+        int extractCount = (this.itemComponentHandler.getComponentCount(ItemsComponent.component_extract) + 1);
+        this.maxFluidDrain = extractCount * this.basicAmountOfFluidToProduceEnergy;
+        if (this.getEnergyMagnification() > 0.0f) {
+            this.energyStorage.setCapacity((long) (this.getRealPowerGeneration() * this.getEnergyMagnification() * extractCount) * 2);
+        } else {
+            this.energyStorage.setCapacity(this.getRealPowerGeneration() * extractCount * 2);
         }
-        return super.getCapability(capability, facing);
+        super.updateStateInSever();
     }
 
     // NBT
@@ -131,6 +124,20 @@ public class TEGeneratorFluid extends TEGeneratorBase {
         if (fluidStack != null && this.fluidTank.canFillFluidType(fluidStack)) {
             this.fluidTank.setFluid(FluidStack.loadFluidStackFromNBT(NBT));
         }
+    }
+
+    // 注入Capability
+    @ParametersAreNonnullByDefault
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(fluidTank);
+
+        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemComponentHandler);
+        }
+        return super.getCapability(capability, facing);
     }
 
     @Override

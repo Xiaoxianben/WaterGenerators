@@ -32,11 +32,11 @@ item.watergenerators-coil_signalum.name=signalum coil
 item.watergenerators-coil_enderium.name=enderium coil
 
 # ## turbine_rotor
-item.watergenerators-turbine_rotor_iron.name=iron turbine rotor
-item.watergenerators-turbine_rotor_goldPlated.name=goldPlated turbine rotor
-item.watergenerators-turbine_rotor_diamond.name=diamond turbine rotor
-item.watergenerators-turbine_rotor_obsidian.name=obsidian turbine rotor
-item.watergenerators-turbine_rotor_emerald.name=emerald turbine rotor
+item.watergenerators-turbine_rotor_level1.name=iron turbine rotor
+item.watergenerators-turbine_rotor_level2.name=goldPlated turbine rotor
+item.watergenerators-turbine_rotor_level3.name=diamond turbine rotor
+item.watergenerators-turbine_rotor_level4.name=obsidian turbine rotor
+item.watergenerators-turbine_rotor_level5.name=emerald turbine rotor
 
 item.watergenerators-turbine_rotor_steel.name=steel turbine rotor
 item.watergenerators-turbine_rotor_invar.name=invar turbine rotor
@@ -49,6 +49,11 @@ item.watergenerators-turbine_rotor_darksteel.name=dark steel turbine rotor
 item.watergenerators-turbine_rotor_endsteel.name=end steel turbine rotor
 item.watergenerators-turbine_rotor_melodicalloy.name=melodic alloy turbine rotor
 item.watergenerators-turbine_rotor_stellaralloy.name=stellar alloy turbine rotor
+
+item.watergenerators-turbine_rotor_basic.name=basic turbine rotor
+item.watergenerators-turbine_rotor_advanced.name=advanced turbine rotor
+item.watergenerators-turbine_rotor_elite.name=elite turbine rotor
+item.watergenerators-turbine_rotor_ultimate.name=ultimate turbine rotor
 
 # ## ductCoil
 item.watergenerators-conduit_iron.name=iron conduit
@@ -80,7 +85,7 @@ item.watergenerators-component_powerGeneration.tooltip=Increase the base power g
 
 # ###### block/tile
 tile.watergenerators-block_goldPlatedIron.name=gold plated iron block
-tile.watergenerators-machineShell_frame.name=machine shell frame
+tile.watergenerators-machineshell_frame.name=machine shell frame
 
 tile.watergenerators-steam.name=steam
 fluid.steam=steam
@@ -133,8 +138,14 @@ level.electrum.name=electrum
 level.signalum.name=signalum
 level.enderium.name=enderium
 
+level.basic.name=basic
+level.advanced.name=advanced
+level.elite.name=elite
+level.ultimate.name=ultimate
+
 # Gui
 gui.basePowerGeneration.text=base power generation: %dFE
 gui.energyIncreaseDecrease.text=Energy increase/decrease: %dFE/t|%dFE/t
-gui.fluidBV.text=fluid magnification: %d
+gui.fluidMagnification.text=fluid magnification: %d
+gui.baseFluidAmount.text=base fluid amount: %d
 gui.fluidHeight.text=fluid height: %dm

@@ -2,11 +2,11 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "front": "watergenerators:blocks/machine/water_generator/melodicalloy",
-            "top": "watergenerators:blocks/machine/top/melodicalloy",
-            "side": "watergenerators:blocks/machine/side/melodicalloy"
+            "front": "watergenerators:blocks/water_generator/melodicalloy",
+            "top": "watergenerators:blocks/machineshell/melodicalloy/top",
+            "side": "watergenerators:blocks/machineshell/melodicalloy/side"
         },
-        "model": "watergenerators:generator_water"
+        "model": "orientable"
     },
     "variants": {
         "normal": [

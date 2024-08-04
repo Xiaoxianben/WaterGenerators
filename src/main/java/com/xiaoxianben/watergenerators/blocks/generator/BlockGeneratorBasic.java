@@ -47,6 +47,13 @@ public class BlockGeneratorBasic extends BlockBase implements ITileEntityProvide
         return I18n.format("level." + this.levelName + ".name");
     }
 
+    // 方块右击事件
+    @ParametersAreNonnullByDefault
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return worldIn.isRemote;
+    }
+
     @Nonnull
     public String getLocalizedName() {
         return I18n.format(this.getUnlocalizedName() + ".name") + "-" + this.getLevelName();
@@ -55,13 +62,6 @@ public class BlockGeneratorBasic extends BlockBase implements ITileEntityProvide
     @Nonnull
     public String getUnlocalizedName() {
         return "tile." + ModInformation.MOD_ID + "-" + this.type;
-    }
-
-    // 方块右击事件
-    @ParametersAreNonnullByDefault
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        return false;
     }
 
     @ParametersAreNonnullByDefault

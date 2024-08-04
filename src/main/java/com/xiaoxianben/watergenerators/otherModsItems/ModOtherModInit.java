@@ -20,10 +20,11 @@ public class ModOtherModInit implements IModInit {
 
     public void preInit() {
 
-        boolean[] aBooleans = new boolean[2];
+        boolean[] aBooleans = new boolean[3];
 
         aBooleans[0] = Loader.isModLoaded("thermalfoundation");
         aBooleans[1] = Loader.isModLoaded("enderio");
+        aBooleans[2] = Loader.isModLoaded("mekanism");
 
         if (aBooleans[0]) {
             TFInit TFInit = new TFInit();
@@ -39,6 +40,13 @@ public class ModOtherModInit implements IModInit {
 
         } else ConfigLoader.logger().info("The enderio extension is not loaded");
 
+        if (aBooleans[2]) {
+            MekInit mekInit = new MekInit();
+            OtherModInit.add(mekInit);
+            ConfigLoader.logger().info("The mekanism extension have loaded");
+
+        } else ConfigLoader.logger().info("The mekanism extension is not loaded");
+
         OtherModInit.forEach(othermod -> {
             othermod.initBlocks();
             othermod.initItems();
@@ -53,6 +61,8 @@ public class ModOtherModInit implements IModInit {
             othermod.initOre();
             othermod.initRecipes();
         });
+
+        OtherModInit.clear();
 
     }
 

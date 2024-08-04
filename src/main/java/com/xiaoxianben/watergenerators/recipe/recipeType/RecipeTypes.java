@@ -1,38 +1,37 @@
 package com.xiaoxianben.watergenerators.recipe.recipeType;
 
 import com.google.gson.JsonObject;
-import com.xiaoxianben.watergenerators.recipe.ItemOrFluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import javax.lang.model.type.NullType;
 import java.util.Objects;
 
 public class RecipeTypes {
 
-    public static final IRecipeType<NullType> recipe_null = new IRecipeType<NullType>() {
-        @Override
-        public Class<NullType> getClassType() {
-            return NullType.class;
-        }
-
-        @Override
-        public JsonObject getRecipeJson(NullType nullType) {
-            JsonObject json = new JsonObject();
-
-            json.addProperty("name", "null");
-
-            return json;
-        }
-
-        @Override
-        public NullType getRecipe(JsonObject json) {
-            return null;
-        }
-    };
-    public static final IRecipeType<ItemStack> recipe_item = new IRecipeType<ItemStack>() {
+    //    public static final IRecipeType<NullType> recipe_null = new IRecipeType<NullType>() {
+//        @Override
+//        public Class<NullType> getClassType() {
+//            return NullType.class;
+//        }
+//
+//        @Override
+//        public JsonObject getRecipeJson(NullType nullType) {
+//            JsonObject json = new JsonObject();
+//
+//            json.addProperty("name", "null");
+//
+//            return json;
+//        }
+//
+//        @Override
+//        public NullType getRecipe(JsonObject json) {
+//            return null;
+//        }
+//    };
+    public static final IRecipeType<ItemStack> recipe_itemStack = new IRecipeType<ItemStack>() {
         @Override
         public Class<ItemStack> getClassType() {
             return ItemStack.class;
@@ -56,7 +55,7 @@ public class RecipeTypes {
             return new ItemStack(Objects.requireNonNull(Item.getByNameOrId(json.get("name").getAsString())), json.get("count").getAsInt());
         }
     };
-    public static final IRecipeType<FluidStack> recipe_fluid = new IRecipeType<FluidStack>() {
+    public static final IRecipeType<FluidStack> recipe_fluidStack = new IRecipeType<FluidStack>() {
         @Override
         public Class<FluidStack> getClassType() {
             return FluidStack.class;
@@ -79,32 +78,54 @@ public class RecipeTypes {
             return new FluidStack(FluidRegistry.getFluid(json.get("name").getAsString()), json.get("count").getAsInt());
         }
     };
-    public static final IRecipeType<ItemOrFluid> recipe_itemOrFluid = new IRecipeType<ItemOrFluid>() {
+    public static final IRecipeType<Fluid> recipe_fluid = new IRecipeType<Fluid>() {
         @Override
-        public Class<ItemOrFluid> getClassType() {
-            return ItemOrFluid.class;
+        public Class<Fluid> getClassType() {
+            return Fluid.class;
         }
 
         @Override
-        public JsonObject getRecipeJson(ItemOrFluid itemOrFluid) {
-            JsonObject json;
+        public JsonObject getRecipeJson(Fluid fluid) {
+            JsonObject json = new JsonObject();
 
-            if (itemOrFluid.get() instanceof ItemStack) {
-                json = recipe_item.getRecipeJson((ItemStack) itemOrFluid.get());
-            } else {
-                json = recipe_fluid.getRecipeJson((FluidStack) itemOrFluid.get());
-            }
+            String name = Objects.requireNonNull(fluid.getName());
+
+            json.addProperty("name", name);
 
             return json;
         }
 
         @Override
-        public ItemOrFluid getRecipe(JsonObject json) {
-            return new ItemOrFluid(json.get("name").getAsString(), json.get("count").getAsInt());
+        public Fluid getRecipe(JsonObject json) {
+            return FluidRegistry.getFluid(json.get("name").getAsString());
         }
     };
-    public static final IRecipeType<Integer> recipe_energy = new RecipeInt("energy");
-    public static final IRecipeType<Integer> recipe_level = new RecipeInt("level");
+    //    public static final IRecipeType<ItemOrFluid> recipe_itemOrFluid = new IRecipeType<ItemOrFluid>() {
+//        @Override
+//        public Class<ItemOrFluid> getClassType() {
+//            return ItemOrFluid.class;
+//        }
+//
+//        @Override
+//        public JsonObject getRecipeJson(ItemOrFluid itemOrFluid) {
+//            JsonObject json;
+//
+//            if (itemOrFluid.get() instanceof ItemStack) {
+//                json = recipe_itemStack.getRecipeJson((ItemStack) itemOrFluid.get());
+//            } else {
+//                json = recipe_fluidStack.getRecipeJson((FluidStack) itemOrFluid.get());
+//            }
+//
+//            return json;
+//        }
+//
+//        @Override
+//        public ItemOrFluid getRecipe(JsonObject json) {
+//            return new ItemOrFluid(json.get("name").getAsString(), json.get("count").getAsInt());
+//        }
+//    };
+//    public static final IRecipeType<Integer> recipe_energy = new RecipeInt("energy");
+//    public static final IRecipeType<Integer> recipe_level = new RecipeInt("level");
     public static final IRecipeType<Float> recipe_float = new RecipeFloat("multiplier");
 
 }

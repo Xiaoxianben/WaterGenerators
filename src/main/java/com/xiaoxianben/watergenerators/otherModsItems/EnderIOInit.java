@@ -7,7 +7,8 @@ import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineVaporization;
 import com.xiaoxianben.watergenerators.init.ModItems;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
-import com.xiaoxianben.watergenerators.items.ItemMaterial;
+import com.xiaoxianben.watergenerators.items.material.ItemMaterial;
+import com.xiaoxianben.watergenerators.items.material.ItemTurbineRotor;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -16,45 +17,30 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Locale;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class EnderIOInit implements IOtherModInit {
     /**
      * EndSteel, MelodicAlloy, StellarAlloy
      */
-    public static Item[] enderIO_Gear = new Item[3];
-    /**
-     * 0:0,1,2;<p></p>
-     * 1:10,11
-     */
-    public static Item[] enderIO_Conduit = new Item[2];
-    public static Item[] enderIO_TurbineRotor = new Item[5];
-    public static BlockGeneratorTurbine[] enderIO_GeneratorTurbine = new BlockGeneratorTurbine[5];
-    public static BlockGeneratorFluid[] enderIO_generatorFluid = new BlockGeneratorFluid[5];
-    public static BlockGeneratorWater[] enderIO_GeneratorWater = new BlockGeneratorWater[5];
-    public static BlockGeneratorSteam[] enderIO_generatorSteam = new BlockGeneratorSteam[5];
-    public static BlockMachineShell[] enderIO_machineShell = new BlockMachineShell[5];
-    public static BlockMachineVaporization[] enderIO_machineVaporization = new BlockMachineVaporization[5];
+    public static Item[] gears = new Item[3];
+    public static Item[] turbineRotors = new Item[5];
+    public static BlockGeneratorTurbine[] generatorTurbines = new BlockGeneratorTurbine[5];
+    public static BlockGeneratorFluid[] generatorFluids = new BlockGeneratorFluid[5];
+    public static BlockGeneratorWater[] generatorWaters = new BlockGeneratorWater[5];
+    public static BlockGeneratorSteam[] generatorSteams = new BlockGeneratorSteam[5];
+    public static BlockMachineShell[] machineShells = new BlockMachineShell[5];
+    public static BlockMachineVaporization[] machineVaporizations = new BlockMachineVaporization[5];
 
-    /**
-     * has[
-     * VibrantAlloy,
-     * DarkSteel,
-     * EndSteel,
-     * MelodicAlloy,
-     * StellarAlloy
-     * ]
-     */
     public boolean[] booleans = new boolean[5];
     public float[] level = {6.5f, 7.5f, 8.5f, 9.5f, 10.5f};
-    public String[] EnderIOName = new String[]{"vibrantalloy", "darksteel", "endsteel", "melodicalloy", "stellaralloy"};
-    public String[] EnderIOIngotOre = new String[]{"VibrantAlloy", "DarkSteel", "EndSteel", "MelodicAlloy", "StellarAlloy"};
+    public String[] names = new String[]{"vibrantalloy", "darksteel", "endsteel", "melodicalloy", "stellaralloy"};
+    public String[] ingotOres = new String[]{"VibrantAlloy", "DarkSteel", "EndSteel", "MelodicAlloy", "StellarAlloy"};
+    public String[] gearOres = new String[]{"VibrantAlloy", "Dark", "End", "Melodic", "Stellar"};
 
     public EnderIOInit() {
-        for (int i = 0; i < EnderIOIngotOre.length; i++) {
+        for (int i = 0; i < ingotOres.length; i++) {
             booleans[i] = i < 3 ? Loader.isModLoaded("enderio") : Loader.isModLoaded("enderioendergy");
-            EnderIOName[i] = EnderIOIngotOre[i].toLowerCase(Locale.ROOT);
         }
     }
 
@@ -63,15 +49,15 @@ public class EnderIOInit implements IOtherModInit {
         for (int i = 0; i < this.booleans.length; i++) {
             if (!this.booleans[i]) break;
             float level = this.level[i];
-            String name = this.EnderIOName[i];
+            String name = this.names[i];
 
-            enderIO_GeneratorTurbine[i] = new BlockGeneratorTurbine(level, name);
-            enderIO_generatorFluid[i] = new BlockGeneratorFluid(level, name);
-            enderIO_GeneratorWater[i] = new BlockGeneratorWater(level, name);
-            enderIO_generatorSteam[i] = new BlockGeneratorSteam(level, name);
+            generatorTurbines[i] = new BlockGeneratorTurbine(level, name);
+            generatorFluids[i] = new BlockGeneratorFluid(level, name);
+            generatorWaters[i] = new BlockGeneratorWater(level, name);
+            generatorSteams[i] = new BlockGeneratorSteam(level, name);
 
-            enderIO_machineShell[i] = new BlockMachineShell(level, name);
-            enderIO_machineVaporization[i] = new BlockMachineVaporization(level, name);
+            machineShells[i] = new BlockMachineShell(level, name);
+            machineVaporizations[i] = new BlockMachineVaporization(level, name);
         }
     }
 
@@ -80,61 +66,59 @@ public class EnderIOInit implements IOtherModInit {
         for (int i = 0; i < this.booleans.length; i++) {
             if (!this.booleans[i]) break;
             if (i > 1) {
-                enderIO_Gear[i - 2] = new ItemMaterial("gear_" + EnderIOName[i].replace("alloy", "").replace("steel", ""), ModItems.allGear);
+                gears[i - 2] = new ItemMaterial("gear_" + names[i].replace("alloy", "").replace("steel", ""), ModItems.allGear);
             }
-            enderIO_TurbineRotor[i] = new ItemMaterial("turbine_rotor_" + EnderIOName[i], ModItems.allTurbineRotor);
+            turbineRotors[i] = new ItemTurbineRotor(names[i]);
         }
     }
 
     @Override
     public void initOre() {
-        for (int i = 0; i < EnderIOInit.enderIO_Gear.length; i++) {
+        for (int i = 0; i < names.length; i++) {
             if (booleans[i + 2]) {
-                OreDictionary.registerOre("gear" + EnderIOIngotOre[i + 2].replace("Alloy", "").replace("Steel", ""), EnderIOInit.enderIO_Gear[i]);
+                OreDictionary.registerOre("gears" + ingotOres[i + 2].replace("Alloy", "").replace("Steel", ""), gears[i]);
             }
         }
-
+        for (int i = 0; i < names.length; i++) {
+            OreDictionary.registerOre("turbineRotor" + gearOres[i], turbineRotors[i]);
+        }
     }
 
     @Override
     public void initRecipes() {
-        if (booleans[1]) {
-            EnderIOInit.enderIO_Conduit[0] = GameRegistry.findRegistry(Item.class).getValue(new ResourceLocation("enderio", "item_power_conduit"));
-        }
-        if (booleans[3]) {
-            EnderIOInit.enderIO_Conduit[1] = GameRegistry.findRegistry(Item.class).getValue(new ResourceLocation("enderio", "item_endergy_conduit"));
-        }
 
         for (int i = 0; i < booleans.length; i++) {
             if (!booleans[i]) break;
 
-            String gear = "gear" + EnderIOIngotOre[i].replace("Alloy", "").replace("Steel", "");
-            String ingotOre = "ingot" + EnderIOIngotOre[i];
+            String gear = "gears" + gearOres[i];
+            String ingotOre = "ingot" + ingotOres[i];
 
-            if (i < 3) {
-                ModRecipes.addRecipeGear(enderIO_Gear[i], "ingot" + EnderIOIngotOre[i + 2]);
+            if (i > 2) {
+                ModRecipes.addRecipeGear(EnderIOInit.gears[i - 3], ingotOre);
             }
 
-            ModRecipes.addRecipeTurbineRotor(enderIO_TurbineRotor[i], ingotOre, gear);
+            ModRecipes.addRecipeTurbineRotor(turbineRotors[i], ingotOre, gear);
 
-            ModRecipes.addRecipeShell(enderIO_machineShell[i], i == 0 ? BlocksMachine.machineShells[4] : enderIO_machineShell[i - 1], ingotOre);
+            ModRecipes.addRecipeShell(machineShells[i], i == 0 ? BlocksMachine.machineShells[4] : machineShells[i - 1], ingotOre);
 
-            addRecipeMachineVaporization(i, enderIO_machineVaporization[i], gear);
+            addRecipeMachineVaporization(i, machineVaporizations[i], gear);
 
-            addRecipeGenerator(i, enderIO_GeneratorTurbine[i], i == 0 ? BlocksGenerator.blockGeneratorTurbine[4] : enderIO_GeneratorTurbine[i - 1], gear);
-            addRecipeGenerator(i, enderIO_generatorFluid[i], i == 0 ? BlocksGenerator.blockGeneratorFluid[4] : enderIO_generatorFluid[i - 1], gear);
-            addRecipeGenerator(i, enderIO_GeneratorWater[i], i == 0 ? BlocksGenerator.blockGeneratorWater[4] : enderIO_GeneratorWater[i - 1], gear);
-            addRecipeGenerator(i, enderIO_generatorSteam[i], i == 0 ? BlocksGenerator.blockGeneratorSteam[4] : enderIO_generatorSteam[i - 1], gear);
+            addRecipeGenerator(i, generatorTurbines[i], i == 0 ? BlocksGenerator.blockGeneratorTurbine[4] : generatorTurbines[i - 1], gear);
+            addRecipeGenerator(i, generatorFluids[i], i == 0 ? BlocksGenerator.blockGeneratorFluid[4] : generatorFluids[i - 1], gear);
+            addRecipeGenerator(i, generatorWaters[i], i == 0 ? BlocksGenerator.blockGeneratorWater[4] : generatorWaters[i - 1], gear);
+            addRecipeGenerator(i, generatorSteams[i], i == 0 ? BlocksGenerator.blockGeneratorSteam[4] : generatorSteams[i - 1], gear);
         }
 
     }
 
     private ItemStack getConduitStack(int i) {
-        int conduitInt = i > 2 ? 1 : 0;
-        Item conduit = EnderIOInit.enderIO_Conduit[conduitInt];
+        IForgeRegistry<Item> itemIForgeRegistry = GameRegistry.findRegistry(Item.class);
+        Item conduit = i > 2 ?
+                itemIForgeRegistry.getValue(new ResourceLocation("enderio", "item_endergy_conduit")) :
+                itemIForgeRegistry.getValue(new ResourceLocation("enderio", "item_power_conduit"));
         // 如果导管不存在，则跳过
         if (conduit == null) return Items.AIR.getDefaultInstance();
-        int date = conduitInt == 0 ? i : i == 3 ? 10 : 11;
+        int date = i < 2 ? i : (i == 3 ? 10 : 11);
         return new ItemStack(conduit, 1, date);
     }
 
@@ -142,7 +126,7 @@ public class EnderIOInit implements IOtherModInit {
         ItemStack itemStack = getConduitStack(i);
         ModRecipes.addRecipeMachineVaporization(
                 output,
-                EnderIOInit.enderIO_machineShell[i],
+                machineShells[i],
                 itemStack,
                 gearOre
         );
@@ -153,8 +137,8 @@ public class EnderIOInit implements IOtherModInit {
         ModRecipes.addRecipeGenerator(
                 output,
                 itemStack,
-                enderIO_TurbineRotor[i],
-                enderIO_machineShell[i],
+                turbineRotors[i],
+                machineShells[i],
                 oldGenerator,
                 gearOre
         );

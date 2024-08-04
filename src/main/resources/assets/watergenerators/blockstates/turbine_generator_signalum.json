@@ -2,7 +2,8 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/turbine_generator/signalum"
+            "top": "watergenerators:blocks/turbine_generator/signalum/top",
+            "side": "watergenerators:blocks/turbine_generator/signalum/side"
         },
         "model": "watergenerators:generator_turbine"
     },

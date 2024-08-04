@@ -2,11 +2,11 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "front": "watergenerators:blocks/machine/water_generator/enderium",
-            "top": "watergenerators:blocks/machine/top/enderium",
-            "side": "watergenerators:blocks/machine/side/enderium"
+            "front": "watergenerators:blocks/water_generator/enderium",
+            "top": "watergenerators:blocks/machineshell/enderium/top",
+            "side": "watergenerators:blocks/machineshell/enderium/side"
         },
-        "model": "watergenerators:generator_water"
+        "model": "orientable"
     },
     "variants": {
         "normal": [

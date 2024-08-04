@@ -12,18 +12,12 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IHasItemNBT {
 
-    /**
-     * 每tick的将要传输能量的方向的列表
-     */
-    protected EnumFacing[] transferEnergyFacings = new EnumFacing[6];
-    /**
-     * 每tick的传输能量的数值列表
-     */
-    protected long[] finallyExtractEnergyList = new long[]{0, 0, 0, 0, 0, 0};
     /**
      * 每tick的实际发电量
      */
@@ -32,6 +26,14 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
      * 每tick的实际传输能量
      */
     public long finallyExtractEnergy;
+    /**
+     * 每tick的将要传输能量的方向的列表
+     */
+    protected HashSet<EnumFacing> transferEnergyFacings = new HashSet<>();
+    /**
+     * 每tick的传输能量的数值列表
+     */
+    protected HashSet<Long> finallyExtractEnergyList = new HashSet<>();
 
     protected EnergyStorage energyStorage;
 
@@ -43,11 +45,9 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
 
 
     protected long getFinallyExtractEnergyP() {
-        long rf = 0;
-        for (long temp : this.finallyExtractEnergyList) {
-            rf += temp;
-        }
-        return rf;
+        AtomicLong rf = new AtomicLong();
+        this.finallyExtractEnergyList.forEach(rf::addAndGet);
+        return rf.get();
     }
 
     public long getFinallyExtractEnergy() {
@@ -61,20 +61,25 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
 
     // ------------------------------------------传输能量的部分-------------------------------------------------
     protected boolean updateTransferFacings(World world) {
-        this.transferEnergyFacings = new EnumFacing[this.transferEnergyFacings.length];
-        this.finallyExtractEnergyList = new long[]{0, 0, 0, 0, 0, 0};
-        byte fa = 0;
+        this.transferEnergyFacings.clear();
+        this.finallyExtractEnergyList.clear();
+
         for (EnumFacing facing : EnumFacing.VALUES) {
             if (this.canTransferEnergy(world.getTileEntity(this.getPos().offset(facing)), facing.getOpposite())) {
-                this.transferEnergyFacings[fa++] = facing;
+                this.transferEnergyFacings.add(facing);
             }
         }
-        return fa > 0;
+        return !this.transferEnergyFacings.isEmpty();
     }
 
+    /**
+     * @param TE     要传输能量的相邻TE
+     * @param facing 相邻TE要传输能量的方向
+     */
     protected boolean canTransferEnergy(TileEntity TE, EnumFacing facing) {
         if (TE != null && TE.hasCapability(CapabilityEnergy.ENERGY, facing)) {
-            return Objects.requireNonNull(TE.getCapability(CapabilityEnergy.ENERGY, facing)).canReceive();
+            IEnergyStorage iEnergyStorage = Objects.requireNonNull(TE.getCapability(CapabilityEnergy.ENERGY, facing));
+            return iEnergyStorage.canReceive() && iEnergyStorage.getEnergyStored() < iEnergyStorage.getMaxEnergyStored();
         }
         return false;
     }
@@ -83,7 +88,7 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
         int temp = (Objects.requireNonNull(adjacentTE.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()))).
                 receiveEnergy(this.getEnergyStored(), false);
 
-        this.finallyExtractEnergyList[facing.getIndex()] += this.modifyEnergyStored(-temp);
+        this.finallyExtractEnergyList.add(this.modifyEnergyStored(-temp));
     }
     // ------------------------------------------------------------------------------------------------------
 
@@ -98,7 +103,6 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
         // 传输能量
         if (this.canExtract() && this.updateTransferFacings(this.world)) {
             for (EnumFacing facing : this.transferEnergyFacings) {
-                if (facing == null) break;
                 this.transferEnergy(Objects.requireNonNull(this.getWorld().getTileEntity(this.getPos().offset(facing))), facing);
             }
         }
@@ -106,6 +110,7 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
         this.finallyReceiveEnergy = this.updateEnergy();
         this.finallyExtractEnergy = this.getFinallyExtractEnergyP();
     }
+
 
     protected long modifyEnergyStored(long energy) {
         return this.energyStorage.modifyEnergyStored(energy);

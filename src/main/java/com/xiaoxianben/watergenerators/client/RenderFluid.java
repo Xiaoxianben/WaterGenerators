@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 /**
  * 参考 EnderCore 的 com.enderio.core.client.render.RenderUtil
  * <p>
- * 感谢 SleepyTrousers团队 的 EnderCore 的 开源的代码
+ * 感谢 SleepyTrousers 团队 的 EnderCore 的 开源的代码
  */
 @Mod.EventBusSubscriber(
         modid = ModInformation.MOD_ID,

@@ -1,0 +1,33 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "front": "watergenerators:blocks/steam_generator/elite",
+            "top": "watergenerators:blocks/machineshell/elite/top",
+            "side": "watergenerators:blocks/machineshell/elite/side"
+        },
+        "model": "orientable"
+    },
+    "variants": {
+        "normal": [
+            {}
+        ],
+        "facing": {
+            "north": {
+                "y": 0
+            },
+            "south": {
+                "y": 180
+            },
+            "west": {
+                "y": 270
+            },
+            "east": {
+                "y": 90
+            }
+        },
+        "inventory": {
+            "transform": "forge:default-block"
+        }
+    }
+}

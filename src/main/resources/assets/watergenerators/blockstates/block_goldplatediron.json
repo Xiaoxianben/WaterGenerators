@@ -1,7 +1,17 @@
 {
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "all": "watergenerators:blocks/gold_plated_iron"
+        },
+        "model": "cube_all"
+    },
     "variants": {
-        "normal": {
-            "model": "watergenerators:block_goldplatediron"
+        "normal": [
+            {}
+        ],
+        "inventory": {
+            "transform": "forge:default-block"
         }
     }
 }

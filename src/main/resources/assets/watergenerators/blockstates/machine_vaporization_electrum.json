@@ -2,10 +2,11 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/top/electrum",
-            "side": "watergenerators:blocks/machine/side/electrum"
+            "front": "watergenerators:blocks/machine_vaporization/electrum",
+            "top": "watergenerators:blocks/machineshell/electrum/top",
+            "side": "watergenerators:blocks/machineshell/electrum/side"
         },
-        "model": "watergenerators:machine_vaporization"
+        "model": "orientable"
     },
     "variants": {
         "normal": [

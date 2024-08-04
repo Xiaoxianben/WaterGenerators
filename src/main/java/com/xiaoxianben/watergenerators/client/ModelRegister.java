@@ -2,7 +2,7 @@ package com.xiaoxianben.watergenerators.client;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.api.IHasModel;
-import com.xiaoxianben.watergenerators.fluid.Fluids;
+import com.xiaoxianben.watergenerators.fluids.Fluids;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -32,7 +32,7 @@ public class ModelRegister {
             @Nonnull
             @Override
             protected ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state) {
-                return new ModelResourceLocation(new ResourceLocation(ModInformation.MOD_ID, "fluid"), "steam");
+                return new ModelResourceLocation(new ResourceLocation(ModInformation.MOD_ID, "fluids"), "steam");
             }
         });
         for (Item item : WaterGenerators.ITEMS) {

@@ -2,7 +2,6 @@ package com.xiaoxianben.watergenerators;
 
 import com.xiaoxianben.watergenerators.api.IModInit;
 import com.xiaoxianben.watergenerators.config.ConfigLoader;
-import com.xiaoxianben.watergenerators.enery.EnergyLiquid;
 import com.xiaoxianben.watergenerators.gui.GUIHandler;
 import com.xiaoxianben.watergenerators.init.*;
 import com.xiaoxianben.watergenerators.otherModsItems.ModOtherModInit;
@@ -98,7 +97,6 @@ public class WaterGenerators {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        EnergyLiquid.init();
         ITEMS = null;
         BLOCKS = null;
         modInit = null;

@@ -3,6 +3,7 @@ package com.xiaoxianben.watergenerators.blocks;
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.api.IHasItemNBT;
 import com.xiaoxianben.watergenerators.api.IHasModel;
+import com.xiaoxianben.watergenerators.items.ItemBlockPrivate;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -12,7 +13,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -35,7 +35,7 @@ public class BlockBase extends Block implements IHasModel {
 
     public BlockBase(String name, Material materialIn, CreativeTabs tab, @Nullable SoundType soundType, LinkedHashSet<Block> linkedHashSet) {
         super(materialIn);
-        setUnlocalizedName(ModInformation.MOD_ID + '.' + name);
+        setUnlocalizedName(ModInformation.MOD_ID + '-' + name);
         setRegistryName(ModInformation.MOD_ID, name);
         this.setCreativeTab(tab);
 
@@ -50,15 +50,7 @@ public class BlockBase extends Block implements IHasModel {
     public BlockBase(String name, Material materialIn, CreativeTabs tab, @Nullable SoundType soundType, Byte inx) {
         this(name, materialIn, tab, soundType, Objects.requireNonNull(WaterGenerators.BLOCKS));
         Objects.requireNonNull(inx);
-        Objects.requireNonNull(WaterGenerators.ITEMS).add(
-                new ItemBlock(this) {
-                    @Nonnull
-                    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-                        return this.getBlock().getLocalizedName().trim();
-                    }
-                }.setRegistryName(Objects.requireNonNull(this.getRegistryName()))
-        );
-
+        Objects.requireNonNull(WaterGenerators.ITEMS).add(new ItemBlockPrivate(this));
     }
 
 
@@ -82,7 +74,7 @@ public class BlockBase extends Block implements IHasModel {
         NBTTagCompound tagCompound = stack.getTagCompound();
 
         if (tileEntity instanceof IHasItemNBT && tagCompound != null && tagCompound.hasKey("itemNBT")) {
-            ((IHasItemNBT) tileEntity).readItemNbt(Objects.requireNonNull(tagCompound).getCompoundTag("itemNBT"));
+            ((IHasItemNBT) tileEntity).readItemNbt(tagCompound.getCompoundTag("itemNBT"));
         }
     }
 

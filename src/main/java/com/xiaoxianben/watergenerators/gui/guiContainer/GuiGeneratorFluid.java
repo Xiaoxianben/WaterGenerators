@@ -17,18 +17,18 @@ public class GuiGeneratorFluid extends GuiGeneratorBasic {
 
 
     @Override
-    public void drawAllGUITextures() {
-        super.drawAllGUITextures();
+    public void drawDefaultGUITextures() {
+        super.drawDefaultGUITextures();
         this.drawFluid(this.tileEntity.fluidTank, 74, 14, 16, 58);
     }
 
     @Override
-    public void drawAllMouseRect(int mouseX, int mouseY) {
-        super.drawAllMouseRect(mouseX, mouseY);
+    public void drawDefaultMouseRect(int mouseX, int mouseY) {
+        super.drawDefaultMouseRect(mouseX, mouseY);
 
         FluidTank fluidTank = this.tileEntity.fluidTank;
         this.drawMouseRect(mouseX, mouseY, 74, 14, 16, 58,
-                String.format("%s:\n%smB/%smB", fluidTank.getFluid() == null ? "null" : fluidTank.getFluid().getLocalizedName(), PrivateMath.getRoughData((long) this.tileEntity.getFluidAmount(), 1), PrivateMath.getRoughData((long) this.tileEntity.getCapacity(), 1))
+                String.format("%s:\n%smB/%smB", fluidTank.getFluid() == null ? "null" : fluidTank.getFluid().getLocalizedName(), PrivateMath.getRoughData((long) this.tileEntity.getFluidAmount()), PrivateMath.getRoughData((long) this.tileEntity.getCapacity()))
                         .split("\n"));
     }
 
@@ -36,7 +36,8 @@ public class GuiGeneratorFluid extends GuiGeneratorBasic {
     public void updateDrawStringList() {
         super.updateDrawStringList();
 
-        this.drawStringList.add(I18n.format("gui.fluidBV.text", PrivateMath.getRoughData(this.tileEntity.getFluidMagnification(), 1)));
+        this.drawStringList.add(I18n.format("gui.fluidMagnification.text", PrivateMath.getRoughData(this.tileEntity.getEnergyMagnification())));
+        this.drawStringList.add(I18n.format("gui.baseFluidAmount.text", PrivateMath.getRoughData(this.tileEntity.basicAmountOfFluidToProduceEnergy)));
 
     }
 

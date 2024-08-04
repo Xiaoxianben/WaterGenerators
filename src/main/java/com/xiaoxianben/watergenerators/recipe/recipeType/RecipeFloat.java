@@ -19,7 +19,7 @@ public class RecipeFloat implements IRecipeType<Float> {
     public JsonObject getRecipeJson(Float f) {
         JsonObject json = new JsonObject();
 
-        json.addProperty("name", this.name);
+        json.addProperty("names", this.name);
         json.addProperty("count", f);
 
         return json;

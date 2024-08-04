@@ -3,8 +3,11 @@ package com.xiaoxianben.watergenerators.items;
 import com.xiaoxianben.watergenerators.api.IHasInit;
 import com.xiaoxianben.watergenerators.init.ModItems;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
+import com.xiaoxianben.watergenerators.items.material.ItemMaterial;
+import com.xiaoxianben.watergenerators.items.material.ItemTurbineRotor;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.LinkedHashSet;
 
@@ -19,14 +22,22 @@ public class ItemsMaterial implements IHasInit {
 
     public void init() {
         for (int i = 0; i < itemName.length; i++) {
+            int level = i + 1;
             gears[i] = registryMaterial("gear_" + itemName[i], ModItems.allGear);
             coils[i] = registryMaterial("coil_" + itemName[i], ModItems.allCoil);
             conduits[i] = registryMaterial("conduit_" + itemName[i], ModItems.allConduit);
-            turbines[i] = registryMaterial("turbine_rotor_" + itemName[i], ModItems.allTurbineRotor);
+            turbines[i] = new ItemTurbineRotor("level" + level);
         }
     }
 
     public void initRecipes() {
+
+        OreDictionary.registerOre("turbineRotorIron", turbines[0]);
+        OreDictionary.registerOre("turbineRotorGoldPlatedIron", turbines[1]);
+        OreDictionary.registerOre("turbineRotorDiamond", turbines[2]);
+        OreDictionary.registerOre("turbineRotorObsidian", turbines[3]);
+        OreDictionary.registerOre("turbineRotorEmerald", turbines[4]);
+
         String[] OreName = {"ingotIron", "ingotGoldPlatedIron", "gemDiamond", "obsidian", "gemEmerald"};
         String[] gearOreName = {"gearIron", "gearGoldPlatedIron", "gearDiamond", "gearObsidian", "gearEmerald"};
         // 齿轮

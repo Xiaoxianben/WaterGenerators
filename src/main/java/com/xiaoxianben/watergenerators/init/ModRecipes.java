@@ -8,9 +8,9 @@ import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineBase;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
 import com.xiaoxianben.watergenerators.items.component.ItemComponent;
+import com.xiaoxianben.watergenerators.recipe.RecipeList;
 import com.xiaoxianben.watergenerators.recipe.crafting.ShapedRecipes;
 import com.xiaoxianben.watergenerators.recipe.crafting.ShapelessRecipes;
-import com.xiaoxianben.watergenerators.recipe.recipeList;
 import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -95,7 +95,7 @@ public class ModRecipes implements IModInit {
                 'O', materialOreName,
                 'G', "ingotIron"
         };
-        GameRegistry.addShapedRecipe(output.getRegistryName(), new ResourceLocation(ModInformation.MOD_ID, "gear"),
+        GameRegistry.addShapedRecipe(output.getRegistryName(), new ResourceLocation(ModInformation.MOD_ID, "gears"),
                 output.getDefaultInstance(), params);
     }
 
@@ -279,7 +279,7 @@ public class ModRecipes implements IModInit {
 
     @Override
     public void preInit() {
-        nameType = new String[]{"turbine", "fluid"};
+        nameType = new String[]{"turbine", "fluids"};
         inputItemStack = new ItemStack[]{
                 ItemsMaterial.coils[0].getDefaultInstance(),
                 Items.BUCKET.getDefaultInstance()
@@ -288,7 +288,7 @@ public class ModRecipes implements IModInit {
 
     @Override
     public void init() {
-        recipeList.init();
+        RecipeList.init();
         GameRegistry.addSmelting(ModItems.ductShell_bank, new ItemStack(ModItems.ductShell, 8), 0.5f);
 
         GameRegistry.addShapedRecipe(ModItems.GOLD_PLATED_IRON_INGOT.getRegistryName(),

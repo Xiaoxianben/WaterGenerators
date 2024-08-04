@@ -2,7 +2,7 @@ package com.xiaoxianben.watergenerators.blocks;
 
 import com.xiaoxianben.watergenerators.api.IHasInit;
 import com.xiaoxianben.watergenerators.blocks.generator.*;
-import com.xiaoxianben.watergenerators.fluid.Fluids;
+import com.xiaoxianben.watergenerators.fluids.Fluids;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
 import com.xiaoxianben.watergenerators.items.ItemsMaterial;
 import net.minecraft.init.Items;

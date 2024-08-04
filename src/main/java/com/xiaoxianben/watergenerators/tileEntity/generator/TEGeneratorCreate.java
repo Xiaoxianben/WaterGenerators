@@ -6,11 +6,11 @@ public class TEGeneratorCreate extends TEGeneratorBase {
 
     @SuppressWarnings("unused")
     public TEGeneratorCreate() {
-        this(0);
+        this(Long.MAX_VALUE);
     }
 
     public TEGeneratorCreate(long basePowerGeneration) {
-        super(basePowerGeneration, 92.5f);
+        super(basePowerGeneration);
         this.itemComponentHandler = new ItemComponentHandler(null);
     }
 

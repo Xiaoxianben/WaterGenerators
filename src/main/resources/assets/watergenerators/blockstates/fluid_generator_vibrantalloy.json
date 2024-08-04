@@ -2,10 +2,11 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/top/vibrantalloy",
-            "side": "watergenerators:blocks/machine/side/vibrantalloy"
+            "front": "watergenerators:blocks/fluid_generator/vibrantalloy",
+            "top": "watergenerators:blocks/machineshell/vibrantalloy/top",
+            "side": "watergenerators:blocks/machineshell/vibrantalloy/side"
         },
-        "model": "watergenerators:generator_fluid"
+        "model": "orientable"
     },
     "variants": {
         "normal": [

@@ -19,7 +19,7 @@ public class RecipeInt implements IRecipeType<Integer> {
     public JsonObject getRecipeJson(Integer integer) {
         JsonObject json = new JsonObject();
 
-        json.addProperty("name", this.name);
+        json.addProperty("names", this.name);
         json.addProperty("count", integer);
 
         return json;

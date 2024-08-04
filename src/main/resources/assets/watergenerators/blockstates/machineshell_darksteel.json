@@ -2,10 +2,10 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/top/darksteel",
-            "side": "watergenerators:blocks/machine/side/darksteel"
+            "top": "watergenerators:blocks/machineshell/darksteel/top",
+            "side": "watergenerators:blocks/machineshell/darksteel/side"
         },
-        "model": "watergenerators:block_machineshell"
+        "model": "watergenerators:machineshell"
     },
     "variants": {
         "normal": [

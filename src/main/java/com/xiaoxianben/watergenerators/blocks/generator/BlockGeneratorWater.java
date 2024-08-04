@@ -17,7 +17,7 @@ public class BlockGeneratorWater extends BlockGeneratorFluid {
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEGeneratorWater(this.basePowerGeneration, this.level);
+        return new TEGeneratorWater(this.basePowerGeneration);
     }
 
 }

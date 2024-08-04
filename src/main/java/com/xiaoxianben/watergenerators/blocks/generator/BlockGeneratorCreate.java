@@ -5,7 +5,6 @@ import com.xiaoxianben.watergenerators.gui.GUIHandler;
 import com.xiaoxianben.watergenerators.init.ModItems;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorCreate;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -20,6 +19,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
 public class BlockGeneratorCreate extends BlockGeneratorBasic {
+
+
     public BlockGeneratorCreate() {
         super("generator", "create", 999, Long.MAX_VALUE, WaterGenerators.BLOCKS);
         Objects.requireNonNull(WaterGenerators.ITEMS).add(new ItemBlock(this) {
@@ -30,12 +31,6 @@ public class BlockGeneratorCreate extends BlockGeneratorBasic {
         }.setRegistryName(Objects.requireNonNull(this.getRegistryName())));
     }
 
-    // 方块放置
-    @Override
-    @ParametersAreNonnullByDefault
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-    }
 
     @ParametersAreNonnullByDefault
     @Override

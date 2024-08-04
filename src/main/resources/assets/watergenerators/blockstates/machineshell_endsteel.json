@@ -2,10 +2,10 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/top/endsteel",
-            "side": "watergenerators:blocks/machine/side/endsteel"
+            "top": "watergenerators:blocks/machineshell/endsteel/top",
+            "side": "watergenerators:blocks/machineshell/endsteel/side"
         },
-        "model": "watergenerators:block_machineshell"
+        "model": "watergenerators:machineshell"
     },
     "variants": {
         "normal": [

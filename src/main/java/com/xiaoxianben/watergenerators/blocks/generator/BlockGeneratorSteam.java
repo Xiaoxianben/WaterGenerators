@@ -17,6 +17,6 @@ public class BlockGeneratorSteam extends BlockGeneratorFluid {
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEGeneratorSteam(this.basePowerGeneration, this.level);
+        return new TEGeneratorSteam(this.basePowerGeneration);
     }
 }

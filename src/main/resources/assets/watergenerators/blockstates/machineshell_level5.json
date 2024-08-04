@@ -2,10 +2,10 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/top/level5",
-            "side": "watergenerators:blocks/machine/side/level5"
+            "top": "watergenerators:blocks/machineshell/level5/top",
+            "side": "watergenerators:blocks/machineshell/level5/side"
         },
-        "model": "watergenerators:block_machineshell"
+        "model": "watergenerators:machineshell"
     },
     "variants": {
         "normal": [

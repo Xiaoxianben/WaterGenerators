@@ -1,6 +1,6 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
-import com.xiaoxianben.watergenerators.enery.EnergyLiquid;
+import com.xiaoxianben.watergenerators.recipe.RecipeList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.util.math.BlockPos;
@@ -13,11 +13,11 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
 
     @SuppressWarnings("unused")
     public TEGeneratorTurbine() {
-        this(0, 0);
+        this(Long.MAX_VALUE);
     }
 
-    public TEGeneratorTurbine(long basePowerGeneration, float level) {
-        super(basePowerGeneration, level);
+    public TEGeneratorTurbine(long basePowerGeneration) {
+        super(basePowerGeneration);
     }
 
     public float getLiquidHeight() {
@@ -26,8 +26,8 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
         Iterable<BlockPos> listBlockPos = BlockPos.getAllInBox(this.getPos().add(0, 1, 0), this.getPos().add(0, this.getWorld().getActualHeight() - this.getPos().getY(), 0));
         for (BlockPos blockPos : listBlockPos) {
             Fluid fluid = FluidRegistry.lookupFluidForBlock(this.getWorld().getBlockState(blockPos).getBlock());
-            if (EnergyLiquid.containsKey(fluid) && fluid.getDensity() > 0) {
-                liquidLeve += EnergyLiquid.getEnergyFromLiquid(fluid) * getLiquidLevel(this.getWorld(), blockPos);
+            if (RecipeList.recipeFluidGenerator.getInputs().contains(fluid) && fluid.getDensity() > 0) {
+                liquidLeve += RecipeList.recipeFluidGenerator.getOutput(fluid) * getLiquidLevel(this.getWorld(), blockPos);
             } else {
                 break;
             }
@@ -58,6 +58,12 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
             receiveEnergy = (int) (this.getRealPowerGeneration() * liquidLeve);
         }
         return this.modifyEnergyStored(receiveEnergy);
+    }
+
+    @Override
+    public void updateStateInSever() {
+        this.energyStorage.setCapacity((int) (this.getRealPowerGeneration() * this.getLiquidHeight()) * 2);
+        super.updateStateInSever();
     }
 
 }

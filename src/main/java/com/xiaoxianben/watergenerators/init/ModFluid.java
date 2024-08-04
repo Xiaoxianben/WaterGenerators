@@ -2,7 +2,7 @@ package com.xiaoxianben.watergenerators.init;
 
 import com.xiaoxianben.watergenerators.api.IHasInit;
 import com.xiaoxianben.watergenerators.api.IModInit;
-import com.xiaoxianben.watergenerators.fluid.Fluids;
+import com.xiaoxianben.watergenerators.fluids.Fluids;
 
 import java.util.ArrayList;
 import java.util.List;

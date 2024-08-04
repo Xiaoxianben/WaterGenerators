@@ -7,11 +7,10 @@ import com.xiaoxianben.watergenerators.blocks.BlockBase;
 import com.xiaoxianben.watergenerators.blocks.BlocksFluid;
 import com.xiaoxianben.watergenerators.blocks.BlocksGenerator;
 import com.xiaoxianben.watergenerators.blocks.BlocksMachine;
+import com.xiaoxianben.watergenerators.items.ItemBlockPrivate;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -52,15 +51,8 @@ public class ModBlocks implements IModInit {
     private static void addBlocks(LinkedHashSet<Block> blocks) {
         Objects.requireNonNull(WaterGenerators.BLOCKS).addAll(blocks);
         Objects.requireNonNull(WaterGenerators.ITEMS).addAll(blocks.stream()
-                .map(block -> new ItemBlock(block) {
-                            @Nonnull
-                            public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-                                return this.getBlock().getLocalizedName().trim();
-                            }
-                        }.setRegistryName(Objects.requireNonNull(block.getRegistryName()))
-                )
+                .map(ItemBlockPrivate::new)
                 .collect(Collectors.toList()));
-        blocks.clear();
     }
 
     public static void addBlocks() {
@@ -76,7 +68,7 @@ public class ModBlocks implements IModInit {
     public void preInit() {
         Objects.requireNonNull(WaterGenerators.BLOCKS);
         GOLD_PLATED_IRON_BLOCK = new BlockBase("block_goldPlatedIron", Material.IRON, WaterGenerators.Item_TAB, null, (byte) 1);
-        machineShell_frame = new BlockBase("machineShell_frame", Material.IRON, WaterGenerators.MACHINE_TAB, null, (byte) 1) {
+        machineShell_frame = new BlockBase("machineshell_frame", Material.IRON, WaterGenerators.MACHINE_TAB, null, (byte) 1) {
             public boolean canPlaceBlockAt(@Nonnull World worldIn, @Nonnull BlockPos pos) {
                 return false;
             }

@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "watergenerators:items/machine/turbine_rotor_emerald"
-    }
-}

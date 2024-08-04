@@ -2,10 +2,11 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/top/level1",
-            "side": "watergenerators:blocks/machine/side/level1"
+            "front": "watergenerators:blocks/fluid_generator/level1",
+            "top": "watergenerators:blocks/machineshell/level1/top",
+            "side": "watergenerators:blocks/machineshell/level1/side"
         },
-        "model": "watergenerators:generator_fluid"
+        "model": "orientable"
     },
     "variants": {
         "normal": [

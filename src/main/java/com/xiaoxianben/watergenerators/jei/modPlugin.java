@@ -7,7 +7,7 @@ import com.xiaoxianben.watergenerators.jei.recipeCategory.vaporizationRecipeCate
 import com.xiaoxianben.watergenerators.jei.wrapper.steamWrapper;
 import com.xiaoxianben.watergenerators.otherModsItems.EnderIOInit;
 import com.xiaoxianben.watergenerators.otherModsItems.TFInit;
-import com.xiaoxianben.watergenerators.recipe.recipeList;
+import com.xiaoxianben.watergenerators.recipe.RecipeList;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -37,10 +37,10 @@ public class modPlugin implements IModPlugin {
     @Override
     public void register(@Nonnull IModRegistry registration) {
         vaporizationList.addAll(Arrays.asList(BlocksMachine.machineVaporizations));
-        vaporizationList.addAll(Arrays.asList(TFInit.TF_machineVaporization));
-        vaporizationList.addAll(Arrays.asList(EnderIOInit.enderIO_machineVaporization));
+        vaporizationList.addAll(Arrays.asList(TFInit.machineVaporization));
+        vaporizationList.addAll(Arrays.asList(EnderIOInit.machineVaporizations));
         for (BlockMachineVaporization vaporization : vaporizationList) {
-            if (vaporization != null)
+            if (vaporization != null && !Item.getItemFromBlock(vaporization).getDefaultInstance().isEmpty())
                 registration.addRecipeCatalyst(Item.getItemFromBlock(vaporization).getDefaultInstance(), vaporizationUID);
         }
 
@@ -53,9 +53,9 @@ public class modPlugin implements IModPlugin {
         List<steamWrapper> recipes = new ArrayList<>();
 
         // steam
-        for (int i = 0; i < recipeList.recipeVaporization.size(); i++) {
-            FluidStack input = recipeList.recipeVaporization.getInput(i);
-            FluidStack Output = recipeList.recipeVaporization.getOutput(i);
+        for (int i = 0; i < RecipeList.recipeVaporization.size(); i++) {
+            FluidStack input = RecipeList.recipeVaporization.getInput(i);
+            FluidStack Output = RecipeList.recipeVaporization.getOutput(i);
 
             recipes.add(new steamWrapper(input, Output));
         }

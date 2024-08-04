@@ -28,9 +28,9 @@ public class GuiMachineVa extends GuiEnergyBase {
 
 
     protected void drawAllGUIText() {
-        super.drawAllGUIText();
     }
 
+    @Override
     protected void drawAllGUITextures() {
         super.drawAllGUITextures();
         if (tileEntity.open) {

@@ -2,11 +2,11 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "front": "watergenerators:blocks/machine/water_generator/signalum",
-            "top": "watergenerators:blocks/machine/top/signalum",
-            "side": "watergenerators:blocks/machine/side/signalum"
+            "front": "watergenerators:blocks/water_generator/signalum",
+            "top": "watergenerators:blocks/machineshell/signalum/top",
+            "side": "watergenerators:blocks/machineshell/signalum/side"
         },
-        "model": "watergenerators:generator_water"
+        "model": "orientable"
     },
     "variants": {
         "normal": [

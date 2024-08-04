@@ -12,6 +12,7 @@ import java.io.File;
 public class ConfigLoader {
     public static String categoryGenerator = "generator";
     public static String modConfigurationDirectory;
+    public static String WGConfigDirectory;
 
     private static Configuration config;
     private static Logger logger;
@@ -19,7 +20,8 @@ public class ConfigLoader {
     public static void preInitConfigLoader(@Nonnull FMLPreInitializationEvent event) {
         logger = event.getModLog();
         modConfigurationDirectory = event.getModConfigurationDirectory().getAbsolutePath();
-        config = new Configuration(new File(modConfigurationDirectory + "/" + ModInformation.MOD_ID + "/" + ModInformation.MOD_ID + ".cfg"));
+        WGConfigDirectory = modConfigurationDirectory + "/" + ModInformation.MOD_ID;
+        config = new Configuration(new File(WGConfigDirectory + "/" + ModInformation.MOD_ID + ".cfg"));
 
         //实例化了一个Configuration类,括号中填的是Forge推荐的配置文件位置,这个位置在游戏根目录的config文件夹下，
         //名为<modid>.cfg，这里就是bm.cfg。

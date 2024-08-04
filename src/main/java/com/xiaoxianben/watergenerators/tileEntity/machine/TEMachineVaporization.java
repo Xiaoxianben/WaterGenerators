@@ -1,8 +1,8 @@
 package com.xiaoxianben.watergenerators.tileEntity.machine;
 
-import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankBase;
-import com.xiaoxianben.watergenerators.fluid.fluidTank.FluidTankFluidInput;
-import com.xiaoxianben.watergenerators.recipe.recipeList;
+import com.xiaoxianben.watergenerators.fluids.fluidTank.FluidTankBase;
+import com.xiaoxianben.watergenerators.fluids.fluidTank.FluidTankInput;
+import com.xiaoxianben.watergenerators.recipe.RecipeList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -18,7 +18,7 @@ public class TEMachineVaporization extends TEMachineBase {
     /**
      * 输入流体的tank
      */
-    protected FluidTankFluidInput<FluidStack, FluidStack> fluidTankInt;
+    protected FluidTankInput fluidTankInt;
     /**
      * 输出流体的tank
      */
@@ -32,7 +32,7 @@ public class TEMachineVaporization extends TEMachineBase {
 
     public TEMachineVaporization(float level) {
         super(level);
-        fluidTankInt = new FluidTankFluidInput<>((int) (5000 * level), recipeList.recipeVaporization);
+        fluidTankInt = new FluidTankInput((int) (5000 * level), RecipeList.recipeVaporization);
         fluidTankOut = new FluidTankBase((int) (5000 * level));
 
         fluidTankInt.setCanDrain(false);
@@ -42,7 +42,7 @@ public class TEMachineVaporization extends TEMachineBase {
         fluidTankOut.setCanFill(false);
     }
 
-    public FluidTankFluidInput<FluidStack, FluidStack> getFluidTankInt() {
+    public FluidTankInput getFluidTankInt() {
         return fluidTankInt;
     }
 
@@ -59,7 +59,7 @@ public class TEMachineVaporization extends TEMachineBase {
         FluidStack inputFluidStack = this.getFluidTankInt().getRecipeFluidInput();
 
         open = true;
-        this.modifyEnergyStored(recipeList.recipeVaporization.getEnergyDeplete(inputFluidStack));
+        this.modifyEnergyStored(RecipeList.recipeVaporization.getEnergyDeplete(inputFluidStack));
         this.getFluidTankOut().fillInternal(outputFluidStack.copy(), true);
         this.getFluidTankInt().drainInternal(inputFluidStack.copy(), true);
     }
@@ -70,17 +70,17 @@ public class TEMachineVaporization extends TEMachineBase {
         if (this.getFluidTankInt().drainInternal(inputFluidStack.copy(), false) == null) return false;
 
         FluidStack outFluid = this.getFluidTankOut().getFluid();
-        return outFluid == null || outFluid.amount < this.getFluidTankOut().getCapacity() || this.getEnergyStored() >= recipeList.recipeVaporization.getEnergyDeplete(inputFluidStack.copy());
+        return (outFluid == null || outFluid.amount < this.getFluidTankOut().getCapacity()) && this.getEnergyStored() >= RecipeList.recipeVaporization.getEnergyDeplete(inputFluidStack.copy());
     }
 
     @Override
     public void updateStateInSever() {
         // 这段代码用于计算tempNumber的值，是否有小数部分。
-        int tempNumber = ((int) (this.level * 10)) - ((int) this.level) * 10;
+        int tempNumber = (int) (this.getLevel() * 10 % 10);
 
         int number = this.getWorld().rand.nextInt(tempNumber > 0 ? 2 : 1);
 
-        for (int i = 0; i < ((int) this.getLevel()) + number; i++) {
+        for (int i = 0; i < (int) (this.getLevel() + number); i++) {
             if (this.canRunMachine()) {
                 this.open = true;
                 this.runMachine();

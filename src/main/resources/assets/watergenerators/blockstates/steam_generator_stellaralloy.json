@@ -2,10 +2,11 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/top/stellaralloy",
-            "side": "watergenerators:blocks/machine/side/stellaralloy"
+            "front": "watergenerators:blocks/steam_generator/stellaralloy",
+            "top": "watergenerators:blocks/machineshell/stellaralloy/top",
+            "side": "watergenerators:blocks/machineshell/stellaralloy/side"
         },
-        "model": "watergenerators:generator_steam"
+        "model": "orientable"
     },
     "variants": {
         "normal": [

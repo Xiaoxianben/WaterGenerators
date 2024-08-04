@@ -1,8 +1,0 @@
-{
-    "parent": "block/cube_top",
-    "textures": {
-        "side": "watergenerators:blocks/gold_plated_iron",
-        "top": "watergenerators:blocks/gold_plated_iron"
-    }
-}
-

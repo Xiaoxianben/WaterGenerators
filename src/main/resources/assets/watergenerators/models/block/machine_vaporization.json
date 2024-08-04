@@ -1,8 +1,0 @@
-{
-    "parent": "block/orientable",
-    "textures": {
-        "front": "watergenerators:blocks/machine/vaporization",
-        "top": "#top",
-        "side": "#side"
-    }
-}

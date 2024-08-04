@@ -1,0 +1,18 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "top": "watergenerators:blocks/turbine_generator/elite/top",
+            "side": "watergenerators:blocks/turbine_generator/elite/side"
+        },
+        "model": "watergenerators:generator_turbine"
+    },
+    "variants": {
+        "normal": [
+            {}
+        ],
+        "inventory": {
+            "transform": "forge:default-block"
+        }
+    }
+}

@@ -1,8 +1,9 @@
 package com.xiaoxianben.watergenerators.gui.guiContainer;
 
-import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
 import com.xiaoxianben.watergenerators.client.RenderFluid;
+import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
 import com.xiaoxianben.watergenerators.util.ModInformation;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -27,24 +28,48 @@ public abstract class GuiBasic extends GuiContainer {
         this.TEXTURES = new ResourceLocation(ModInformation.MOD_ID, "textures/gui/" + ID + ".png");
     }
 
-
-    @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.drawAllMouseRect(mouseX, mouseY);
-    }
-
-    @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        this.drawAllGUITextures();
-
-        this.drawAllGUIText();
-    }
-
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        this.drawAllMouseRect(mouseX - this.guiLeft, mouseY - this.guiTop);
+
+        for (GuiButton guibutton : this.buttonList) {
+            if (guibutton.isMouseOver()) {
+                guibutton.drawButtonForegroundLayer(mouseX - this.guiLeft, mouseY - this.guiTop);
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        this.mc.getTextureManager().bindTexture(this.TEXTURES);
+        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+
+        for (int i = 0; i < ((ContainerBasic) this.inventorySlots).rectangles.size(); i++) {
+            Rectangle rectangle = ((ContainerBasic) this.inventorySlots).rectangles.get(i);
+            this.drawTexturedModalRect(this.guiLeft + rectangle.x, this.guiTop + rectangle.y, 7, 141, rectangle.width, rectangle.height);
+        }
+
+        this.drawAllGUITextures();
+
+        this.drawGuiBlockName();
+        this.drawAllGUIText();
+    }
+
+    /**
+     * 绘制方块的本地化名
+     */
+    protected void drawGuiBlockName() {
+        String text = this.tileEntity.getBlockType().getLocalizedName();
+        drawGUIText(text, this.guiLeft + (this.xSize - this.fontRenderer.getStringWidth(text)) / 2, this.guiTop + 3);
     }
 
 
@@ -54,20 +79,14 @@ public abstract class GuiBasic extends GuiContainer {
     protected abstract void drawAllMouseRect(int mouseX, int mouseY);
 
     /**
-     * 绘制所有的文本
+     * 绘制所有的额外的文本
      */
-    protected void drawAllGUIText() {
-        String text = this.tileEntity.getBlockType().getLocalizedName();
-        drawGUIText(text, this.guiLeft + (this.xSize - this.fontRenderer.getStringWidth(text)) / 2, this.guiTop + 4);
-    }
+    protected abstract void drawAllGUIText();
 
     /**
-     * 绘制所有的矩形
+     * 绘制所有的额外的矩形
      */
-    protected void drawAllGUITextures() {
-        this.mc.getTextureManager().bindTexture(this.TEXTURES);
-        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-    }
+    protected abstract void drawAllGUITextures();
 
 
     public java.util.List<Rectangle> getGuiExtraAreas() {
@@ -100,14 +119,14 @@ public abstract class GuiBasic extends GuiContainer {
     }
 
     protected void drawMouseRect(int mouseX, int mouseY, int textureX, int textureY, int width, int height, String[] text) {
-        if (mouseX > this.guiLeft + textureX && mouseX <= this.guiLeft + textureX + width &&
-                mouseY > this.guiTop + textureY && mouseY <= this.guiTop + textureY + height
+        if (mouseX > textureX && mouseX <= textureX + width &&
+                mouseY > textureY && mouseY <= textureY + height
         ) {
             // 绘画图形的阴影
             drawRect(textureX, textureY,
                     textureX + width, textureY + height, 0x3000000);
             // 绘画文字框
-            drawHoveringText(Arrays.stream(text).collect(Collectors.toList()), mouseX - this.guiLeft, mouseY - this.guiTop);
+            drawHoveringText(Arrays.stream(text).collect(Collectors.toList()), mouseX, mouseY);
         }
     }
 

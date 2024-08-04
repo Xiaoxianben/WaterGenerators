@@ -11,13 +11,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.math.BigDecimal;
 
 public abstract class TEGeneratorBase extends TEEnergyBasic {
-    /**
-     * 发电机等级
-     */
-    public float level;
+
     /**
      * 发电机的基础发电量
      */
@@ -28,11 +24,10 @@ public abstract class TEGeneratorBase extends TEEnergyBasic {
     /**
      * 不接受能量，只传输能量
      */
-    public TEGeneratorBase(long basePowerGeneration, float level) {
-        super(new BigDecimal(basePowerGeneration).multiply(BigDecimal.valueOf(650L)).longValue(), true);
+    public TEGeneratorBase(long basePowerGeneration) {
+        super(basePowerGeneration, true);
 
         this.basePowerGeneration = basePowerGeneration;
-        this.level = level;
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_generator);
     }
 
@@ -53,30 +48,6 @@ public abstract class TEGeneratorBase extends TEEnergyBasic {
         return super.getCapability(capability, facing);
     }
 
-
-    // NBT
-    @Override
-    public void readFromNBT(@Nonnull NBTTagCompound NBT) {
-        NBTTagCompound nbtGenerator = NBT.getCompoundTag("Attribute");
-        this.basePowerGeneration = nbtGenerator.getLong("basePowerGeneration");
-        this.level = nbtGenerator.getFloat("level");
-
-        super.readFromNBT(NBT);
-    }
-
-    @Nonnull
-    @Override
-    public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
-        NBTTagCompound nbtTagCompound = super.writeToNBT(compound);
-
-        NBTTagCompound nbtGenerator = new NBTTagCompound();
-        nbtGenerator.setLong("basePowerGeneration", this.basePowerGeneration);
-        nbtGenerator.setFloat("level", this.level);
-        nbtTagCompound.setTag("Attribute", nbtGenerator);
-
-        return nbtTagCompound;
-    }
-
     @Override
     public NBTTagCompound getCapabilityNBT() {
         NBTTagCompound nbtTagCompound = super.getCapabilityNBT();
@@ -91,6 +62,27 @@ public abstract class TEGeneratorBase extends TEEnergyBasic {
         super.readCapabilityNBT(NBT);
 
         itemComponentHandler.deserializeNBT(NBT.getCompoundTag("ItemHandler"));
+    }
+
+    // NBT
+    @Override
+    public void readFromNBT(@Nonnull NBTTagCompound NBT) {
+        NBTTagCompound nbtGenerator = NBT.getCompoundTag("Attribute");
+        this.basePowerGeneration = nbtGenerator.getLong("basePowerGeneration");
+
+        super.readFromNBT(NBT);
+    }
+
+    @Nonnull
+    @Override
+    public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
+        NBTTagCompound nbtTagCompound = super.writeToNBT(compound);
+
+        NBTTagCompound nbtGenerator = new NBTTagCompound();
+        nbtGenerator.setLong("basePowerGeneration", this.basePowerGeneration);
+        nbtTagCompound.setTag("Attribute", nbtGenerator);
+
+        return nbtTagCompound;
     }
 
     @Override

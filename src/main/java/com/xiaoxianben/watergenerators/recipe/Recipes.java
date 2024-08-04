@@ -70,7 +70,7 @@ public class Recipes<input, output> {
 
             JsonObject recipe = new JsonObject();
 
-            recipe.add("input", this.inputRecipeType.getRecipeJson(this.getInputs().get(i)));
+            recipe.add("input", this.inputRecipeType.getRecipeJson(this.getInput(i)));
             recipe.add("output", this.outputRecipeType.getRecipeJson(this.getOutput(i)));
             recipe.addProperty("energyDeplete", this.energyDepleteList.get(i));
 

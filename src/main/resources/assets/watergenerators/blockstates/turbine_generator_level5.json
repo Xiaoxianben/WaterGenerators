@@ -2,7 +2,8 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/turbine_generator/level5"
+            "top": "watergenerators:blocks/turbine_generator/level5/top",
+            "side": "watergenerators:blocks/turbine_generator/level5/side"
         },
         "model": "watergenerators:generator_turbine"
     },

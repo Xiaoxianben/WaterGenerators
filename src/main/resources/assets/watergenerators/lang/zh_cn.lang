@@ -32,11 +32,11 @@ item.watergenerators-coil_signalum.name=信素线圈
 item.watergenerators-coil_enderium.name=末影线圈
 
 # ## 涡轮转片
-item.watergenerators-turbine_rotor_iron.name=铁涡轮转片
-item.watergenerators-turbine_rotor_goldPlated.name=镀金涡轮转片
-item.watergenerators-turbine_rotor_diamond.name=钻石涡轮转片
-item.watergenerators-turbine_rotor_obsidian.name=黑曜石涡轮转片
-item.watergenerators-turbine_rotor_emerald.name=绿宝石涡轮转片
+item.watergenerators-turbine_rotor_level1.name=铁涡轮转片
+item.watergenerators-turbine_rotor_level2.name=镀金涡轮转片
+item.watergenerators-turbine_rotor_level3.name=钻石涡轮转片
+item.watergenerators-turbine_rotor_level4.name=黑曜石涡轮转片
+item.watergenerators-turbine_rotor_level5.name=绿宝石涡轮转片
 
 item.watergenerators-turbine_rotor_steel.name=钢涡轮转片
 item.watergenerators-turbine_rotor_invar.name=殷钢涡轮转片
@@ -49,6 +49,11 @@ item.watergenerators-turbine_rotor_darksteel.name=玄钢涡轮转片
 item.watergenerators-turbine_rotor_endsteel.name=末影钢涡轮转片
 item.watergenerators-turbine_rotor_melodicalloy.name=旋律合金涡轮转片
 item.watergenerators-turbine_rotor_stellaralloy.name=恒星合金涡轮转片
+
+item.watergenerators-turbine_rotor_basic.name=智能基础涡轮转片
+item.watergenerators-turbine_rotor_advanced.name=智能高级涡轮转片
+item.watergenerators-turbine_rotor_elite.name=智能精英涡轮转片
+item.watergenerators-turbine_rotor_ultimate.name=智能终极涡轮转片
 
 # ## 导管
 item.watergenerators-conduit_iron.name=铁导管
@@ -80,7 +85,7 @@ item.watergenerators-component_powerGeneration.tooltip=提高 所有发电机 �
 
 # ##### 方块
 tile.watergenerators-block_goldPlatedIron.name=镀金铁块
-tile.watergenerators-machineShell_frame.name=机器外壳框架
+tile.watergenerators-machineshell_frame.name=机器外壳框架
 
 tile.watergenerators-steam.name=蒸汽
 fluid.steam=蒸汽
@@ -133,8 +138,14 @@ level.electrum.name=琥珀金
 level.signalum.name=信素
 level.enderium.name=末影
 
+level.basic.name=智能基础
+level.advanced.name=智能高级
+level.elite.name=智能精英
+level.ultimate.name=智能终极
+
 # Gui
 gui.basePowerGeneration.text=基础发电量: %dFE
 gui.energyIncreaseDecrease.text=能量增/减: %dFE/t|%dFE/t
-gui.fluidBV.text=流体倍率: %d
+gui.fluidMagnification.text=流体放大倍率: %d
+gui.baseFluidAmount.text=基础液体量: %d
 gui.fluidHeight.text=流体高度: %dm

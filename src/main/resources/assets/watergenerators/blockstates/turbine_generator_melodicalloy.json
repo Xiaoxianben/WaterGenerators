@@ -2,7 +2,8 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/turbine_generator/melodicalloy"
+            "top": "watergenerators:blocks/turbine_generator/melodicalloy/top",
+            "side": "watergenerators:blocks/turbine_generator/melodicalloy/side"
         },
         "model": "watergenerators:generator_turbine"
     },

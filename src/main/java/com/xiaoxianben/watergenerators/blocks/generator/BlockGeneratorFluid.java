@@ -14,6 +14,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -22,7 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -42,13 +42,6 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
         super(type, levelName, level, (long) (ConfigValue.energyBasic * Math.pow(1.5, level - 1) * 1.5), set);
     }
 
-
-    @Nonnull
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
-    }
-
     @SuppressWarnings("deprecation")
     @Nonnull
     @Override
@@ -66,6 +59,12 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
         return state.getValue(FACING).getIndex();
     }
 
+    @Nonnull
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, FACING);
+    }
+
     // 方块放置
     @Override
     @ParametersAreNonnullByDefault
@@ -79,28 +78,27 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         // 如果在服务端
-        if (!worldIn.isRemote) {
+        if (!super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ)) {
+
             TileEntity tileEntity = Objects.requireNonNull(worldIn.getTileEntity(pos));
             boolean isFillFluid = FluidUtil.interactWithFluidHandler(playerIn, hand, Objects.requireNonNull(tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)));
-            if (!isFillFluid) {
-                ItemStack playerItem = playerIn.getHeldItem(hand);
-                if (playerItem.getItem() instanceof ItemComponent) {
-                    ItemStack component = playerItem.copy();
-                    component.setCount(1);
-                    int itemC = Objects.requireNonNull(tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)).insertItem(0, component, false).getCount();
-                    playerIn.setHeldItem(hand, new ItemStack(playerItem.getItem(), playerItem.getCount() - (component.getCount() - itemC), playerItem.getMetadata()));
-                } else if (playerItem.getItem() != ModItems.information_finder) {
-                    int ID = GUIHandler.GUIFluidGenerator;
-                    playerIn.openGui(WaterGenerators.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
-                }
+
+            Item handItem = playerIn.getHeldItem(hand).getItem();
+            if (!isFillFluid && handItem != ModItems.information_finder && !(handItem instanceof ItemComponent)) {
+                int ID = GUIHandler.GUIFluidGenerator;
+                playerIn.openGui(WaterGenerators.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                return true;
             }
+
+            return isFillFluid;
+
         }
         return true;
     }
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEGeneratorFluid(this.basePowerGeneration, this.level);
+        return new TEGeneratorFluid(this.basePowerGeneration);
     }
 
 }

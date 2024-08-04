@@ -2,7 +2,8 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "top": "watergenerators:blocks/machine/turbine_generator/stellaralloy"
+            "top": "watergenerators:blocks/turbine_generator/stellaralloy/top",
+            "side": "watergenerators:blocks/turbine_generator/stellaralloy/side"
         },
         "model": "watergenerators:generator_turbine"
     },
