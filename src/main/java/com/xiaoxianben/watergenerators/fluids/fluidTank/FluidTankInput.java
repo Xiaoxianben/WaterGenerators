@@ -1,37 +1,33 @@
 package com.xiaoxianben.watergenerators.fluids.fluidTank;
 
-import com.xiaoxianben.watergenerators.recipe.Recipes;
+import com.xiaoxianben.watergenerators.jsonRecipe.Recipes;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
+import java.util.stream.Collectors;
 
 public class FluidTankInput extends FluidTankBase {
-    public Recipes<FluidStack, FluidStack> recipeList;
+    public final Recipes<FluidStack, FluidStack> recipeList;
 
     public FluidTankInput(int capacity, Recipes<FluidStack, FluidStack> recipeList) {
         super(capacity);
         this.recipeList = recipeList;
     }
 
+    @Override
     public boolean canFillFluidType(FluidStack fluid) {
-        return this.getInputFluid(fluid) != null;
+        return this.recipeList.containsKay(fluid);
     }
 
-
-    protected FluidStack getInputFluid(FluidStack fluid) {
-        return this.recipeList.getInputs().stream().filter(fluid::containsFluid).findFirst().orElse(null);
-    }
 
     @Nullable
     public FluidStack getRecipeFluidInput() {
-        if (this.getFluid() == null) return null;
-        return this.getInputFluid(this.getFluid());
+        if (this.getFluid() == null || !this.recipeList.containsKay(this.getFluid())) return null;
+        return this.recipeList.getInput(this.recipeList.getInputs().stream().collect(Collectors.toList()).indexOf(this.getFluid()));
     }
 
     @Nullable
     public FluidStack getRecipeOutput() {
-        if (this.getRecipeFluidInput() == null) return null;
-        return this.recipeList.getOutput(getRecipeFluidInput());
-
+        return this.recipeList.getOutput(this.getFluid());
     }
 }

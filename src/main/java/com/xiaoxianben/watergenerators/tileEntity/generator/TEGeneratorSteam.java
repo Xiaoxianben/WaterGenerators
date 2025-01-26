@@ -5,6 +5,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class TEGeneratorSteam extends TEGeneratorFluid {
 
+
     @SuppressWarnings("unused")
     public TEGeneratorSteam() {
         this(Long.MAX_VALUE);
@@ -15,20 +16,16 @@ public class TEGeneratorSteam extends TEGeneratorFluid {
      */
     public TEGeneratorSteam(long basePowerGeneration) {
         super(basePowerGeneration);
-    }
-
-    @Override
-    public void init() {
-        this.basicAmountOfFluidToProduceEnergy = ConfigValue.basicAmountOfSteamToProduceEnergy;
-
-        super.init();
-
         this.fluidTank.setCanFillFluidType(FluidRegistry.getFluid("steam"));
     }
 
+
     @Override
     public float getEnergyMagnification() {
-        return ConfigValue.steamMagnification;
+        if (this.fluidTank.getFluid() != null) {
+            return super.getEnergyMagnification() + ConfigValue.steamMagnification;
+        }
+        return 0.0f;
     }
 
 }

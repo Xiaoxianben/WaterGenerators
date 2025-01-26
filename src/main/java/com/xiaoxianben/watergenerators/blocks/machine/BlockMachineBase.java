@@ -2,8 +2,6 @@ package com.xiaoxianben.watergenerators.blocks.machine;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.blocks.BlockBase;
-import com.xiaoxianben.watergenerators.util.ModInformation;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -24,7 +22,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.LinkedHashSet;
 
 public class BlockMachineBase extends BlockBase implements ITileEntityProvider {
 
@@ -35,8 +32,8 @@ public class BlockMachineBase extends BlockBase implements ITileEntityProvider {
     private final String type;
     private final String levelName;
 
-    public BlockMachineBase(String type, String levelName, float level, LinkedHashSet<Block> linkedHashSet) {
-        super(type + "_" + levelName, Material.IRON, WaterGenerators.MACHINE_TAB, SoundType.METAL, linkedHashSet);
+    public BlockMachineBase(String type, String levelName, float level) {
+        super(type + "_" + levelName, Material.IRON, WaterGenerators.MACHINE_TAB, SoundType.METAL);
 
         this.setHardness(10.0f);
         this.type = type;
@@ -62,7 +59,7 @@ public class BlockMachineBase extends BlockBase implements ITileEntityProvider {
     @Override
     @Nonnull
     public String getUnlocalizedName() {
-        return "tile." + ModInformation.MOD_ID + "-" + this.type;
+        return "tile." + WaterGenerators.MOD_ID + "-" + this.type;
     }
 
     @Nonnull

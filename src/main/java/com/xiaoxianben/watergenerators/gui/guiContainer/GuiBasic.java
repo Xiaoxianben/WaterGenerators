@@ -1,8 +1,8 @@
 package com.xiaoxianben.watergenerators.gui.guiContainer;
 
-import com.xiaoxianben.watergenerators.client.RenderFluid;
+import com.xiaoxianben.watergenerators.WaterGenerators;
+import com.xiaoxianben.watergenerators.event.client.RenderFluid;
 import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -25,7 +25,7 @@ public abstract class GuiBasic extends GuiContainer {
     public GuiBasic(ContainerBasic inventorySlotsIn, TileEntity tileEntity, int ID) {
         super(inventorySlotsIn);
         this.tileEntity = tileEntity;
-        this.TEXTURES = new ResourceLocation(ModInformation.MOD_ID, "textures/gui/" + ID + ".png");
+        this.TEXTURES = new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/" + ID + ".png");
     }
 
     @Override

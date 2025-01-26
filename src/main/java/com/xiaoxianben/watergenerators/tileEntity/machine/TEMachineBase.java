@@ -14,7 +14,7 @@ public class TEMachineBase extends TEEnergyBasic {
      * 接受能量，不传输能量
      */
     public TEMachineBase(float level) {
-        super((long) Math.pow((level * 500), 2), false);
+        super((long) (level * 1000), true, false);
         this.level = level;
     }
 

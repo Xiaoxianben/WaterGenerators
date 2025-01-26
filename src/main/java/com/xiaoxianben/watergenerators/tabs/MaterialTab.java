@@ -1,6 +1,7 @@
 package com.xiaoxianben.watergenerators.tabs;
 
-import com.xiaoxianben.watergenerators.items.ItemsMaterial;
+import com.xiaoxianben.watergenerators.init.EnumModItems;
+import com.xiaoxianben.watergenerators.init.modRegister.EnumModRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -12,22 +13,13 @@ import java.util.List;
 
 public class MaterialTab extends CreativeTabs {
 
-    public static List<Item> materialTabItems = new ArrayList<>();
-
     public MaterialTab() {
         super("material_tap");
-        for (Item itemTabItem : materialTabItems) {
-            if (itemTabItem instanceof ItemBlock) {
-                ((ItemBlock) itemTabItem).getBlock().setCreativeTab(this);
-            } else {
-                itemTabItem.setCreativeTab(this);
-            }
-        }
     }
 
     @Override
     @Nonnull
     public ItemStack getTabIconItem() {
-        return new ItemStack(ItemsMaterial.gears[0]);
+        return EnumModItems.COIL.itemMap.get(EnumModRegister.MINECRAFT)[0];
     }
 }

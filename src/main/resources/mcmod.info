@@ -2,15 +2,15 @@
     {
         "modid": "watergenerators",
         "name": "Water Generators",
-        "description": "A simple RF generator module.",
+        "description": "A simple FE generator mod.",
         "version": "${version}",
-        "mcversion": "1.12.2",
+        "mcversion": "${mcversion}",
         "url": "",
         "updateUrl": "",
         "authorList": [
-            "xiaoxianben"
+            "xiaoxianbenmao"
         ],
-        "credits": "Idealland - they provided this framework.",
+        "credits": "The Forge and FML guys, for making this mak. Idealland - they teach me how to make mod.",
         "logoFile": "",
         "screenshots": [],
         "dependencies": []

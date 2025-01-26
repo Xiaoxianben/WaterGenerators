@@ -25,14 +25,17 @@ public abstract class TEGeneratorBase extends TEEnergyBasic {
      * 不接受能量，只传输能量
      */
     public TEGeneratorBase(long basePowerGeneration) {
-        super(basePowerGeneration, true);
+        super(basePowerGeneration, false, true);
 
         this.basePowerGeneration = basePowerGeneration;
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_generator);
     }
 
 
-    public long getRealPowerGeneration() {
+    /**
+     * 获取一次发电得到的最终的发电量。
+     * */
+    public long getFinallyPowerGeneration() {
         return this.basePowerGeneration * (this.itemComponentHandler.getComponentCount(ItemsComponent.component_powerGeneration) + 1);
     }
 
@@ -89,7 +92,7 @@ public abstract class TEGeneratorBase extends TEEnergyBasic {
     public NBTTagCompound getNetworkUpdateNBT() {
         NBTTagCompound nbtTagCompound = new NBTTagCompound();
         nbtTagCompound.setLong("finallyReceiveEnergy", this.finallyReceiveEnergy);
-        nbtTagCompound.setLong("finallyExtractEnergy", this.getFinallyExtractEnergyP());
+        nbtTagCompound.setLong("finallyExtractEnergy", this.finallyExtractEnergy);
         return nbtTagCompound;
     }
 

@@ -5,7 +5,7 @@ import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorCreate;
 
 public class GuiGeneratorCreate extends GuiGeneratorBasic {
 
-    public TEGeneratorCreate tileEntity;
+    public final TEGeneratorCreate tileEntity;
 
     public GuiGeneratorCreate(ContainerGeneratorCreate Container, TEGeneratorCreate tileEntity) {
         super(Container, tileEntity, 1, 33, 14, 113);

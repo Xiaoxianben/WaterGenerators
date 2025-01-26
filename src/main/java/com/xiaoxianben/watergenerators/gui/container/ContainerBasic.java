@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class ContainerBasic extends Container {
 
-    public List<Rectangle> rectangles = new ArrayList<>();
+    public final List<Rectangle> rectangles = new ArrayList<>();
 
     public ContainerBasic(EntityPlayer player, TileEntity tileEntity) {
 

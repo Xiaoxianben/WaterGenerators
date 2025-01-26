@@ -1,9 +1,9 @@
 package com.xiaoxianben.watergenerators.gui.guiContainer;
 
+import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
 import com.xiaoxianben.watergenerators.math.PrivateMath;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorBase;
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -22,10 +22,10 @@ public class GuiGeneratorBasic extends GuiEnergyBase {
 
     private final TEGeneratorBase tileEntity;
 
-    protected List<String> drawStringList = new ArrayList<>();
-    protected int textStartX;
-    protected int textStartY;
-    protected int textWidth;
+    protected final List<String> drawStringList = new ArrayList<>();
+    protected final int textStartX;
+    protected final int textStartY;
+    protected final int textWidth;
     protected int guiId = 0;
 
 
@@ -45,7 +45,7 @@ public class GuiGeneratorBasic extends GuiEnergyBase {
         super.initGui();
 
         this.addButton(new Button(0, this.guiLeft + this.xSize + 1, this.guiTop + 1,
-                new ResourceLocation(ModInformation.MOD_ID, "textures/items/information_finder.png"),
+                new ResourceLocation(WaterGenerators.MOD_ID, "textures/items/information_finder.png"),
                 16, 16)
         );
 
@@ -69,7 +69,7 @@ public class GuiGeneratorBasic extends GuiEnergyBase {
                 this.updateDefaultStringList();
                 break;
             case 1:
-                this.updateDrawStringList();
+                this.updateInforGuiStringList();
                 textStartXTemp = 4;
                 textStartYTemp = 4 + 8;
                 textWidthTemp = 166;
@@ -110,27 +110,31 @@ public class GuiGeneratorBasic extends GuiEnergyBase {
         if (guiId == 0) {
             this.drawDefaultGUITextures();
         } else {
-            this.mc.getTextureManager().bindTexture(new ResourceLocation(ModInformation.MOD_ID, "textures/gui/0.png"));
+            this.mc.getTextureManager().bindTexture(new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/0.png"));
             this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         }
     }
 
+    /** 绘制常规gui的贴图 */
     protected void drawDefaultGUITextures() {
         super.drawAllGUITextures();
     }
 
+    /** 绘制常规gui的鼠标区域 */
     protected void drawDefaultMouseRect(int mouseX, int mouseY) {
         super.drawAllMouseRect(mouseX, mouseY);
     }
 
 
+    /** 更新常规gui的文本 */
     protected void updateDefaultStringList() {
         this.drawStringList.clear();
-        this.drawStringList.add(I18n.format("gui.basePowerGeneration.text", PrivateMath.getRoughData(this.tileEntity.getRealPowerGeneration())));
+        this.drawStringList.add(I18n.format("gui.basePowerGeneration.text", PrivateMath.getRoughData(this.tileEntity.basePowerGeneration)));
         this.drawStringList.add(I18n.format("gui.energyIncreaseDecrease.text", PrivateMath.getRoughData(this.tileEntity.getFinallyReceiveEnergy()), PrivateMath.getRoughData(this.tileEntity.getFinallyExtractEnergy())));
     }
 
-    protected void updateDrawStringList() {
+    /** 更新信息gui的文本 */
+    protected void updateInforGuiStringList() {
         this.updateDefaultStringList();
     }
 

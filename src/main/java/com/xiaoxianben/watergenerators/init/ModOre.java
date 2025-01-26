@@ -1,24 +1,14 @@
 package com.xiaoxianben.watergenerators.init;
 
-import com.xiaoxianben.watergenerators.api.IModInit;
-import com.xiaoxianben.watergenerators.items.ItemsMaterial;
+import com.xiaoxianben.watergenerators.init.modRegister.MinecraftRegister;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class ModOre implements IModInit {
-    @Override
+public class ModOre {
     public void init() {
 
-        OreDictionary.registerOre("itemConduitBinder", ModItems.ductShell.getDefaultInstance());
-        OreDictionary.registerOre("itemBinderComposite", ModItems.ductShell_bank.getDefaultInstance());
-        OreDictionary.registerOre("ingotGoldPlatedIron", ModItems.GOLD_PLATED_IRON_INGOT.getDefaultInstance());
+        OreDictionary.registerOre("itemConduitBinder", MinecraftRegister.ductShell.getDefaultInstance());
+        OreDictionary.registerOre("itemBinderComposite", MinecraftRegister.ductShell_bank.getDefaultInstance());
+        OreDictionary.registerOre("ingotGoldPlatedIron", MinecraftRegister.GOLD_PLATED_IRON_INGOT.getDefaultInstance());
 
-        String[] gearOreName = {"gearIron", "gearGoldPlatedIron", "gearDiamond", "gearObsidian", "gearEmerald"};
-        for (int i = 0; i < ItemsMaterial.gears.length; i++) {
-            OreDictionary.registerOre(gearOreName[i], ItemsMaterial.gears[i].getDefaultInstance());
-        }
-
-    }
-
-    public void preInit() {
     }
 }

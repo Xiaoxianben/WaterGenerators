@@ -4,7 +4,7 @@ import com.xiaoxianben.watergenerators.config.ConfigValue;
 import com.xiaoxianben.watergenerators.fluids.fluidTank.FluidTankGenerator;
 import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.itemHandler.ItemComponentHandler;
-import com.xiaoxianben.watergenerators.recipe.RecipeList;
+import com.xiaoxianben.watergenerators.jsonRecipe.ModJsonRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -18,10 +18,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class TEGeneratorFluid extends TEGeneratorBase {
 
     /**
-     * 产生能量所需的基础流体量，大部分情况下，默认为 1000 mB
-     * 蒸汽为 1 mB
+     * 产生能量所需的基础流体量，默认为 1000 mB
      */
-    public int basicAmountOfFluidToProduceEnergy = ConfigValue.basicAmountOfFluidToProduceEnergy;
+    public final int basicAmountOfFluidToProduceEnergy = ConfigValue.basicAmountOfFluidToProduceEnergy;
     public FluidTankGenerator fluidTank;
 
     private int maxFluidDrain;
@@ -34,15 +33,11 @@ public class TEGeneratorFluid extends TEGeneratorBase {
 
     public TEGeneratorFluid(long basePowerGeneration) {
         super(basePowerGeneration);
-        this.init();
-    }
-
-
-    public void init() {
-        this.fluidTank = new FluidTankGenerator(65 * basicAmountOfFluidToProduceEnergy, RecipeList.recipeFluidGenerator.getInputs());
+        this.fluidTank = new FluidTankGenerator(65 * basicAmountOfFluidToProduceEnergy, ModJsonRecipe.recipeFluidGenerator.getInputs());
         this.fluidTank.setCanDrain(false);
 
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_fluidGenerator);
+
     }
 
 
@@ -61,22 +56,29 @@ public class TEGeneratorFluid extends TEGeneratorBase {
     }
 
     /**
-     * 获取当前的流体倍率
+     * 获取当前的流体的发电倍率
      */
     public float getEnergyMagnification() {
         if (this.fluidTank.getFluid() != null) {
-            return RecipeList.recipeFluidGenerator.getOutput(this.fluidTank.getFluid().getFluid());
+            return ModJsonRecipe.recipeFluidGenerator.getOutput(this.fluidTank.getFluid().getFluid());
         }
         return 0.0f;
     }
 
+    @Override
+    public long getFinallyPowerGeneration() {
+        return (long) (super.getFinallyPowerGeneration() * getEnergyMagnification());
+    }
 
     @Override
     protected long updateEnergy() {
         long receiveEnergy = 0;
         FluidStack fluid = this.fluidTank.getFluid();
-        if (this.getEnergyStoredLong() < this.getMaxEnergyStoredLong() && fluid != null && fluid.amount >= this.basicAmountOfFluidToProduceEnergy) {
-            long realPowerGeneration = (long) (this.getRealPowerGeneration() * this.getEnergyMagnification());
+        if (fluid != null &&
+                this.getEnergyStoredLong() < this.getMaxEnergyStoredLong() &&
+                fluid.amount >= this.basicAmountOfFluidToProduceEnergy) {
+            // 一次 basicAmountOfFluidToProduceEnergy 所得到的能量
+            long realPowerGeneration = this.getFinallyPowerGeneration();
 
             int theAmountOfFluidRequired = (int) (Math.max((this.getMaxEnergyStoredLong() - this.getEnergyStoredLong()) / realPowerGeneration, 1) * this.basicAmountOfFluidToProduceEnergy);
             int canDrainAmount = Math.min(fluid.amount / this.basicAmountOfFluidToProduceEnergy * this.basicAmountOfFluidToProduceEnergy, this.maxFluidDrain);
@@ -99,11 +101,8 @@ public class TEGeneratorFluid extends TEGeneratorBase {
     public void updateStateInSever() {
         int extractCount = (this.itemComponentHandler.getComponentCount(ItemsComponent.component_extract) + 1);
         this.maxFluidDrain = extractCount * this.basicAmountOfFluidToProduceEnergy;
-        if (this.getEnergyMagnification() > 0.0f) {
-            this.energyStorage.setCapacity((long) (this.getRealPowerGeneration() * this.getEnergyMagnification() * extractCount) * 2);
-        } else {
-            this.energyStorage.setCapacity(this.getRealPowerGeneration() * extractCount * 2);
-        }
+        this.energyStorage.setCapacity(Math.max(this.getFinallyPowerGeneration() * extractCount * 2, this.getEnergyStoredLong()));
+
         super.updateStateInSever();
     }
 

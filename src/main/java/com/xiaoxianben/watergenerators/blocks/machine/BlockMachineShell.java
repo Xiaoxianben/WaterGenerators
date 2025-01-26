@@ -2,8 +2,6 @@ package com.xiaoxianben.watergenerators.blocks.machine;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.blocks.BlockBase;
-import com.xiaoxianben.watergenerators.init.ModBlocks;
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
@@ -14,12 +12,12 @@ import javax.annotation.Nonnull;
 
 public class BlockMachineShell extends BlockBase {
 
-    public float level;
-    public String levelName;
+    public final float level;
+    public final String levelName;
 
 
     public BlockMachineShell(float level, String levelName) {
-        super("machineshell_" + levelName, Material.IRON, WaterGenerators.MACHINE_TAB, SoundType.METAL, ModBlocks.allMachineShell);
+        super("machineshell_" + levelName, Material.IRON, WaterGenerators.MATERIAL_TAB, SoundType.METAL);
         this.level = level;
         this.levelName = levelName;
     }
@@ -36,7 +34,7 @@ public class BlockMachineShell extends BlockBase {
 
     @Nonnull
     public String getUnlocalizedName() {
-        return "tile." + ModInformation.MOD_ID + "-machineshell";
+        return "tile." + WaterGenerators.MOD_ID + "-machineshell";
     }
 
     public boolean canPlaceBlockAt(@Nonnull World worldIn, @Nonnull BlockPos pos) {

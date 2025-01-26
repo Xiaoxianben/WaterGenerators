@@ -33,8 +33,8 @@ public class GuiGeneratorFluid extends GuiGeneratorBasic {
     }
 
     @Override
-    public void updateDrawStringList() {
-        super.updateDrawStringList();
+    public void updateInforGuiStringList() {
+        super.updateInforGuiStringList();
 
         this.drawStringList.add(I18n.format("gui.fluidMagnification.text", PrivateMath.getRoughData(this.tileEntity.getEnergyMagnification())));
         this.drawStringList.add(I18n.format("gui.baseFluidAmount.text", PrivateMath.getRoughData(this.tileEntity.basicAmountOfFluidToProduceEnergy)));

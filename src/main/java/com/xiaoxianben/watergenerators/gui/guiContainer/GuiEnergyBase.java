@@ -13,7 +13,6 @@ public abstract class GuiEnergyBase extends GuiBasic {
     public GuiEnergyBase(ContainerBasic inventorySlotsIn, TEEnergyBasic tileEntity, int ID) {
         super(inventorySlotsIn, tileEntity, ID);
 
-
         this.tileEntity = tileEntity;
     }
 

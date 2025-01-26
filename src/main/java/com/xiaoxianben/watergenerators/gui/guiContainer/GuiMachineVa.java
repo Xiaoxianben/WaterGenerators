@@ -20,10 +20,11 @@ public class GuiMachineVa extends GuiEnergyBase {
 
     @Override
     protected void drawAllMouseRect(int mouseX, int mouseY) {
+        super.drawAllMouseRect(mouseX, mouseY);
         this.drawMouseFluidText(tileEntity.getFluidTankInt(), 51, 14, mouseX, mouseY);
         this.drawMouseFluidText(tileEntity.getFluidTankOut(), 109, 14, mouseX, mouseY);
 
-        this.drawMouseRect(mouseX, mouseY, 7, 4, 20, 72, new String[]{"FE: " + tileEntity.getEnergyStoredLong() + "FE / " + tileEntity.getMaxEnergyStoredLong() + "FE"});
+        //this.drawMouseRect(mouseX, mouseY, 7, 4, 20, 72, new String[]{"FE: " + tileEntity.getEnergyStoredLong() + "FE / " + tileEntity.getMaxEnergyStoredLong() + "FE"});
     }
 
 

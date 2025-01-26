@@ -1,8 +1,9 @@
 package com.xiaoxianben.watergenerators.tileEntity.machine;
 
+import com.xiaoxianben.watergenerators.config.ConfigValue;
 import com.xiaoxianben.watergenerators.fluids.fluidTank.FluidTankBase;
 import com.xiaoxianben.watergenerators.fluids.fluidTank.FluidTankInput;
-import com.xiaoxianben.watergenerators.recipe.RecipeList;
+import com.xiaoxianben.watergenerators.jsonRecipe.ModJsonRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -15,6 +16,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class TEMachineVaporization extends TEMachineBase {
 
+    protected final int runNumber = ConfigValue.basicAmountOfFluidToProduceEnergy / 5;
     /**
      * 输入流体的tank
      */
@@ -27,13 +29,13 @@ public class TEMachineVaporization extends TEMachineBase {
 
     @SuppressWarnings("unused")
     public TEMachineVaporization() {
-        this(5);
+        this(999);
     }
 
     public TEMachineVaporization(float level) {
         super(level);
-        fluidTankInt = new FluidTankInput((int) (5000 * level), RecipeList.recipeVaporization);
-        fluidTankOut = new FluidTankBase((int) (5000 * level));
+        fluidTankInt = new FluidTankInput((int) (1000 * level), ModJsonRecipe.recipeVaporization);
+        fluidTankOut = new FluidTankBase((int) (1000 * level));
 
         fluidTankInt.setCanDrain(false);
         fluidTankInt.setCanFill(true);
@@ -53,41 +55,37 @@ public class TEMachineVaporization extends TEMachineBase {
     /**
      * 运行机器
      */
-    private void runMachine() {
-
-        FluidStack outputFluidStack = this.getFluidTankInt().getRecipeOutput();
-        FluidStack inputFluidStack = this.getFluidTankInt().getRecipeFluidInput();
-
-        open = true;
-        this.modifyEnergyStored(RecipeList.recipeVaporization.getEnergyDeplete(inputFluidStack));
-        this.getFluidTankOut().fillInternal(outputFluidStack.copy(), true);
-        this.getFluidTankInt().drainInternal(inputFluidStack.copy(), true);
+    private void runMachine(FluidStack inputFluid, FluidStack outputFluid, int energyDe) {
+        this.modifyEnergyStored(-energyDe);
+        this.getFluidTankOut().fillInternal(outputFluid.copy(), true);
+        this.getFluidTankInt().drainInternal(inputFluid.copy(), true);
     }
 
-    private boolean canRunMachine() {
-        if (this.getFluidTankInt().getRecipeOutput() == null) return false;
-        FluidStack inputFluidStack = this.getFluidTankInt().getRecipeFluidInput();
-        if (this.getFluidTankInt().drainInternal(inputFluidStack.copy(), false) == null) return false;
-
-        FluidStack outFluid = this.getFluidTankOut().getFluid();
-        return (outFluid == null || outFluid.amount < this.getFluidTankOut().getCapacity()) && this.getEnergyStored() >= RecipeList.recipeVaporization.getEnergyDeplete(inputFluidStack.copy());
+    private int getNumberRun(FluidStack recipeInputFluid, FluidStack recipeOutputFluid, int energyDe) {
+        if (recipeInputFluid == null || getEnergyStoredLong() <= 0) return 0;
+        int outFluidNumber = Math.max(getFluidTankOut().getCapacity() - getFluidTankOut().getFluidAmount(), recipeOutputFluid.amount) / recipeOutputFluid.amount;
+        int inputFluidNumber = getFluidTankInt().getFluidAmount() / recipeInputFluid.amount;
+        long energyNumber = getEnergyStoredLong() / energyDe;
+        return (int) Math.min(Math.min(outFluidNumber, inputFluidNumber), energyNumber);
     }
 
     @Override
     public void updateStateInSever() {
-        // 这段代码用于计算tempNumber的值，是否有小数部分。
-        int tempNumber = (int) (this.getLevel() * 10 % 10);
+        this.open = false;
+        FluidStack recipeFluidInput = this.getFluidTankInt().getRecipeFluidInput();
+        if (recipeFluidInput == null) return;
+        FluidStack recipeOutput = this.getFluidTankInt().getRecipeOutput();
+        int energyDeplete = ModJsonRecipe.recipeVaporization.getEnergyDeplete(recipeFluidInput);
 
-        int number = this.getWorld().rand.nextInt(tempNumber > 0 ? 2 : 1);
+        // 这段代码用于计算运算次数。
+        int numberRun = (int) Math.min(getNumberRun(recipeFluidInput, recipeOutput, energyDeplete), this.getLevel() * runNumber);
+        if (numberRun <= 0) {
+            return;
+        }
 
-        for (int i = 0; i < (int) (this.getLevel() + number); i++) {
-            if (this.canRunMachine()) {
-                this.open = true;
-                this.runMachine();
-            } else {
-                this.open = false;
-                break;
-            }
+        this.open = true;
+        for (int i = 0; i < numberRun; i++) {
+            this.runMachine(recipeFluidInput, recipeOutput, energyDeplete);
         }
     }
 

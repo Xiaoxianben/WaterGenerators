@@ -10,7 +10,7 @@ public class EnergyStorage implements IEnergyStorage {
     protected long maxReceive;
     protected long maxExtract;
 
-    protected String[] NBT_KEYS = {"EnergyStorage", "Energy", "Capacity", "MaxReceive", "MaxExtract"};
+    protected final String[] NBT_KEYS = {"EnergyStorage", "Energy", "Capacity", "MaxReceive", "MaxExtract"};
 
 
     public EnergyStorage(long capacity, long maxReceive, long maxExtract) {
@@ -20,18 +20,22 @@ public class EnergyStorage implements IEnergyStorage {
     }
 
     public EnergyStorage(long capacity, boolean canReceive, boolean canExtract) {
-        this(capacity, canReceive ? capacity : 0, canExtract ? capacity : 0);
+        this(capacity, canReceive ? Integer.MAX_VALUE : 0, canExtract ? Integer.MAX_VALUE : 0);
     }
 
 
     public EnergyStorage setCapacity(long capacity) {
         this.capacity = capacity;
-        this.maxExtract = this.canExtract() ? capacity : 0;
-        this.maxReceive = this.canReceive() ? capacity : 0;
 
         if (energy > capacity) {
             energy = capacity;
         }
+        return this;
+    }
+
+    public EnergyStorage setEnergy(long energy) {
+        this.energy = energy > capacity ? capacity : (energy < 0 ? 0 : energy);
+
         return this;
     }
 

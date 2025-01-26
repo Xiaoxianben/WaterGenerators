@@ -3,12 +3,12 @@ package com.xiaoxianben.watergenerators.blocks;
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.api.IHasItemNBT;
 import com.xiaoxianben.watergenerators.api.IHasModel;
-import com.xiaoxianben.watergenerators.items.ItemBlockPrivate;
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,38 +21,41 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.LinkedHashSet;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class BlockBase extends Block implements IHasModel {
 
 
-    public BlockBase(String name, Material materialIn, CreativeTabs tab, @Nullable SoundType soundType, LinkedHashSet<Block> linkedHashSet) {
+    public BlockBase(String name, Material materialIn, CreativeTabs tab, @Nullable SoundType soundType) {
         super(materialIn);
-        setUnlocalizedName(ModInformation.MOD_ID + '-' + name);
-        setRegistryName(ModInformation.MOD_ID, name);
+        setUnlocalizedName(WaterGenerators.MOD_ID + '-' + name);
+        setRegistryName(WaterGenerators.MOD_ID, name);
         this.setCreativeTab(tab);
 
         this.setSoundType(soundType == null ? SoundType.METAL : soundType);
 
-        this.setHardness(10.0F);
+        this.setHardness(8.0F);
         this.setHarvestLevel("pickaxe", 1);
-
-        linkedHashSet.add(this);
     }
 
-    public BlockBase(String name, Material materialIn, CreativeTabs tab, @Nullable SoundType soundType, Byte inx) {
-        this(name, materialIn, tab, soundType, Objects.requireNonNull(WaterGenerators.BLOCKS));
-        Objects.requireNonNull(inx);
-        Objects.requireNonNull(WaterGenerators.ITEMS).add(new ItemBlockPrivate(this));
-    }
 
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+        if (I18n.hasKey(getUnlocalizedName() + ".tooltip")) {
+            tooltip.addAll(Arrays.stream(I18n.format(getUnlocalizedName() + ".tooltip").split("\\n")).collect(Collectors.toList()));
+        }
+    }
 
     @SuppressWarnings("deprecation")
     @Nonnull

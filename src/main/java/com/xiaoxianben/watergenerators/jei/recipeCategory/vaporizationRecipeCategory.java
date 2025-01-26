@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.jei.recipeCategory;
 
+import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.jei.wrapper.steamWrapper;
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -20,15 +20,15 @@ public class vaporizationRecipeCategory implements IRecipeCategory<steamWrapper>
 
     private static final int input1 = 0; // THE NUMBER = SLOT ID
     private static final int output1 = 1; // THE NUMBER = SLOT ID
-    public static String vaporizationUID = ModInformation.MOD_ID + ":vaporization";
+    public final static String vaporizationUID = WaterGenerators.MOD_ID + ":vaporization";
     private final String title;
     private final IDrawable background, animation;
 
     public vaporizationRecipeCategory(IGuiHelper guiHelper) {
         this.title = I18n.format("RC.vaporization.title");
-        this.background = guiHelper.createDrawable(new ResourceLocation(ModInformation.MOD_ID, "textures/gui/steam.png"), 0, 0, 76, 36);
+        this.background = guiHelper.createDrawable(new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/steam.png"), 0, 0, 76, 36);
         this.animation = guiHelper.createAnimatedDrawable(
-                guiHelper.createDrawable(new ResourceLocation(ModInformation.MOD_ID, "textures/gui/steam.png"), 76, 0, 36, 17),
+                guiHelper.createDrawable(new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/steam.png"), 76, 0, 36, 17),
                 20 * 5,
                 IDrawableAnimated.StartDirection.LEFT, false);
     }
@@ -48,7 +48,7 @@ public class vaporizationRecipeCategory implements IRecipeCategory<steamWrapper>
     @Nonnull
     @Override
     public String getModName() {
-        return ModInformation.NAME;
+        return WaterGenerators.NAME;
     }
 
     @Nonnull

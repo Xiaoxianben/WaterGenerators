@@ -2,7 +2,6 @@ package com.xiaoxianben.watergenerators.items;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.api.IHasModel;
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,21 +12,18 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Objects;
 
 public class ItemBase extends Item implements IHasModel {
-    public ItemBase(String name, CreativeTabs tab, LinkedHashSet<Item> linkedHashSet) {
-        setUnlocalizedName(ModInformation.MOD_ID + '-' + name);
+    public ItemBase(String name, CreativeTabs tab) {
+        setUnlocalizedName(WaterGenerators.MOD_ID + '-' + name);
         setRegistryName(name);
 
         setCreativeTab(tab);
-        linkedHashSet.add(this);
     }
 
     public ItemBase(String name) {
-        this(name, WaterGenerators.Item_TAB, Objects.requireNonNull(WaterGenerators.ITEMS));
+        this(name, WaterGenerators.Item_TAB);
     }
 
     @ParametersAreNonnullByDefault

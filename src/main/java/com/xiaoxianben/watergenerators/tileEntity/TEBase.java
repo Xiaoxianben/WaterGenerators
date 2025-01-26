@@ -54,7 +54,7 @@ public abstract class TEBase extends TileEntity implements INetworkUpdateNBT, IC
 
     @ParametersAreNonnullByDefault
     @Override
-    public void onDataPacket(net.minecraft.network.NetworkManager net, net.minecraft.network.play.server.SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt) {
 
         NBTTagCompound nbtTagCompound = pkt.getNbtCompound();
         this.readCapabilityNBT(nbtTagCompound.getCompoundTag("capabilityNBT"));

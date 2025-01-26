@@ -1,5 +1,5 @@
 # ###### tabs
-itemGroup.ingotBlock_tap=水发电机/物品
+itemGroup.item_tap=水发电机/物品
 itemGroup.machine_tap=水发电机/机器
 itemGroup.material_tap=水发电机/材料
 
@@ -8,22 +8,22 @@ item.watergenerators-ingot_goldPlatedIron.name=镀金铁锭
 item.watergenerators-information_finder.name=信息查询器
 
 # ## 齿轮
-item.watergenerators-gear_iron.name=铁齿轮
-item.watergenerators-gear_goldPlated.name=镀金齿轮
-item.watergenerators-gear_diamond.name=钻石齿轮
-item.watergenerators-gear_obsidian.name=黑曜石齿轮
-item.watergenerators-gear_emerald.name=绿宝石齿轮
+item.watergenerators-gear_level1.name=铁齿轮
+item.watergenerators-gear_level2.name=镀金齿轮
+item.watergenerators-gear_level3.name=钻石齿轮
+item.watergenerators-gear_level4.name=黑曜石齿轮
+item.watergenerators-gear_level5.name=绿宝石齿轮
 
 item.watergenerators-gear_endsteel.name=末影钢齿轮
-item.watergenerators-gear_melodic.name=旋律齿轮
-item.watergenerators-gear_stellar.name=恒星齿轮
+item.watergenerators-gear_melodicalloy.name=旋律齿轮
+item.watergenerators-gear_stellaralloy.name=恒星齿轮
 
 # ## 线圈
-item.watergenerators-coil_iron.name=铁线圈
-item.watergenerators-coil_goldPlated.name=镀金线圈
-item.watergenerators-coil_diamond.name=钻石线圈
-item.watergenerators-coil_obsidian.name=黑曜石线圈
-item.watergenerators-coil_emerald.name=绿宝石线圈
+item.watergenerators-coil_level1.name=铁线圈
+item.watergenerators-coil_level2.name=镀金线圈
+item.watergenerators-coil_level3.name=钻石线圈
+item.watergenerators-coil_level4.name=黑曜石线圈
+item.watergenerators-coil_level5.name=绿宝石线圈
 
 item.watergenerators-coil_steel.name=钢线圈
 item.watergenerators-coil_invar.name=殷钢线圈
@@ -56,11 +56,11 @@ item.watergenerators-turbine_rotor_elite.name=智能精英涡轮转片
 item.watergenerators-turbine_rotor_ultimate.name=智能终极涡轮转片
 
 # ## 导管
-item.watergenerators-conduit_iron.name=铁导管
-item.watergenerators-conduit_goldPlated.name=镀金导管
-item.watergenerators-conduit_diamond.name=钻石导管
-item.watergenerators-conduit_obsidian.name=黑曜石导管
-item.watergenerators-conduit_emerald.name=绿宝石导管
+item.watergenerators-conduit_level1.name=铁导管
+item.watergenerators-conduit_level2.name=镀金导管
+item.watergenerators-conduit_level3.name=钻石导管
+item.watergenerators-conduit_level4.name=黑曜石导管
+item.watergenerators-conduit_level5.name=绿宝石导管
 
 item.watergenerators-conduit_steel.name=钢导管
 item.watergenerators-conduit_invar.name=殷钢导管
@@ -78,7 +78,7 @@ item.watergenerators-component_null.name=组件升级-空
 item.watergenerators-component_null.tooltip=最基础的升级组件，只能用于做合成材料
 
 item.watergenerators-component_fluidExtract.name=组件升级-液体提取
-item.watergenerators-component_fluidExtract.tooltip=提高 液体类发电机 的最大提取
+item.watergenerators-component_fluidExtract.tooltip=提高 流体类发电机 的最大提取
 
 item.watergenerators-component_powerGeneration.name=组件升级-发电升级
 item.watergenerators-component_powerGeneration.tooltip=提高 所有发电机 的基础发电量
@@ -87,34 +87,39 @@ item.watergenerators-component_powerGeneration.tooltip=提高 所有发电机 �
 tile.watergenerators-block_goldPlatedIron.name=镀金铁块
 tile.watergenerators-machineshell_frame.name=机器外壳框架
 
-tile.watergenerators-steam.name=蒸汽
+tile.watergenerators.steam.name=蒸汽
 fluid.steam=蒸汽
 
 # ## Generator
 tile.watergenerators-generator.name=发电机
-tile.watergenerators-fluid_generator.name=液体发电机
+tile.watergenerators-generator.tooltip=用来发电（FE）
+tile.watergenerators-fluid_generator.name=流体发电机
+tile.watergenerators-fluid_generator.tooltip=通用流体类发电机，让流体转动涡轮转片发电（FE），可以使用多种流体。\n（为什么会消耗流体呢？）
 tile.watergenerators-water_generator.name=水发电机
-tile.watergenerators-turbine_generator.name=涡轮发电机
+tile.watergenerators-water_generator.tooltip=专一流体类发电机，只能使用水发电（FE）。\n（为什么会消耗流体呢？）
 tile.watergenerators-steam_generator.name=蒸汽发电机
+tile.watergenerators-steam_generator.tooltip=专一流体类发电机，只能使用蒸汽发电（FE）。\n（为什么会消耗流体呢？）
+tile.watergenerators-turbine_generator.name=涡轮发电机
+tile.watergenerators-turbine_generator.tooltip=通过流体的势能发电，将流体从方块上方流下，就能发电（FE）。
 
 # ## machine
 tile.watergenerators-machine_vaporization.name=汽化机
+tile.watergenerators-machine_vaporization.tooltip=可以汽化水为蒸汽
 
 # ## machine shell
 tile.watergenerators-machineshell.name=机器外壳
 
 # ##### config
-config.basicAmountOfFluidToProduceEnergy.comment=液体发电机的配置：产生1RF能量所需的液体量
-config.basicAmountOfWaterToProduceEnergy.comment=水发电机的配置：产生1RF能量所需的液体量
-config.basicAmountOfSteamToProduceEnergy.comment=蒸汽发电机的配置：产生1RF能量所需的蒸汽量
-config.waterMagnification.comment=水发电机的配置：水发电机的液体发电倍率
-config.steamMagnification.comment=蒸汽发电机的配置：蒸汽发电机的液体发电倍率
+config.basicAmountOfFluidToProduceEnergy.comment=流体发电机的配置：产生1次能量所需的流体量
+config.waterMagnification.comment=水发电机的配置：水发电机的额外流体发电倍率
+config.steamMagnification.comment=蒸汽发电机的配置：蒸汽发电机的额外流体发电倍率
 config.energyBasic.comment=发电机的配置：所有发电机的最基础的生产能量，所有的的发电机的基础生产能量都通过此值计算获得
 
 category.generator.comment=所有发电机的基础配置
 
 # ##### JEI
 RC.vaporization.title=汽化
+RC.fluidGenerator.title=流体类发电机
 
 
 # level name
@@ -145,7 +150,7 @@ level.ultimate.name=智能终极
 
 # Gui
 gui.basePowerGeneration.text=基础发电量: %dFE
-gui.energyIncreaseDecrease.text=能量增/减: %dFE/t|%dFE/t
+gui.energyIncreaseDecrease.text=能量增/减: %dFE/t | %dFE/t
 gui.fluidMagnification.text=流体放大倍率: %d
 gui.baseFluidAmount.text=基础液体量: %d
 gui.fluidHeight.text=流体高度: %dm

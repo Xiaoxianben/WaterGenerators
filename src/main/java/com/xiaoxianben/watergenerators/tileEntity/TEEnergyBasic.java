@@ -29,18 +29,18 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
     /**
      * 每tick的将要传输能量的方向的列表
      */
-    protected HashSet<EnumFacing> transferEnergyFacings = new HashSet<>();
+    protected final HashSet<EnumFacing> transferEnergyFacings = new HashSet<>();
     /**
      * 每tick的传输能量的数值列表
      */
-    protected HashSet<Long> finallyExtractEnergyList = new HashSet<>();
+    protected final HashSet<Long> finallyExtractEnergyList = new HashSet<>();
 
-    protected EnergyStorage energyStorage;
+    protected final EnergyStorage energyStorage;
 
 
-    public TEEnergyBasic(long capacity, boolean isGenerator) {
+    public TEEnergyBasic(long capacity, boolean canReceive, boolean canExtract) {
         super();
-        energyStorage = new EnergyStorage(capacity, !isGenerator, isGenerator);
+        energyStorage = new EnergyStorage(capacity, canReceive, canExtract);
     }
 
 
@@ -105,10 +105,13 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
             for (EnumFacing facing : this.transferEnergyFacings) {
                 this.transferEnergy(Objects.requireNonNull(this.getWorld().getTileEntity(this.getPos().offset(facing))), facing);
             }
+            this.finallyExtractEnergy = this.getFinallyExtractEnergyP();
+        } else {
+            this.finallyExtractEnergy = 0;
         }
 
         this.finallyReceiveEnergy = this.updateEnergy();
-        this.finallyExtractEnergy = this.getFinallyExtractEnergyP();
+
     }
 
 

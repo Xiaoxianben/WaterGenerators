@@ -16,13 +16,13 @@ public class TEGeneratorCreate extends TEGeneratorBase {
 
     @Override
     public long updateEnergy() {
-        long receiveEnergy = this.getEnergyStoredLong() < this.getMaxEnergyStoredLong() ? this.basePowerGeneration : 0;
-        return this.modifyEnergyStored(receiveEnergy);
+        this.energyStorage.setEnergy(this.basePowerGeneration);
+        return this.basePowerGeneration;
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        return energyStorage.extractEnergy(maxExtract, true);
+        return maxExtract;
     }
 
 }

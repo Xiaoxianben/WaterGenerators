@@ -2,9 +2,7 @@ package com.xiaoxianben.watergenerators.items.component;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorBasic;
-import com.xiaoxianben.watergenerators.init.ModItems;
 import com.xiaoxianben.watergenerators.items.ItemBase;
-import com.xiaoxianben.watergenerators.util.ModInformation;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -27,16 +25,16 @@ import java.util.Objects;
 
 public class ItemComponent extends ItemBase {
 
-    public String componentName;
+    public final String componentName;
 
     public ItemComponent(String name) {
-        super("component_" + name, WaterGenerators.Item_TAB, Objects.requireNonNull(ModItems.allComponent));
+        super("component_" + name, WaterGenerators.Item_TAB);
         this.componentName = name;
     }
 
     @ParametersAreNonnullByDefault
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("item." + ModInformation.MOD_ID + "-component.tooltip"));
+        tooltip.add(I18n.format("item." + WaterGenerators.MOD_ID + "-component.tooltip"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

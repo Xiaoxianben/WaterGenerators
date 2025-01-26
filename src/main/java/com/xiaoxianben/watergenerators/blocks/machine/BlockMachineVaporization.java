@@ -2,8 +2,7 @@ package com.xiaoxianben.watergenerators.blocks.machine;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.gui.GUIHandler;
-import com.xiaoxianben.watergenerators.init.ModBlocks;
-import com.xiaoxianben.watergenerators.init.ModItems;
+import com.xiaoxianben.watergenerators.init.modRegister.MinecraftRegister;
 import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +23,7 @@ public class BlockMachineVaporization extends BlockMachineBase {
 
 
     public BlockMachineVaporization(float level, String levelName) {
-        super("machine_vaporization", levelName, level, ModBlocks.allMachineVaporization);
+        super("machine_vaporization", levelName, level);
     }
 
 
@@ -38,7 +37,7 @@ public class BlockMachineVaporization extends BlockMachineBase {
             boolean isFillFluid = FluidUtil.interactWithFluidHandler(playerIn, hand, Objects.requireNonNull(tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)));
 
             if (!isFillFluid) {
-                if (playerIn.getHeldItem(hand).getItem() != ModItems.information_finder) {
+                if (playerIn.getHeldItem(hand).getItem() != MinecraftRegister.information_finder) {
                     int ID = GUIHandler.GUIMachineVa;
                     playerIn.openGui(WaterGenerators.instance, ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
                     return true;

@@ -13,11 +13,11 @@ import java.util.List;
 
 public class ItemComponentHandler extends ItemStackHandler {
 
-    public static List<ItemComponent> canPutItem_generator = Collections.singletonList(ItemsComponent.component_powerGeneration);
-    public static List<ItemComponent> canPutItem_fluidGenerator = Arrays.asList(ItemsComponent.component_extract, ItemsComponent.component_powerGeneration);
+    public static final List<ItemComponent> canPutItem_generator = Collections.singletonList(ItemsComponent.component_powerGeneration);
+    public static final List<ItemComponent> canPutItem_fluidGenerator = Arrays.asList(ItemsComponent.component_extract, ItemsComponent.component_powerGeneration);
 
 
-    public List<ItemComponent> canPutItem;
+    public final List<ItemComponent> canPutItem;
 
     /**
      *

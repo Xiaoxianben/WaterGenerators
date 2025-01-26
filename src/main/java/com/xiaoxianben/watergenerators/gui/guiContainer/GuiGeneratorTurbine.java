@@ -6,7 +6,7 @@ import net.minecraft.client.resources.I18n;
 
 public class GuiGeneratorTurbine extends GuiGeneratorBasic {
 
-    public TEGeneratorTurbine tileEntity;
+    public final TEGeneratorTurbine tileEntity;
 
     public GuiGeneratorTurbine(ContainerGeneratorTurbine Container, TEGeneratorTurbine tileEntity) {
         super(Container, tileEntity, 1, 33, 14, 113);
@@ -14,8 +14,8 @@ public class GuiGeneratorTurbine extends GuiGeneratorBasic {
     }
 
     @Override
-    public void updateDrawStringList() {
-        super.updateDrawStringList();
+    public void updateInforGuiStringList() {
+        super.updateInforGuiStringList();
 
         this.drawStringList.add(I18n.format("gui.fluidHeight.text", this.tileEntity.getLiquidHeight()));
 

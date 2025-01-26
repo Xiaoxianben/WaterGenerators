@@ -1,40 +1,23 @@
 buildscript {
     repositories {
-        if (use_mirror_url == "true") {
-            // clear all proxy settings, this is available for global
-            System.clearProperty "http.proxyHost"
-            System.clearProperty "http.proxyPort"
-            System.clearProperty "https.proxyHost"
-            System.clearProperty "https.proxyPort"
-            System.clearProperty "socksProxyHost"
-            System.clearProperty "socksProxyPort"
-            System.setProperty "java.net.useSystemProxies", "false"
-
-            maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
-            maven { url "https://${mirror_maven_url}" }
-        } else {
-            mavenCentral()
-            maven { url "https://maven.minecraftforge.net" }
-        }
+        jcenter()
+        mavenCentral()
+        maven { url = "https://files.minecraftforge.net/maven" }
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:${forge_gradle_version}"
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
-
-boolean useMirror = use_mirror_url == "true"
-if (useMirror) apply from: "mirror.gradle"
-apply plugin: "net.minecraftforge.gradle.forge"
-apply from: "runmanager.gradle"
+apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-version = "${mod_version}"
+version = modVersion
 group = "com.xiaoxianben.watergenerators" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "watergenerators-1.12.2"
 
-sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
+    sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
@@ -51,44 +34,42 @@ minecraft {
 }
 
 repositories {
-maven {
-    // location of the maven that hosts JEI files
-    name = "Progwml6 maven"
-    url = "https://dvs1.progwml6.com/files/maven/"
-  }
-  maven {
-    // location of a maven mirror for JEI files, as a fallback
-    name = "ModMaven"
-    url = "https://modmaven.dev"
-  }
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "cursemaven"
+        url = "https://cursemaven.com"
+    }
 }
 
 dependencies {
-
-//    compileOnly "cofh:RedstoneFlux:1.12-2.1.0.+:universal"
-
-	compile "mezz.jei:jei_${project.minecraft.version}:${jei_version}:api"
-	runtime "mezz.jei:jei_${project.minecraft.version}:${jei_version}"
-
-//    compile files("temp/[末影接口]EnderIO-1.12.2-5.3.70.jar")
-//    compile files("temp/[热力-管道]ThermalDynamics-1.12.2-2.5.6.1-universal.jar")
-//    compile files("temp/[热力-膨胀]ThermalExpansion-1.12.2-5.5.7.1-universal.jar")
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
 
+    compile "mezz.jei:jei_${project.minecraft.version}:${jei_version}:api"
+    runtime "mezz.jei:jei_${project.minecraft.version}:${jei_version}"
+
     // real examples
-    //compile "com.mod-buildcraft:buildcraft:6.0.8:dev"  // adds buildcraft to the dev env
-    //compile "com.googlecode.efficient-java-matrix-library:ejml:0.24" // adds ejml to the dev env
+    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
-    // the "provided" configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    //provided "com.mod-buildcraft:buildcraft:6.0.8:dev"
+    // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
+    //provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
 
-    // the deobf configurations:  "deobfCompile" and "deobfProvided" are the same as the normal compile and provided,
+    // the deobf configurations:  'deobfCompile' and 'deobfProvided' are the same as the normal compile and provided,
     // except that these dependencies get remapped to your current MCP mappings
-    //deobfCompile "com.mod-buildcraft:buildcraft:6.0.8:dev"
-    //deobfProvided "com.mod-buildcraft:buildcraft:6.0.8:dev"
+    //deobfCompile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    //deobfProvided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
 
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
@@ -103,26 +84,25 @@ processResources {
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include "mcmod.info"
+        include 'mcmod.info'
 
         // replace version and mcversion
-        expand "version":project.version, "mcversion":project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
 
     // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude "mcmod.info"
+        exclude 'mcmod.info'
     }
 }
 
-tasks.register('buildJar', Delete) {
-    delete "build\\combined"
-    delete "build\\retromapping"
-    delete "build\\sources"
-    delete "build\\tmp"
-
-    dependsOn 'build'
-    doLast {
-        println "Jar is building now."
+sourceSets {
+    main {
+        output.resourcesDir = file('build/combined')
+        java.outputDir = file('build/combined')
     }
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

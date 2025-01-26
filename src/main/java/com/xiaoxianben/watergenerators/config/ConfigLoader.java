@@ -1,6 +1,7 @@
 package com.xiaoxianben.watergenerators.config;
 
-import com.xiaoxianben.watergenerators.util.ModInformation;
+import com.xiaoxianben.watergenerators.WaterGenerators;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -10,7 +11,7 @@ import javax.annotation.Nonnull;
 import java.io.File;
 
 public class ConfigLoader {
-    public static String categoryGenerator = "generator";
+    public static final String categoryGenerator = "generator";
     public static String modConfigurationDirectory;
     public static String WGConfigDirectory;
 
@@ -20,8 +21,8 @@ public class ConfigLoader {
     public static void preInitConfigLoader(@Nonnull FMLPreInitializationEvent event) {
         logger = event.getModLog();
         modConfigurationDirectory = event.getModConfigurationDirectory().getAbsolutePath();
-        WGConfigDirectory = modConfigurationDirectory + "/" + ModInformation.MOD_ID;
-        config = new Configuration(new File(WGConfigDirectory + "/" + ModInformation.MOD_ID + ".cfg"));
+        WGConfigDirectory = modConfigurationDirectory + "/" + WaterGenerators.MOD_ID;
+        config = new Configuration(new File(WGConfigDirectory + "/" + WaterGenerators.MOD_ID + ".cfg"));
 
         //实例化了一个Configuration类,括号中填的是Forge推荐的配置文件位置,这个位置在游戏根目录的config文件夹下，
         //名为<modid>.cfg，这里就是bm.cfg。
@@ -32,13 +33,13 @@ public class ConfigLoader {
 
 
     public static int addInt(String name, String category, int defaultValue) {
-        int tempInt = config.getInt(name, category, defaultValue, 1, Integer.MAX_VALUE, I18n.translateToLocal("config." + name + ".comment"));
+        int tempInt = config.getInt(name, category, defaultValue, 1, Integer.MAX_VALUE, I18nOwn.translateToLocal("config." + name + ".comment"));
         config.save();
         return tempInt;
     }
 
     public static float addFloat(String name, String category, float defaultValue) {
-        return addFloat(name, category, defaultValue, I18n.translateToLocal("config." + name + ".comment"));
+        return addFloat(name, category, defaultValue, I18nOwn.translateToLocal("config." + name + ".comment"));
     }
 
     public static float addFloat(String name, String category, float defaultValue, String common) {
@@ -55,14 +56,14 @@ public class ConfigLoader {
 
     public static void load() {
         logger.info("Started loading config.");
-        config.setCategoryComment(categoryGenerator, I18n.translateToLocal("category.generator.comment"));
+        config.setCategoryComment(categoryGenerator, I18nOwn.translateToLocal("category.generator.comment"));
 
         ConfigValue.basicAmountOfFluidToProduceEnergy = addInt("basicAmountOfFluidToProduceEnergy", categoryGenerator, 1000);
-        ConfigValue.basicAmountOfWaterToProduceEnergy = addInt("basicAmountOfWaterToProduceEnergy", categoryGenerator, 100);
-        ConfigValue.basicAmountOfSteamToProduceEnergy = addInt("basicAmountOfSteamToProduceEnergy", categoryGenerator, 1);
+//        ConfigValue.basicAmountOfWaterToProduceEnergy = addInt("basicAmountOfWaterToProduceEnergy", categoryGenerator, 500);
+//        ConfigValue.basicAmountOfSteamToProduceEnergy = addInt("basicAmountOfSteamToProduceEnergy", categoryGenerator, 500);
 
         ConfigValue.waterMagnification = addFloat("waterMagnification", categoryGenerator, 1.5f);
-        ConfigValue.steamMagnification = addFloat("steamMagnification", categoryGenerator, 0.5f);
+        ConfigValue.steamMagnification = addFloat("steamMagnification", categoryGenerator, 4.0f);
 
         ConfigValue.energyBasic = addInt("energyBasic", Configuration.CATEGORY_GENERAL, 10);
 

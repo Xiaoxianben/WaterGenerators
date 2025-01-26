@@ -1,6 +1,6 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
-import com.xiaoxianben.watergenerators.recipe.RecipeList;
+import com.xiaoxianben.watergenerators.jsonRecipe.ModJsonRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.util.math.BlockPos;
@@ -10,6 +10,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.IFluidBlock;
 
 public class TEGeneratorTurbine extends TEGeneratorBase {
+
+    protected float fluidHeight = 0;
 
     @SuppressWarnings("unused")
     public TEGeneratorTurbine() {
@@ -21,18 +23,25 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
     }
 
     public float getLiquidHeight() {
-        float liquidLeve = 0;
+        float liquidHeight = 0;
         // 获取上方的位置
-        Iterable<BlockPos> listBlockPos = BlockPos.getAllInBox(this.getPos().add(0, 1, 0), this.getPos().add(0, this.getWorld().getActualHeight() - this.getPos().getY(), 0));
-        for (BlockPos blockPos : listBlockPos) {
-            Fluid fluid = FluidRegistry.lookupFluidForBlock(this.getWorld().getBlockState(blockPos).getBlock());
-            if (RecipeList.recipeFluidGenerator.getInputs().contains(fluid) && fluid.getDensity() > 0) {
-                liquidLeve += RecipeList.recipeFluidGenerator.getOutput(fluid) * getLiquidLevel(this.getWorld(), blockPos);
-            } else {
-                break;
-            }
+//        Iterable<BlockPos> listBlockPos = BlockPos.getAllInBox(this.getPos().add(0, 1, 0), new BlockPos(getPos().getX(), getWorld().getActualHeight(), getPos().getZ()));
+//        for (BlockPos blockPos : listBlockPos) {
+//            Fluid fluid = FluidRegistry.lookupFluidForBlock(this.getWorld().getBlockState(blockPos).getBlock());
+//            if (ModJsonRecipe.recipeFluidGenerator.getInputs().contains(fluid) && fluid.getDensity() > 0) {
+//                liquidHeight += ModJsonRecipe.recipeFluidGenerator.getOutput(fluid) * getLiquidLevel(this.getWorld(), blockPos);
+//            } else {
+//                break;
+//            }
+//        }
+        BlockPos blockPos = this.getPos().up();
+        Fluid fluid = FluidRegistry.lookupFluidForBlock(this.getWorld().getBlockState(blockPos).getBlock());
+        while (ModJsonRecipe.recipeFluidGenerator.containsKay(fluid) && fluid.getDensity() > 0) {
+            liquidHeight += ModJsonRecipe.recipeFluidGenerator.getOutput(fluid) * getLiquidLevel(this.getWorld(), blockPos);
+            blockPos = blockPos.up();
+            fluid = FluidRegistry.lookupFluidForBlock(this.getWorld().getBlockState(blockPos).getBlock());
         }
-        return liquidLeve;
+        return liquidHeight;
     }
 
     protected float getLiquidLevel(World world, BlockPos pos) {
@@ -54,15 +63,15 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
     public long updateEnergy() {
         long receiveEnergy = 0;
         if (this.getEnergyStoredLong() < this.getMaxEnergyStoredLong()) {
-            float liquidLeve = this.getLiquidHeight();
-            receiveEnergy = (int) (this.getRealPowerGeneration() * liquidLeve);
+            receiveEnergy = (int) (this.getFinallyPowerGeneration() * fluidHeight);
         }
         return this.modifyEnergyStored(receiveEnergy);
     }
 
     @Override
     public void updateStateInSever() {
-        this.energyStorage.setCapacity((int) (this.getRealPowerGeneration() * this.getLiquidHeight()) * 2);
+        fluidHeight = this.getLiquidHeight();
+        this.energyStorage.setCapacity(Math.max((long) Math.ceil(this.getFinallyPowerGeneration() * fluidHeight * 2), this.getEnergyStoredLong()));
         super.updateStateInSever();
     }
 

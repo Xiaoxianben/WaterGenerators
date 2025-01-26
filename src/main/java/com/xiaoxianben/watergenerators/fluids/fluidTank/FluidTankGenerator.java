@@ -3,6 +3,8 @@ package com.xiaoxianben.watergenerators.fluids.fluidTank;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,9 +12,9 @@ public class FluidTankGenerator extends FluidTankBase {
 
     private List<Fluid> canFillFluidType;
 
-    public FluidTankGenerator(int capacity, List<Fluid> canFillFluidType) {
+    public FluidTankGenerator(int capacity, Collection<Fluid> canFillFluidType) {
         super(capacity);
-        this.canFillFluidType = canFillFluidType;
+        this.canFillFluidType = new ArrayList<>(canFillFluidType);
     }
 
     public FluidTankGenerator(int capacity, Fluid canFillFluidType) {
