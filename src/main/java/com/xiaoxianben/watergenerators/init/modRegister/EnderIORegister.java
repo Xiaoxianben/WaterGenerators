@@ -18,7 +18,7 @@ import java.util.Objects;
 public class EnderIORegister implements IModRegister {
 
 
-    private final float[] levels = new float[]{6.5f, 7.5f, 8.5f, 10, 11.5f};
+    private final float[] levels = new float[]{6.5f, 8, 9.5f, 11, 12.5f};
     private final String[] levelNames = new String[]{"vibrantalloy", "darksteel", "endsteel", "melodicalloy", "stellaralloy"};
     private final String[] levelIngotOres = new String[]{"ingotVibrantAlloy", "ingotDarkSteel", "ingotEndSteel", "ingotMelodicAlloy", "ingotStellarAlloy"};
     private final String[] gearOres = new String[]{"gearVibrant", "gearDark", "gearEnd", "gearMelodicAlloy", "gearStellarAlloy"};

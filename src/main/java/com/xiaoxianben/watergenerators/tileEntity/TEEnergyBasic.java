@@ -79,7 +79,7 @@ public abstract class TEEnergyBasic extends TEBase implements IEnergyStorage, IH
     protected boolean canTransferEnergy(TileEntity TE, EnumFacing facing) {
         if (TE != null && TE.hasCapability(CapabilityEnergy.ENERGY, facing)) {
             IEnergyStorage iEnergyStorage = Objects.requireNonNull(TE.getCapability(CapabilityEnergy.ENERGY, facing));
-            return iEnergyStorage.canReceive() && iEnergyStorage.getEnergyStored() < iEnergyStorage.getMaxEnergyStored();
+            return iEnergyStorage.receiveEnergy(this.getEnergyStored(), true) != 0;
         }
         return false;
     }

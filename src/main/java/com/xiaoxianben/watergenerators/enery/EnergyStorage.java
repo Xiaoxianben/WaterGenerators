@@ -10,7 +10,7 @@ public class EnergyStorage implements IEnergyStorage {
     protected long maxReceive;
     protected long maxExtract;
 
-    protected final String[] NBT_KEYS = {"EnergyStorage", "Energy", "Capacity", "MaxReceive", "MaxExtract"};
+    protected static final String[] NBT_KEYS = {"EnergyStorage", "Energy", "Capacity", "MaxReceive", "MaxExtract"};
 
 
     public EnergyStorage(long capacity, long maxReceive, long maxExtract) {
@@ -48,10 +48,10 @@ public class EnergyStorage implements IEnergyStorage {
         if (!canReceive())
             return 0;
 
-        long energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+        int energyReceived = (int) Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
         if (!simulate)
             energy += energyReceived;
-        return getIntForLong(energyReceived);
+        return energyReceived;
     }
 
     @Override
@@ -59,10 +59,10 @@ public class EnergyStorage implements IEnergyStorage {
         if (!canExtract())
             return 0;
 
-        long energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+        int energyExtracted = (int) Math.min(energy, Math.min(this.maxExtract, maxExtract));
         if (!simulate)
             energy -= energyExtracted;
-        return getIntForLong(energyExtracted);
+        return energyExtracted;
     }
 
     @Override
