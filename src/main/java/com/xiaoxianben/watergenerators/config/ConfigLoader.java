@@ -24,9 +24,6 @@ public class ConfigLoader {
         WGConfigDirectory = modConfigurationDirectory + "/" + WaterGenerators.MOD_ID;
         config = new Configuration(new File(WGConfigDirectory + "/" + WaterGenerators.MOD_ID + ".cfg"));
 
-        //实例化了一个Configuration类,括号中填的是Forge推荐的配置文件位置,这个位置在游戏根目录的config文件夹下，
-        //名为<modid>.cfg，这里就是bm.cfg。
-
         config.load();//读取配置
         load();
     }
@@ -61,9 +58,6 @@ public class ConfigLoader {
         ConfigValue.basicAmountOfFluidToProduceEnergy = addInt("basicAmountOfFluidToProduceEnergy", categoryGenerator, 1000);
 //        ConfigValue.basicAmountOfWaterToProduceEnergy = addInt("basicAmountOfWaterToProduceEnergy", categoryGenerator, 500);
 //        ConfigValue.basicAmountOfSteamToProduceEnergy = addInt("basicAmountOfSteamToProduceEnergy", categoryGenerator, 500);
-
-        ConfigValue.waterMagnification = addFloat("waterMagnification", categoryGenerator, 1.5f);
-        ConfigValue.steamMagnification = addFloat("steamMagnification", categoryGenerator, 4.0f);
 
         ConfigValue.energyBasic = addInt("energyBasic", Configuration.CATEGORY_GENERAL, 10);
 

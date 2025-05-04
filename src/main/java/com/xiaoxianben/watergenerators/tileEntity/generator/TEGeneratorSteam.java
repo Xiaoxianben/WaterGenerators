@@ -1,6 +1,5 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
-import com.xiaoxianben.watergenerators.config.ConfigValue;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class TEGeneratorSteam extends TEGeneratorFluid {
@@ -17,15 +16,6 @@ public class TEGeneratorSteam extends TEGeneratorFluid {
     public TEGeneratorSteam(long basePowerGeneration) {
         super(basePowerGeneration);
         this.fluidTank.setCanFillFluidType(FluidRegistry.getFluid("steam"));
-    }
-
-
-    @Override
-    public float getEnergyMagnification() {
-        if (this.fluidTank.getFluid() != null) {
-            return super.getEnergyMagnification() + ConfigValue.steamMagnification;
-        }
-        return 0.0f;
     }
 
 }

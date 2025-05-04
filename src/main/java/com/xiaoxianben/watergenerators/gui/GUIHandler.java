@@ -1,17 +1,7 @@
 package com.xiaoxianben.watergenerators.gui;
 
-import com.xiaoxianben.watergenerators.gui.container.ContainerGeneratorCreate;
-import com.xiaoxianben.watergenerators.gui.container.ContainerGeneratorFluid;
-import com.xiaoxianben.watergenerators.gui.container.ContainerGeneratorTurbine;
-import com.xiaoxianben.watergenerators.gui.container.ContainerMachineVa;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiGeneratorCreate;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiGeneratorFluid;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiGeneratorTurbine;
-import com.xiaoxianben.watergenerators.gui.guiContainer.GuiMachineVa;
-import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorCreate;
-import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorFluid;
-import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorTurbine;
-import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
+import com.xiaoxianben.watergenerators.gui.container.*;
+import com.xiaoxianben.watergenerators.gui.guiContainer.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -24,6 +14,7 @@ public class GUIHandler implements IGuiHandler {
     public static final int GUITurbineGenerator = 2;
     public static final int GUICreateGenerator = 3;
     public static final int GUIMachineVa = 4;
+    public static final int GUIMachineConcentration = 5;
 
     //在服务端中运行的逻辑
     @Override
@@ -38,6 +29,7 @@ public class GUIHandler implements IGuiHandler {
             case GUICreateGenerator:
                 return new ContainerGeneratorCreate(player, tileEntity);
             case GUIMachineVa:
+            case GUIMachineConcentration:
                 return new ContainerMachineVa(player, tileEntity);
             default:
                 return null;
@@ -49,16 +41,18 @@ public class GUIHandler implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         //通过编码创建客户端的Container与GuiContainer（Forge会自动托管服务端到客户端的Container同步）
-        TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
+        ContainerMa container = (ContainerMa) getServerGuiElement(ID, player, world, x, y, z);
         switch (ID) {
             case GUIFluidGenerator:
-                return new GuiGeneratorFluid(new ContainerGeneratorFluid(player, tileEntity), (TEGeneratorFluid) tileEntity);
+                return new GuiGeneratorFluid((ContainerGeneratorFluid) container);
             case GUITurbineGenerator:
-                return new GuiGeneratorTurbine(new ContainerGeneratorTurbine(player, tileEntity), (TEGeneratorTurbine) tileEntity);
+                return new GuiGeneratorTurbine((ContainerGeneratorTurbine) container);
             case GUICreateGenerator:
-                return new GuiGeneratorCreate(new ContainerGeneratorCreate(player, tileEntity), (TEGeneratorCreate) tileEntity);
+                return new GuiGeneratorCreate((ContainerGeneratorCreate) container);
             case GUIMachineVa:
-                return new GuiMachineVa(new ContainerMachineVa(player, tileEntity), (TEMachineVaporization) tileEntity);
+                return new GuiMachineVa((ContainerMachineVa) container);
+            case GUIMachineConcentration:
+                return new GuiMachineConcentration((ContainerMachineVa) container);
             default:
                 return null;
         }

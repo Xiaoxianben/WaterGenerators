@@ -1,6 +1,7 @@
 package com.xiaoxianben.watergenerators.jsonRecipe.recipeType;
 
 import com.google.gson.JsonObject;
+import com.xiaoxianben.watergenerators.jsonRecipe.ingredients.FluidStackAndEnergy;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -76,6 +77,32 @@ public class RecipeTypes {
         @Override
         public FluidStack getRecipe(JsonObject json) {
             return new FluidStack(FluidRegistry.getFluid(json.get("name").getAsString()), json.get("count").getAsInt());
+        }
+    };
+    public static final IRecipeType<FluidStackAndEnergy> recipe_fluidStackAndEnergy = new IRecipeType<FluidStackAndEnergy>() {
+        @Override
+        public Class<FluidStackAndEnergy> getClassType() {
+            return FluidStackAndEnergy.class;
+        }
+
+        @Override
+        public JsonObject getRecipeJson(FluidStackAndEnergy o) {
+            JsonObject json = new JsonObject();
+
+            FluidStack fluidStack1 = o.getFluidStack1();
+            String name = Objects.requireNonNull(fluidStack1.getFluid().getName());
+
+            json.addProperty("name", name);
+            json.addProperty("count", fluidStack1.amount);
+            json.addProperty("energy", o.getEnergyValue());
+
+            return json;
+        }
+
+        @Override
+        public FluidStackAndEnergy getRecipe(JsonObject json) {
+            FluidStack fluidStack = new FluidStack(FluidRegistry.getFluid(json.get("name").getAsString()), json.get("count").getAsInt());
+            return new FluidStackAndEnergy(fluidStack, json.get("energy").getAsInt());
         }
     };
     public static final IRecipeType<Fluid> recipe_fluid = new IRecipeType<Fluid>() {

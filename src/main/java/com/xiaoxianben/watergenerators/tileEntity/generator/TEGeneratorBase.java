@@ -1,7 +1,9 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
+import com.xiaoxianben.watergenerators.api.IComponentItemHandler;
 import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.itemHandler.ItemComponentHandler;
+import com.xiaoxianben.watergenerators.items.itemHandler.ItemStackHandler;
 import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -12,7 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public abstract class TEGeneratorBase extends TEEnergyBasic {
+public abstract class TEGeneratorBase extends TEEnergyBasic implements IComponentItemHandler {
 
     /**
      * 发电机的基础发电量
@@ -39,6 +41,10 @@ public abstract class TEGeneratorBase extends TEEnergyBasic {
         return this.basePowerGeneration * (this.itemComponentHandler.getComponentCount(ItemsComponent.component_powerGeneration) + 1);
     }
 
+    @Override
+    public ItemStackHandler getComponentItemHandler() {
+        return itemComponentHandler;
+    }
 
     // 注入Capability
     @ParametersAreNonnullByDefault

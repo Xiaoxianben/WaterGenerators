@@ -83,12 +83,18 @@ item.watergenerators-component_fluidExtract.tooltip=提高 流体类发电机 �
 item.watergenerators-component_powerGeneration.name=组件升级-发电升级
 item.watergenerators-component_powerGeneration.tooltip=提高 所有发电机 的基础发电量
 
+item.watergenerators-component_efficiency.name=组件升级-效率
+item.watergenerators-component_efficiency.tooltip=提升部分机器的工作效率
+
 # ##### 方块
 tile.watergenerators-block_goldPlatedIron.name=镀金铁块
 tile.watergenerators-machineshell_frame.name=机器外壳框架
 
 tile.watergenerators.steam.name=蒸汽
 fluid.steam=蒸汽
+
+tile.watergenerators.watercompressed.name=浓缩水
+fluid.watercompressed=浓缩水
 
 # ## Generator
 tile.watergenerators-generator.name=发电机
@@ -97,6 +103,8 @@ tile.watergenerators-fluid_generator.name=流体发电机
 tile.watergenerators-fluid_generator.tooltip=通用流体类发电机，让流体转动涡轮转片发电（FE），可以使用多种流体。\n（为什么会消耗流体呢？）
 tile.watergenerators-water_generator.name=水发电机
 tile.watergenerators-water_generator.tooltip=专一流体类发电机，只能使用水发电（FE）。\n（为什么会消耗流体呢？）
+tile.watergenerators-watercompressed_generator.name=浓缩水发电机
+tile.watergenerators-watercompressed_generator.tooltip=专一流体类发电机，只能使用浓缩水发电（FE）。\n（为什么会消耗流体呢？）
 tile.watergenerators-steam_generator.name=蒸汽发电机
 tile.watergenerators-steam_generator.tooltip=专一流体类发电机，只能使用蒸汽发电（FE）。\n（为什么会消耗流体呢？）
 tile.watergenerators-turbine_generator.name=涡轮发电机
@@ -105,6 +113,8 @@ tile.watergenerators-turbine_generator.tooltip=通过流体的势能发电，将
 # ## machine
 tile.watergenerators-machine_vaporization.name=汽化机
 tile.watergenerators-machine_vaporization.tooltip=可以汽化水为蒸汽
+tile.watergenerators-machine_concentration.name=浓缩机
+tile.watergenerators-machine_concentration.tooltip=水可浓缩成浓缩水
 
 # ## machine shell
 tile.watergenerators-machineshell.name=机器外壳
@@ -119,6 +129,7 @@ category.generator.comment=所有发电机的基础配置
 
 # ##### JEI
 RC.vaporization.title=汽化
+RC.concentration.title=浓缩
 RC.fluidGenerator.title=流体类发电机
 
 

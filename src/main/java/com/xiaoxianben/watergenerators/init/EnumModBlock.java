@@ -1,9 +1,7 @@
 package com.xiaoxianben.watergenerators.init;
 
-import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorFluid;
-import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorSteam;
-import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorTurbine;
-import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorWater;
+import com.xiaoxianben.watergenerators.blocks.generator.*;
+import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineConcentration;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineVaporization;
 import com.xiaoxianben.watergenerators.init.modRegister.EnumModRegister;
@@ -15,9 +13,11 @@ public enum EnumModBlock {
     OTHER(null),
     MACHINE_SHELL(BlockMachineShell::new),
     MACHINE_VAPORIZATION(BlockMachineVaporization::new),
+    MACHINE_CONCENTRATION(BlockMachineConcentration::new),
     GENERATOR_turbine(BlockGeneratorTurbine::new),
     GENERATOR_fluid(BlockGeneratorFluid::new),
     GENERATOR_water(BlockGeneratorWater::new),
+    GENERATOR_waterCompressed(BlockGeneratorWaterCompressed::new),
     GENERATOR_steam(BlockGeneratorSteam::new);
 
 

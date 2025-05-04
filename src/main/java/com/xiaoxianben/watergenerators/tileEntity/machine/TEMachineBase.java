@@ -12,9 +12,11 @@ public class TEMachineBase extends TEEnergyBasic {
 
     /**
      * 接受能量，不传输能量
+     *
+     * @param level 机器的等级
      */
     public TEMachineBase(float level) {
-        super((long) (level * 1000), true, false);
+        super((long) (level * 10000), true, false);
         this.level = level;
     }
 

@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.gui.guiContainer;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
-import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
+import com.xiaoxianben.watergenerators.gui.container.ContainerMa;
 import com.xiaoxianben.watergenerators.math.PrivateMath;
 import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorBase;
 import net.minecraft.client.Minecraft;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class GuiGeneratorBasic extends GuiEnergyBase {
 
-    private final TEGeneratorBase tileEntity;
+    private final TEGeneratorBase teGeneratorBase;
 
     protected final List<String> drawStringList = new ArrayList<>();
     protected final int textStartX;
@@ -29,10 +29,10 @@ public class GuiGeneratorBasic extends GuiEnergyBase {
     protected int guiId = 0;
 
 
-    public GuiGeneratorBasic(ContainerBasic inventorySlotsIn,
-                             TEGeneratorBase tileEntity, int ID, int textStartX, int textStartY, int textWidth) {
-        super(inventorySlotsIn, tileEntity, ID);
-        this.tileEntity = tileEntity;
+    public GuiGeneratorBasic(ContainerMa inventorySlotsIn,
+                             int ID, int textStartX, int textStartY, int textWidth) {
+        super(inventorySlotsIn, ID);
+        this.teGeneratorBase = (TEGeneratorBase) super.tileEntity;
 
         this.textStartX = textStartX;
         this.textStartY = textStartY;
@@ -129,8 +129,8 @@ public class GuiGeneratorBasic extends GuiEnergyBase {
     /** 更新常规gui的文本 */
     protected void updateDefaultStringList() {
         this.drawStringList.clear();
-        this.drawStringList.add(I18n.format("gui.basePowerGeneration.text", PrivateMath.getRoughData(this.tileEntity.basePowerGeneration)));
-        this.drawStringList.add(I18n.format("gui.energyIncreaseDecrease.text", PrivateMath.getRoughData(this.tileEntity.getFinallyReceiveEnergy()), PrivateMath.getRoughData(this.tileEntity.getFinallyExtractEnergy())));
+        this.drawStringList.add(I18n.format("gui.basePowerGeneration.text", PrivateMath.getRoughData(this.teGeneratorBase.basePowerGeneration)));
+        this.drawStringList.add(I18n.format("gui.energyIncreaseDecrease.text", PrivateMath.getRoughData(this.teGeneratorBase.getFinallyReceiveEnergy()), PrivateMath.getRoughData(this.teGeneratorBase.getFinallyExtractEnergy())));
     }
 
     /** 更新信息gui的文本 */

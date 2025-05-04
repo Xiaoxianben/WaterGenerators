@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.xiaoxianben.watergenerators.config.ConfigLoader;
+import com.xiaoxianben.watergenerators.jsonRecipe.ingredients.FluidStackAndEnergy;
 import com.xiaoxianben.watergenerators.jsonRecipe.recipeType.RecipeTypes;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -19,31 +20,38 @@ import java.io.*;
 
 public class ModJsonRecipe {
 
-    public static Recipes<FluidStack, FluidStack> recipeVaporization = new Recipes<>(RecipeTypes.recipe_fluidStack, RecipeTypes.recipe_fluidStack);
+    public static Recipes<FluidStack, FluidStackAndEnergy> recipeVaporization = new Recipes<>(RecipeTypes.recipe_fluidStack, RecipeTypes.recipe_fluidStackAndEnergy);
+    public static Recipes<FluidStack, FluidStackAndEnergy> recipeConcentration = new Recipes<>(RecipeTypes.recipe_fluidStack, RecipeTypes.recipe_fluidStackAndEnergy);
     public static Recipes<Fluid, Float> recipeFluidGenerator = new Recipes<>(RecipeTypes.recipe_fluid, RecipeTypes.recipe_float);
 
     public void init() {
         recipeVaporization.addRecipe(
-                new FluidStack(FluidRegistry.WATER, 10),
-                new FluidStack(FluidRegistry.getFluid("steam"), 10),
-                1
+                new FluidStack(FluidRegistry.WATER, 1),
+                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("steam"), 1), -1)
+        );
+        recipeConcentration.addRecipe(
+                new FluidStack(FluidRegistry.WATER, 100),
+                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("watercompressed"), 1), -1000)
         );
 
         recipeFluidGenerator.addRecipe(
                 FluidRegistry.WATER,
-                1.0f,
-                0
+                1.0f
+        );
+        recipeFluidGenerator.addRecipe(
+                FluidRegistry.getFluid("watercompressed"),
+                8f
         );
         recipeFluidGenerator.addRecipe(
                 FluidRegistry.getFluid("steam"),
-                1.5f,
-                0
+                2f
         );
 
         // 读取配置文件
         String recipeDir = ConfigLoader.WGConfigDirectory + "/recipe";
         recipeVaporization = readJson(recipeDir + "/vaporization.json", recipeVaporization);
         recipeFluidGenerator = readJson(recipeDir + "/fluidGenerator.json", recipeFluidGenerator);
+        recipeConcentration = readJson(recipeDir + "/recipeConcentration.json", recipeConcentration);
     }
 
 
@@ -65,7 +73,7 @@ public class ModJsonRecipe {
             newRecipes = new Recipes<>(defaultRecipe.inputRecipeType, defaultRecipe.outputRecipeType);
             newRecipes.readRecipeJson(jsonObject);
         } catch (Exception e) {
-            ConfigLoader.logger().error("无法读取文件：" + path, e);
+            ConfigLoader.logger().error("无法读取文件：{}", path, e);
             throw new RuntimeException("无法读取文件：" + path, e);
         }
 
@@ -107,9 +115,9 @@ public class ModJsonRecipe {
     }
 
     /**
-     * 读取JSON文件，并返回一个JsonArray。
-     * <p>如果文件不存在或文件无法解析为<tt>JsonArray</tt>，则返回null。
-     * <p>如果文件存在，则将文件转化为<tt>JsonArray</tt>。
+     * 读取JSON文件，并返回一个 JsonObject。
+     * <p>如果文件不存在或文件无法解析为 JsonObject，则返回null。
+     * <p>如果文件存在，则将文件转化为 JsonObject.
      */
     @Nullable
     private JsonObject readFileToJsonObject(String filePath) {
@@ -122,7 +130,7 @@ public class ModJsonRecipe {
         } catch (FileNotFoundException e) {
             jsonObject = null;
         } catch (Exception e) {
-            ConfigLoader.logger().error(filePath + " 文件读取出错", e);
+            ConfigLoader.logger().error("{} 文件读取出错", filePath, e);
             throw new RuntimeException(filePath + " 文件读取出错", e);
         }
         // 解析JSON数组

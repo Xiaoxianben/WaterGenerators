@@ -1,24 +1,26 @@
 package com.xiaoxianben.watergenerators.gui.container;
 
+import com.xiaoxianben.watergenerators.api.IComponentItemHandler;
+import com.xiaoxianben.watergenerators.items.itemHandler.ItemStackHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class ContainerBasic extends Container {
+public class ContainerMa extends Container {
 
-    public final List<Rectangle> rectangles = new ArrayList<>();
+    public final List<Rectangle> componentRectangles = new ArrayList<>();
+    public TileEntity tileEntity;
 
-    public ContainerBasic(EntityPlayer player, TileEntity tileEntity) {
+    public ContainerMa(EntityPlayer player, TileEntity tileEntity) {
+        this.tileEntity = tileEntity;
 
         //将玩家物品槽第一行（快捷栏）加入容器
         for (int i = 0; i < 9; ++i) {
@@ -30,10 +32,11 @@ public class ContainerBasic extends Container {
                 this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
-        if (tileEntity != null && tileEntity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-            for (int i = 0; i < Objects.requireNonNull(tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)).getSlots(); ++i) {
-                rectangles.add(new Rectangle(-18, i * 18, 18, 18));
-                this.addSlotToContainer(new SlotItemHandler(tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, -17, 1 + i * 18));
+        if (tileEntity instanceof IComponentItemHandler) {
+            ItemStackHandler itemHandler = ((IComponentItemHandler) tileEntity).getComponentItemHandler();
+            for (int i = 0; i < itemHandler.getSlots(); ++i) {
+                componentRectangles.add(new Rectangle(-18, i * 18, 18, 18));
+                this.addSlotToContainer(new SlotItemHandler(itemHandler, i, -17, 1 + i * 18));
             }
         }
 

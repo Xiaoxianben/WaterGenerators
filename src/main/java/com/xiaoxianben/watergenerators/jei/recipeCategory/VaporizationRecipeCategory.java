@@ -1,7 +1,7 @@
 package com.xiaoxianben.watergenerators.jei.recipeCategory;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
-import com.xiaoxianben.watergenerators.jei.wrapper.steamWrapper;
+import com.xiaoxianben.watergenerators.jei.wrapper.FluidToFluidWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
-public class vaporizationRecipeCategory implements IRecipeCategory<steamWrapper> {
+public class VaporizationRecipeCategory implements IRecipeCategory<FluidToFluidWrapper> {
 
     private static final int input1 = 0; // THE NUMBER = SLOT ID
     private static final int output1 = 1; // THE NUMBER = SLOT ID
@@ -24,8 +24,11 @@ public class vaporizationRecipeCategory implements IRecipeCategory<steamWrapper>
     private final String title;
     private final IDrawable background, animation;
 
-    public vaporizationRecipeCategory(IGuiHelper guiHelper) {
-        this.title = I18n.format("RC.vaporization.title");
+    public VaporizationRecipeCategory(IGuiHelper guiHelper) {
+        this("vaporization", guiHelper);
+    }
+    protected VaporizationRecipeCategory(String name, IGuiHelper guiHelper) {
+        this.title = I18n.format("RC."+name+".title");
         this.background = guiHelper.createDrawable(new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/steam.png"), 0, 0, 76, 36);
         this.animation = guiHelper.createAnimatedDrawable(
                 guiHelper.createDrawable(new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/steam.png"), 76, 0, 36, 17),
@@ -63,7 +66,7 @@ public class vaporizationRecipeCategory implements IRecipeCategory<steamWrapper>
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, @Nonnull steamWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, @Nonnull FluidToFluidWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 
         IGuiFluidStackGroup stacks = recipeLayout.getFluidStacks();
         stacks.init(input1, true, 1, 1, 16, 34, 1, false, null);

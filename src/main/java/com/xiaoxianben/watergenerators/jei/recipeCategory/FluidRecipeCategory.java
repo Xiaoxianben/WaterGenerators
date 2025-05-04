@@ -14,6 +14,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 public class FluidRecipeCategory implements IRecipeCategory<FluidGeneratorWrapper> {
 
@@ -28,21 +29,25 @@ public class FluidRecipeCategory implements IRecipeCategory<FluidGeneratorWrappe
         this.background = guiHelper.createDrawable(new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/2.png"), 73, 13, 18, 60);
     }
 
+    @Nonnull
     @Override
     public String getUid() {
         return FluidGeneratorUID;
     }
 
+    @Nonnull
     @Override
     public String getTitle() {
         return this.title;
     }
 
+    @Nonnull
     @Override
     public String getModName() {
         return WaterGenerators.NAME;
     }
 
+    @Nonnull
     @Override
     public IDrawable getBackground() {
         return this.background;
@@ -54,6 +59,7 @@ public class FluidRecipeCategory implements IRecipeCategory<FluidGeneratorWrappe
     }
 
 
+    @ParametersAreNonnullByDefault
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, FluidGeneratorWrapper recipeWrapper, IIngredients ingredients) {
         IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();

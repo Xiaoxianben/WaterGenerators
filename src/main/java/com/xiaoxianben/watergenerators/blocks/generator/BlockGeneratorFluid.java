@@ -32,11 +32,11 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
 
 
     public BlockGeneratorFluid(float level, String levelName) {
-        this("fluid_generator", levelName, level);
+        super("fluid_generator", levelName, level, (long) (ConfigValue.energyBasic * level * 2));
     }
 
     public BlockGeneratorFluid(String type, String levelName, float level) {
-        super(type, levelName, level, (long) (ConfigValue.energyBasic * level * 2));
+        super(type, levelName, level, (long) (ConfigValue.energyBasic * level * 4));
     }
 
     @SuppressWarnings("deprecation")

@@ -87,6 +87,17 @@ public class MekanismRegister implements IModRegister {
                     ++i1[0];
                 });
         i1[0] = 0;
+        Arrays.stream(EnumModBlock.MACHINE_CONCENTRATION.blockMap.get(selfRegister))
+                .filter(Objects::nonNull)
+                .forEach(block -> {
+                    int i = i1[0];
+                    ModRecipes.instance.addRecipeMachineConcentration((BlockMachineBase) block,
+                            (BlockMachineShell) EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister)[i],
+                            EnumModItems.CONDUIT.itemMap.get(selfRegister)[i],
+                            (BlockMachineBase) EnumModBlock.MACHINE_VAPORIZATION.getBlocks(selfRegister)[i]);
+                    ++i1[0];
+                });
+        i1[0] = 0;
         Arrays.stream(EnumModBlock.GENERATOR_turbine.blockMap.get(selfRegister))
                 .filter(Objects::nonNull)
                 .forEach(block -> {
@@ -124,6 +135,16 @@ public class MekanismRegister implements IModRegister {
                     recipeGenerator(i,
                             (BlockGeneratorBasic) block,
                             EnumModBlock.GENERATOR_steam.getBlocks(i == 0 ? EnumModRegister.MINECRAFT : selfRegister)[i == 0 ? 4 : (i - 1)]);
+                    ++i1[0];
+                });
+        i1[0] = 0;
+        Arrays.stream(EnumModBlock.GENERATOR_waterCompressed.blockMap.get(selfRegister))
+                .filter(Objects::nonNull)
+                .forEach(block -> {
+                    int i = i1[0];
+                    recipeGenerator(i,
+                            (BlockGeneratorBasic) block,
+                            EnumModBlock.GENERATOR_waterCompressed.getBlocks(i == 0 ? EnumModRegister.MINECRAFT : selfRegister)[i == 0 ? 4 : (i - 1)]);
                     ++i1[0];
                 });
 

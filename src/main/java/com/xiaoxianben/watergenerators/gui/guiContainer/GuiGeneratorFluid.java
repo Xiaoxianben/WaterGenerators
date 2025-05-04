@@ -10,9 +10,9 @@ public class GuiGeneratorFluid extends GuiGeneratorBasic {
 
     private final TEGeneratorFluid tileEntity;
 
-    public GuiGeneratorFluid(ContainerGeneratorFluid Container, TEGeneratorFluid tileEntity) {
-        super(Container, tileEntity, 2, 98, 15, 69);
-        this.tileEntity = tileEntity;
+    public GuiGeneratorFluid(ContainerGeneratorFluid Container) {
+        super(Container, 2, 98, 15, 69);
+        this.tileEntity = (TEGeneratorFluid) super.tileEntity;
     }
 
 

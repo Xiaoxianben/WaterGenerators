@@ -18,5 +18,4 @@ public class BlockGeneratorWater extends BlockGeneratorFluid {
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
         return new TEGeneratorWater(this.basePowerGeneration);
     }
-
 }

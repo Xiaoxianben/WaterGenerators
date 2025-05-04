@@ -1,4 +1,4 @@
-package com.xiaoxianben.watergenerators.jsonRecipe;
+package com.xiaoxianben.watergenerators.jsonRecipe.ingredients;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

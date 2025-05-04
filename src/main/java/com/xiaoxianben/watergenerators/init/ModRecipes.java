@@ -298,9 +298,22 @@ public class ModRecipes {
                 Item.getItemFromBlock(output).getDefaultInstance(),
                 params);
     }
+    public void addRecipeMachineConcentration(BlockMachineBase output, BlockMachineShell machineShell, ItemStack conduit, BlockMachineBase inMachine) {
+        Object[] params = {
+                "FCF",
+                "DGD",
+                "FCF",
+                'F', machineShell,
+                'D', Items.BUCKET,
+                'C', conduit,
+                'G', inMachine
+        };
 
-    public void addRecipeMachineVaporization(BlockMachineBase output, BlockMachineShell machineShell, Item conduit, String gearOre) {
-        addRecipeMachineVaporization(output, machineShell, new ItemStack(conduit), gearOre);
+        GameRegistry.addShapedRecipe(
+                output.getRegistryName(),
+                new ResourceLocation(WaterGenerators.MOD_ID, "machine"),
+                Item.getItemFromBlock(output).getDefaultInstance(),
+                params);
     }
 
     public void addRecipeComponent(ItemComponent component, Item oldItem, Item recipeItem) {

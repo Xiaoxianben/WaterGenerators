@@ -10,6 +10,7 @@ import com.xiaoxianben.watergenerators.tabs.ItemTab;
 import com.xiaoxianben.watergenerators.tabs.MachineTab;
 import com.xiaoxianben.watergenerators.tabs.MaterialTab;
 import com.xiaoxianben.watergenerators.tileEntity.generator.*;
+import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineConcentration;
 import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
@@ -26,7 +27,7 @@ import java.util.Arrays;
 
 @Mod(modid = WaterGenerators.MOD_ID,
         name = WaterGenerators.NAME,
-        version = "1.5.1",
+        version = "1.6.0",
         dependencies = "after:jei;after:enderio;after:enderioendergy;after:thermalfoundation;after:thermaldynamics;after:mekanism",
         useMetadata = true)
 public class WaterGenerators {
@@ -108,9 +109,11 @@ public class WaterGenerators {
         GameRegistry.registerTileEntity(TEGeneratorTurbine.class, new ResourceLocation(MOD_ID, "TETurbineGenerator"));
         GameRegistry.registerTileEntity(TEGeneratorFluid.class, new ResourceLocation(MOD_ID, "TEFluidGenerator"));
         GameRegistry.registerTileEntity(TEGeneratorWater.class, new ResourceLocation(MOD_ID, "TEWaterGenerator"));
+        GameRegistry.registerTileEntity(TEGeneratorWaterCompressed.class, new ResourceLocation(MOD_ID, "TEWaterCompressedGenerator"));
         GameRegistry.registerTileEntity(TEGeneratorSteam.class, new ResourceLocation(MOD_ID, "TESteamGenerator"));
         GameRegistry.registerTileEntity(TEGeneratorCreate.class, new ResourceLocation(MOD_ID, "TECreateGenerator"));
 
         GameRegistry.registerTileEntity(TEMachineVaporization.class, new ResourceLocation(MOD_ID, "TEMachineVaporization"));
+        GameRegistry.registerTileEntity(TEMachineConcentration.class, new ResourceLocation(MOD_ID, "TEMachineConcentration"));
     }
 }

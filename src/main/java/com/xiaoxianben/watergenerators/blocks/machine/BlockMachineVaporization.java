@@ -3,6 +3,7 @@ package com.xiaoxianben.watergenerators.blocks.machine;
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.gui.GUIHandler;
 import com.xiaoxianben.watergenerators.init.modRegister.MinecraftRegister;
+import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineConcentration;
 import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,6 +1,6 @@
 package com.xiaoxianben.watergenerators.gui.guiContainer;
 
-import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
+import com.xiaoxianben.watergenerators.gui.container.ContainerMachineVa;
 import com.xiaoxianben.watergenerators.tileEntity.machine.TEMachineVaporization;
 import net.minecraftforge.fluids.FluidTank;
 
@@ -9,20 +9,20 @@ import java.util.List;
 
 public class GuiMachineVa extends GuiEnergyBase {
 
-    private final TEMachineVaporization tileEntity;
+    private final TEMachineVaporization teMachineVaporization;
 
 
-    public GuiMachineVa(ContainerBasic Container, TEMachineVaporization tileEntity) {
-        super(Container, tileEntity, 3);
-        this.tileEntity = tileEntity;
+    public GuiMachineVa(ContainerMachineVa Container) {
+        super(Container, 3);
+        this.teMachineVaporization = (TEMachineVaporization) super.tileEntity;
     }
 
 
     @Override
     protected void drawAllMouseRect(int mouseX, int mouseY) {
         super.drawAllMouseRect(mouseX, mouseY);
-        this.drawMouseFluidText(tileEntity.getFluidTankInt(), 51, 14, mouseX, mouseY);
-        this.drawMouseFluidText(tileEntity.getFluidTankOut(), 109, 14, mouseX, mouseY);
+        this.drawMouseFluidText(teMachineVaporization.getFluidTankInt(), 51, 14, mouseX, mouseY);
+        this.drawMouseFluidText(teMachineVaporization.getFluidTankOut(), 109, 14, mouseX, mouseY);
 
         //this.drawMouseRect(mouseX, mouseY, 7, 4, 20, 72, new String[]{"FE: " + tileEntity.getEnergyStoredLong() + "FE / " + tileEntity.getMaxEnergyStoredLong() + "FE"});
     }
@@ -34,12 +34,12 @@ public class GuiMachineVa extends GuiEnergyBase {
     @Override
     protected void drawAllGUITextures() {
         super.drawAllGUITextures();
-        if (tileEntity.open) {
+        if (teMachineVaporization.open) {
             this.drawTexturedModalRect(this.guiLeft + 70, this.guiTop + 28, 196, 0, 36, 17);
         }
 
-        this.drawFluid(tileEntity.getFluidTankInt(), 51, 14, 16, 58);
-        this.drawFluid(tileEntity.getFluidTankOut(), 109, 14, 16, 58);
+        this.drawFluid(teMachineVaporization.getFluidTankInt(), 51, 14, 16, 58);
+        this.drawFluid(teMachineVaporization.getFluidTankOut(), 109, 14, 16, 58);
 
     }
 

@@ -15,13 +15,12 @@ public class ItemComponentHandler extends ItemStackHandler {
 
     public static final List<ItemComponent> canPutItem_generator = Collections.singletonList(ItemsComponent.component_powerGeneration);
     public static final List<ItemComponent> canPutItem_fluidGenerator = Arrays.asList(ItemsComponent.component_extract, ItemsComponent.component_powerGeneration);
+    public static final List<ItemComponent> canPutItem_vaporization = Collections.singletonList(ItemsComponent.component_efficiency);
 
 
     public final List<ItemComponent> canPutItem;
 
-    /**
-     *
-     */
+
     public ItemComponentHandler(@Nullable List<ItemComponent> canPutItem) {
         super(canPutItem != null ? canPutItem.size() : 0);
         this.canPutItem = canPutItem != null ? canPutItem : new ArrayList<>();
@@ -31,19 +30,14 @@ public class ItemComponentHandler extends ItemStackHandler {
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
         boolean isTrueSlot = false;
         if (stack.getItem() instanceof ItemComponent) {
-            isTrueSlot = canPutItem.contains((ItemComponent) stack.getItem()) && canPutItem.indexOf((ItemComponent) stack.getItem()) == slot;
+            isTrueSlot = canPutItem.indexOf((ItemComponent) stack.getItem()) == slot;
         }
         return super.isItemValid(slot, stack) && isTrueSlot;
     }
 
     public int getComponentCount(ItemComponent itemComponent) {
-        int count = 0;
-        for (ItemStack stack : this.stacks) {
-            if (stack.getItem() == itemComponent) {
-                count += stack.getCount();
-            }
-        }
-        return count;
+        ItemStack itemStack = this.stacks.get(canPutItem.indexOf(itemComponent));
+        return itemStack.getCount();
     }
 
 }

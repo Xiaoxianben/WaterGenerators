@@ -2,7 +2,7 @@ package com.xiaoxianben.watergenerators.gui.guiContainer;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
 import com.xiaoxianben.watergenerators.event.client.RenderFluid;
-import com.xiaoxianben.watergenerators.gui.container.ContainerBasic;
+import com.xiaoxianben.watergenerators.gui.container.ContainerMa;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 public abstract class GuiBasic extends GuiContainer {
 
     protected final ResourceLocation TEXTURES;
-    private final TileEntity tileEntity;
+    protected final TileEntity tileEntity;
 
 
-    public GuiBasic(ContainerBasic inventorySlotsIn, TileEntity tileEntity, int ID) {
+    public GuiBasic(ContainerMa inventorySlotsIn, int ID) {
         super(inventorySlotsIn);
-        this.tileEntity = tileEntity;
+        this.tileEntity = inventorySlotsIn.tileEntity;
         this.TEXTURES = new ResourceLocation(WaterGenerators.MOD_ID, "textures/gui/" + ID + ".png");
     }
 
@@ -53,8 +53,8 @@ public abstract class GuiBasic extends GuiContainer {
         this.mc.getTextureManager().bindTexture(this.TEXTURES);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
-        for (int i = 0; i < ((ContainerBasic) this.inventorySlots).rectangles.size(); i++) {
-            Rectangle rectangle = ((ContainerBasic) this.inventorySlots).rectangles.get(i);
+        for (int i = 0; i < ((ContainerMa) this.inventorySlots).componentRectangles.size(); i++) {
+            Rectangle rectangle = ((ContainerMa) this.inventorySlots).componentRectangles.get(i);
             this.drawTexturedModalRect(this.guiLeft + rectangle.x, this.guiTop + rectangle.y, 7, 141, rectangle.width, rectangle.height);
         }
 
@@ -89,10 +89,10 @@ public abstract class GuiBasic extends GuiContainer {
     protected abstract void drawAllGUITextures();
 
 
-    public java.util.List<Rectangle> getGuiExtraAreas() {
+    public List<Rectangle> getGuiExtraAreas() {
         List<Rectangle> rectangles = new ArrayList<>();
 
-        for (Rectangle rectangle : ((ContainerBasic) this.inventorySlots).rectangles) {
+        for (Rectangle rectangle : ((ContainerMa) this.inventorySlots).componentRectangles) {
             rectangles.add(new Rectangle(this.guiLeft + rectangle.x, this.guiTop + rectangle.y, rectangle.width, rectangle.height));
         }
 

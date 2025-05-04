@@ -5,11 +5,11 @@ import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraftforge.fluids.FluidStack;
 
-public class steamWrapper implements IRecipeWrapper {
+public class FluidToFluidWrapper implements IRecipeWrapper {
     private final FluidStack input;
     private final FluidStack output;
 
-    public steamWrapper(FluidStack input, FluidStack output) {
+    public FluidToFluidWrapper(FluidStack input, FluidStack output) {
         this.input = input;
         this.output = output;
     }

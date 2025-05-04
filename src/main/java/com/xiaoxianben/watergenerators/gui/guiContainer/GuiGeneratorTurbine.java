@@ -8,9 +8,9 @@ public class GuiGeneratorTurbine extends GuiGeneratorBasic {
 
     public final TEGeneratorTurbine tileEntity;
 
-    public GuiGeneratorTurbine(ContainerGeneratorTurbine Container, TEGeneratorTurbine tileEntity) {
-        super(Container, tileEntity, 1, 33, 14, 113);
-        this.tileEntity = tileEntity;
+    public GuiGeneratorTurbine(ContainerGeneratorTurbine Container) {
+        super(Container, 1, 33, 14, 113);
+        this.tileEntity = (TEGeneratorTurbine) super.tileEntity;
     }
 
     @Override

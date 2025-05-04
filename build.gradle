@@ -10,6 +10,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply from: "mirror.gradle"
 
 version = modVersion
 group = "com.xiaoxianben.watergenerators" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -100,12 +101,18 @@ processResources {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
 sourceSets {
     main {
         output.resourcesDir = file('build/combined')
         java.outputDir = file('build/combined')
     }
 }
+
+sourceSets.main.resources { srcDir 'src/main/resources' }
 
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

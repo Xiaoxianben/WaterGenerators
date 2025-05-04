@@ -6,6 +6,4 @@ public class ConfigValue {
      */
     public static int basicAmountOfFluidToProduceEnergy;
     public static int energyBasic;
-    public static float waterMagnification;
-    public static float steamMagnification;
 }

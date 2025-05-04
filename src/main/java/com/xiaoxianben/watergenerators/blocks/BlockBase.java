@@ -50,10 +50,11 @@ public class BlockBase extends Block implements IHasModel {
     }
 
 
+    @ParametersAreNonnullByDefault
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         if (I18n.hasKey(getUnlocalizedName() + ".tooltip")) {
-            tooltip.addAll(Arrays.stream(I18n.format(getUnlocalizedName() + ".tooltip").split("\\n")).collect(Collectors.toList()));
+            tooltip.addAll(Arrays.stream(I18n.format(getUnlocalizedName() + ".tooltip").split("\n")).collect(Collectors.toList()));
         }
     }
 

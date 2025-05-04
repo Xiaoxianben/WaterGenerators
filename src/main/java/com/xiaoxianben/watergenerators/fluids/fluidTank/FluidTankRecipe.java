@@ -1,15 +1,18 @@
 package com.xiaoxianben.watergenerators.fluids.fluidTank;
 
 import com.xiaoxianben.watergenerators.jsonRecipe.Recipes;
+import com.xiaoxianben.watergenerators.jsonRecipe.ingredients.FluidStackAndEnergy;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
-import java.util.stream.Collectors;
 
-public class FluidTankInput extends FluidTankBase {
-    public final Recipes<FluidStack, FluidStack> recipeList;
+/**
+ * 记录配方的流体池
+ * */
+public class FluidTankRecipe extends FluidTankBase {
+    public final Recipes<FluidStack, FluidStackAndEnergy> recipeList;
 
-    public FluidTankInput(int capacity, Recipes<FluidStack, FluidStack> recipeList) {
+    public FluidTankRecipe(int capacity, Recipes<FluidStack, FluidStackAndEnergy> recipeList) {
         super(capacity);
         this.recipeList = recipeList;
     }
@@ -23,11 +26,11 @@ public class FluidTankInput extends FluidTankBase {
     @Nullable
     public FluidStack getRecipeFluidInput() {
         if (this.getFluid() == null || !this.recipeList.containsKay(this.getFluid())) return null;
-        return this.recipeList.getInput(this.recipeList.getInputs().stream().collect(Collectors.toList()).indexOf(this.getFluid()));
+        return this.recipeList.getInput(this.recipeList.indexOfKey(this.getFluid()));
     }
 
     @Nullable
-    public FluidStack getRecipeOutput() {
+    public FluidStackAndEnergy getRecipeOutput() {
         return this.recipeList.getOutput(this.getFluid());
     }
 }
