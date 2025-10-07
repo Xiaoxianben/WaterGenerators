@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 @Mod(modid = WaterGenerators.MOD_ID,
         name = WaterGenerators.NAME,
-        version = "1.6.0",
+        version = "1.6.1",
         dependencies = "after:jei;after:enderio;after:enderioendergy;after:thermalfoundation;after:thermaldynamics;after:mekanism",
         useMetadata = true)
 public class WaterGenerators {

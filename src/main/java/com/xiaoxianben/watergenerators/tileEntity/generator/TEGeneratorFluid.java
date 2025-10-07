@@ -37,7 +37,6 @@ public class TEGeneratorFluid extends TEGeneratorBase {
         this.fluidTank.setCanDrain(false);
 
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_fluidGenerator);
-
     }
 
 
@@ -59,7 +58,7 @@ public class TEGeneratorFluid extends TEGeneratorBase {
      * 获取当前的流体的发电倍率
      */
     public float getEnergyMagnification() {
-        if (this.fluidTank.getFluid() != null) {
+        if (this.fluidTank.getFluid() != null && ModJsonRecipe.recipeFluidGenerator.containsKay(this.fluidTank.getFluid().getFluid())) {
             return ModJsonRecipe.recipeFluidGenerator.getOutput(this.fluidTank.getFluid().getFluid());
         }
         return 0.0f;
