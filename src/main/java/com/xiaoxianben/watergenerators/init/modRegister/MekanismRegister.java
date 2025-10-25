@@ -1,12 +1,13 @@
 package com.xiaoxianben.watergenerators.init.modRegister;
 
+import com.xiaoxianben.watergenerators.api.IModRegister;
 import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorBasic;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineBase;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
 import com.xiaoxianben.watergenerators.init.EnumModBlock;
 import com.xiaoxianben.watergenerators.init.EnumModItems;
+import com.xiaoxianben.watergenerators.init.EnumModRegister;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,41 +17,12 @@ import java.util.Objects;
 
 public class MekanismRegister implements IModRegister {
 
-    private final int[] levels = new int[]{6, 8, 10, 12};
+    private final float[] levels = new float[]{6, 8, 10, 12};
     private final String[] levelNames = new String[]{"basic", "advanced", "elite", "ultimate"};
     private final String[] levelIngotOres = new String[]{"ingotSteel", "ingotOsmium", "ingotRefinedGlowstone", "ingotRefinedObsidian"};
     private final String[] gearOres = new String[]{"circuitBasic", "circuitAdvanced", "circuitElite", "circuitUltimate"};
 
     private final EnumModRegister selfRegister = EnumModRegister.MEKANISM;
-
-    @Override
-    public void preInit() {
-        for (int i = 1; i < EnumModBlock.values().length; i++) {
-            EnumModBlock modBlock = EnumModBlock.values()[i];
-            Block[] blocks = new Block[levels.length];
-
-            for (int i2 = 0; i2 < levels.length; i2++) {
-                blocks[i2] = modBlock.creat(levels[i2], levelNames[i2]);
-            }
-
-            modBlock.addBlocks(selfRegister, blocks);
-        }
-
-        for (int i = 1; i < EnumModItems.values().length; i++) {
-            EnumModItems modItems = EnumModItems.values()[i];
-            if (modItems == EnumModItems.GEAR || modItems == EnumModItems.COIL || modItems == EnumModItems.CONDUIT)
-                continue;
-
-            Item[] items = new Item[levels.length];
-
-            for (int i2 = 0; i2 < levels.length; i2++) {
-                items[i2] = modItems.creat(levelNames[i2]);
-            }
-
-            modItems.addItems(selfRegister, items);
-        }
-
-    }
 
     @Override
     public void init() {
@@ -165,6 +137,16 @@ public class MekanismRegister implements IModRegister {
     @Override
     public EnumModRegister getModRegister() {
         return selfRegister;
+    }
+
+    @Override
+    public float[] getLevels() {
+        return levels;
+    }
+
+    @Override
+    public String[] getLevelsString() {
+        return levelNames;
     }
 
     @Override

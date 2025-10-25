@@ -5,7 +5,7 @@ import com.xiaoxianben.watergenerators.config.ConfigValue;
 import com.xiaoxianben.watergenerators.gui.GUIHandler;
 import com.xiaoxianben.watergenerators.init.modRegister.MinecraftRegister;
 import com.xiaoxianben.watergenerators.items.component.ItemComponent;
-import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorFluid;
+import com.xiaoxianben.watergenerators.tileEntity.generator.fluid.TEGeneratorFluid;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -36,7 +36,7 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
     }
 
     public BlockGeneratorFluid(String type, String levelName, float level) {
-        super(type, levelName, level, (long) (ConfigValue.energyBasic * level * 4));
+        super(type, levelName, level, (long) (ConfigValue.energyBasic * level * 2));
     }
 
     @SuppressWarnings("deprecation")
@@ -95,7 +95,7 @@ public class BlockGeneratorFluid extends BlockGeneratorBasic {
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEGeneratorFluid(this.basePowerGeneration);
+        return new TEGeneratorFluid();
     }
 
 }

@@ -1,11 +1,12 @@
-package com.xiaoxianben.watergenerators.init.modRegister;
+package com.xiaoxianben.watergenerators.init;
 
+import com.xiaoxianben.watergenerators.api.IModRegister;
 import com.xiaoxianben.watergenerators.config.ConfigLoader;
+import com.xiaoxianben.watergenerators.init.modRegister.*;
 import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public enum EnumModRegister {
@@ -43,7 +44,7 @@ public enum EnumModRegister {
         }
     }
 
-    private boolean isEnable() {
+    public boolean isEnable() {
         return isEnable;
     }
 

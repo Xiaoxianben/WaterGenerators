@@ -4,7 +4,6 @@ import com.xiaoxianben.watergenerators.blocks.generator.*;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineConcentration;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineVaporization;
-import com.xiaoxianben.watergenerators.init.modRegister.EnumModRegister;
 import net.minecraft.block.Block;
 
 import java.util.EnumMap;
@@ -22,10 +21,17 @@ public enum EnumModBlock {
 
 
     public final EnumMap<EnumModRegister, Block[]> blockMap = new EnumMap<>(EnumModRegister.class);
-    private final MachineCreat<? extends Block> func;
+    private final MachineCreate<? extends Block> func;
+    public final EnumModRegister modRegister;
+    public final boolean isDefaultBlock;
 
-    EnumModBlock(MachineCreat<? extends Block> func) {
+    EnumModBlock(MachineCreate<? extends Block> func) {
+        this(EnumModRegister.MINECRAFT, true, func);
+    }
+    EnumModBlock(EnumModRegister modRegister, boolean isDefaultBlock, MachineCreate<? extends Block> func) {
         this.func = func;
+        this.modRegister = modRegister;
+        this.isDefaultBlock = isDefaultBlock;
     }
 
     public Block[] getBlocks(EnumModRegister register) {
@@ -36,12 +42,12 @@ public enum EnumModBlock {
         blockMap.put(register, blocks);
     }
 
-    public Block creat(float level, String levelName) {
+    public Block create(float level, String levelName) {
         return func.creat(level, levelName);
     }
 
 
-    interface MachineCreat<T> {
+    interface MachineCreate<T> {
         T creat(float level, String levelName);
     }
 

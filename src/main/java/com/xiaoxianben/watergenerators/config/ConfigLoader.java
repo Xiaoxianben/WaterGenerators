@@ -55,7 +55,7 @@ public class ConfigLoader {
         logger.info("Started loading config.");
         config.setCategoryComment(categoryGenerator, I18nOwn.translateToLocal("category.generator.comment"));
 
-        ConfigValue.basicAmountOfFluidToProduceEnergy = addInt("basicAmountOfFluidToProduceEnergy", categoryGenerator, 1000);
+        ConfigValue.basicAmountOfFluidToProduceEnergy = addInt("basicAmountOfFluidToProduceEnergy", categoryGenerator, 1);
 //        ConfigValue.basicAmountOfWaterToProduceEnergy = addInt("basicAmountOfWaterToProduceEnergy", categoryGenerator, 500);
 //        ConfigValue.basicAmountOfSteamToProduceEnergy = addInt("basicAmountOfSteamToProduceEnergy", categoryGenerator, 500);
 

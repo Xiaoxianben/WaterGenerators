@@ -1,6 +1,6 @@
 package com.xiaoxianben.watergenerators.blocks.generator;
 
-import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorSteam;
+import com.xiaoxianben.watergenerators.tileEntity.generator.fluid.TEGeneratorSteam;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -16,6 +16,6 @@ public class BlockGeneratorSteam extends BlockGeneratorFluid {
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEGeneratorSteam(this.basePowerGeneration);
+        return new TEGeneratorSteam();
     }
 }

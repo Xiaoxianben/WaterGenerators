@@ -25,7 +25,7 @@ public class BlockGeneratorBasic extends BlockBase implements ITileEntityProvide
     public final String levelName;
     public final float level;
     /** {@code 1000mb} 的水可以产生的电量. 以 {@link BlockGeneratorTurbine} 中产生的电量为基本，即 {@code 10FE}. */
-    protected final long basePowerGeneration;
+    public final long basePowerGeneration;
 
     public BlockGeneratorBasic(String type, String levelName, float level, long basePowerGeneration) {
         // 设置属性

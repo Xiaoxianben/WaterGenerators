@@ -1,10 +1,12 @@
 package com.xiaoxianben.watergenerators.init.modRegister;
 
+import com.xiaoxianben.watergenerators.api.IModRegister;
 import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorBasic;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineBase;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
 import com.xiaoxianben.watergenerators.init.EnumModBlock;
 import com.xiaoxianben.watergenerators.init.EnumModItems;
+import com.xiaoxianben.watergenerators.init.EnumModRegister;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -27,33 +29,6 @@ public class EnderIORegister implements IModRegister {
 
     private final int decreaseValue = Loader.isModLoaded("enderioendergy") ? 0 : 2;
 
-
-    @Override
-    public void preInit() {
-        for (int i = 1; i < EnumModBlock.values().length; i++) {
-            EnumModBlock modBlock = EnumModBlock.values()[i];
-            Block[] blocks = new Block[levels.length];
-
-            for (int i2 = 0; i2 < levels.length - decreaseValue; i2++) {
-                blocks[i2] = modBlock.creat(levels[i2], levelNames[i2]);
-            }
-
-            modBlock.addBlocks(selfRegister, blocks);
-        }
-
-        for (int i = 1; i < EnumModItems.values().length; i++) {
-            EnumModItems modItems = EnumModItems.values()[i];
-            if (modItems == EnumModItems.COIL || modItems == EnumModItems.CONDUIT) continue;
-
-            ItemStack[] items = new ItemStack[levels.length];
-            for (int i2 = (modItems == EnumModItems.GEAR ? 2 : 0); i2 < levels.length - decreaseValue; i2++) {
-                items[i2] = modItems.creat(levelNames[i2]).getDefaultInstance();
-            }
-
-            modItems.addItems(selfRegister, items);
-        }
-
-    }
 
     @Override
     public void init() {
@@ -178,8 +153,49 @@ public class EnderIORegister implements IModRegister {
     }
 
     @Override
+    public float[] getLevels() {
+        return levels;
+    }
+
+    @Override
+    public String[] getLevelsString() {
+        return levelNames;
+    }
+
+    @Override
     public String getGearOre(int i) {
         return gearOres[i];
     }
 
+    @Override
+    public void registerDefaultItem() {
+        for (int i = 1; i < EnumModItems.values().length; i++) {
+            EnumModItems modItems = EnumModItems.values()[i];
+            if (modItems == EnumModItems.COIL || modItems == EnumModItems.CONDUIT) continue;
+
+            ItemStack[] items = new ItemStack[levels.length];
+            for (int i2 = (modItems == EnumModItems.GEAR ? 2 : 0); i2 < levels.length - decreaseValue; i2++) {
+                items[i2] = modItems.create(levelNames[i2]).getDefaultInstance();
+            }
+
+            modItems.addItems(selfRegister, items);
+        }
+    }
+
+    @Override
+    public void registerDefaultBlock() {
+        for (int i = 1; i < EnumModBlock.values().length; i++) {
+            EnumModBlock modBlock = EnumModBlock.values()[i];
+            if (!modBlock.isDefaultBlock || !modBlock.modRegister.isEnable()) {
+                continue;
+            }
+            Block[] blocks = new Block[levels.length];
+
+            for (int i2 = 0; i2 < levels.length - decreaseValue; i2++) {
+                blocks[i2] = modBlock.create(levels[i2], levelNames[i2]);
+            }
+
+            modBlock.addBlocks(selfRegister, blocks);
+        }
+    }
 }

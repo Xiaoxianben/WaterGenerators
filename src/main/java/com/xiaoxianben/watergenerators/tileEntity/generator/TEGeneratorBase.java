@@ -1,6 +1,7 @@
 package com.xiaoxianben.watergenerators.tileEntity.generator;
 
 import com.xiaoxianben.watergenerators.api.IComponentItemHandler;
+import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorBasic;
 import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.itemHandler.ItemComponentHandler;
 import com.xiaoxianben.watergenerators.items.itemHandler.ItemStackHandler;
@@ -26,13 +27,18 @@ public abstract class TEGeneratorBase extends TEEnergyBasic implements IComponen
     /**
      * 不接受能量，只传输能量
      */
-    public TEGeneratorBase(long basePowerGeneration) {
-        super(basePowerGeneration, false, true);
+    public TEGeneratorBase() {
+        super(5000, false, true);
 
-        this.basePowerGeneration = basePowerGeneration;
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_generator);
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        this.basePowerGeneration = ((BlockGeneratorBasic) getBlockType()).basePowerGeneration;
+    }
 
     /**
      * 获取一次发电得到的最终的发电量。

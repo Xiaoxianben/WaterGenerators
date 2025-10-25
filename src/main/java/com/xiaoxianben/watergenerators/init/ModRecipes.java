@@ -5,7 +5,6 @@ import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorBasic;
 import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorFluid;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineBase;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
-import com.xiaoxianben.watergenerators.init.modRegister.EnumModRegister;
 import com.xiaoxianben.watergenerators.items.component.ItemComponent;
 import com.xiaoxianben.watergenerators.jsonRecipe.ModJsonRecipe;
 import com.xiaoxianben.watergenerators.jsonRecipe.crafting.ShapedRecipes;

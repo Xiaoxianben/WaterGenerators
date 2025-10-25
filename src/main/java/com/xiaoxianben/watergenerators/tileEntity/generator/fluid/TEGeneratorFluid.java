@@ -1,16 +1,16 @@
-package com.xiaoxianben.watergenerators.tileEntity.generator;
+package com.xiaoxianben.watergenerators.tileEntity.generator.fluid;
 
 import com.xiaoxianben.watergenerators.config.ConfigValue;
 import com.xiaoxianben.watergenerators.fluids.fluidTank.FluidTankGenerator;
 import com.xiaoxianben.watergenerators.items.ItemsComponent;
 import com.xiaoxianben.watergenerators.items.itemHandler.ItemComponentHandler;
 import com.xiaoxianben.watergenerators.jsonRecipe.ModJsonRecipe;
+import com.xiaoxianben.watergenerators.tileEntity.generator.TEGeneratorBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -26,14 +26,9 @@ public class TEGeneratorFluid extends TEGeneratorBase {
     private int maxFluidDrain;
 
 
-    @SuppressWarnings("unused")
     public TEGeneratorFluid() {
-        this(Long.MAX_VALUE);
-    }
-
-    public TEGeneratorFluid(long basePowerGeneration) {
-        super(basePowerGeneration);
-        this.fluidTank = new FluidTankGenerator(65 * basicAmountOfFluidToProduceEnergy, ModJsonRecipe.recipeFluidGenerator.getInputs());
+        super();
+        this.fluidTank = new FluidTankGenerator(4000, ModJsonRecipe.recipeFluidGenerator.getInputs());
         this.fluidTank.setCanDrain(false);
 
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_fluidGenerator);
@@ -57,16 +52,20 @@ public class TEGeneratorFluid extends TEGeneratorBase {
     /**
      * 获取当前的流体的发电倍率
      */
-    public float getEnergyMagnification() {
+    public float getFluidMagnification() {
         if (this.fluidTank.getFluid() != null && ModJsonRecipe.recipeFluidGenerator.containsKay(this.fluidTank.getFluid().getFluid())) {
             return ModJsonRecipe.recipeFluidGenerator.getOutput(this.fluidTank.getFluid().getFluid());
         }
         return 0.0f;
     }
 
+    protected float getMachineMagnification() {
+        return 1.0f;
+    }
+
     @Override
     public long getFinallyPowerGeneration() {
-        return (long) (super.getFinallyPowerGeneration() * getEnergyMagnification());
+        return (long) (super.getFinallyPowerGeneration() * getFluidMagnification() * getMachineMagnification());
     }
 
     @Override
@@ -132,8 +131,6 @@ public class TEGeneratorFluid extends TEGeneratorBase {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(fluidTank);
 
-        } else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemComponentHandler);
         }
         return super.getCapability(capability, facing);
     }

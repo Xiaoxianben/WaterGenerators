@@ -13,13 +13,9 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
 
     protected float fluidHeight = 0;
 
-    @SuppressWarnings("unused")
-    public TEGeneratorTurbine() {
-        this(Long.MAX_VALUE);
-    }
 
-    public TEGeneratorTurbine(long basePowerGeneration) {
-        super(basePowerGeneration);
+    public TEGeneratorTurbine() {
+        super();
     }
 
     public float getLiquidHeight() {
@@ -72,6 +68,7 @@ public class TEGeneratorTurbine extends TEGeneratorBase {
     public void updateStateInSever() {
         fluidHeight = this.getLiquidHeight();
         this.energyStorage.setCapacity(Math.max((long) Math.ceil(this.getFinallyPowerGeneration() * fluidHeight * 2), this.getEnergyStoredLong()));
+
         super.updateStateInSever();
     }
 

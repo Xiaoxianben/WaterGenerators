@@ -1,6 +1,7 @@
 package com.xiaoxianben.watergenerators.init.modRegister;
 
 import com.xiaoxianben.watergenerators.WaterGenerators;
+import com.xiaoxianben.watergenerators.api.IModRegister;
 import com.xiaoxianben.watergenerators.blocks.BlockBase;
 import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorBasic;
 import com.xiaoxianben.watergenerators.blocks.generator.BlockGeneratorCreate;
@@ -8,6 +9,7 @@ import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineBase;
 import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineShell;
 import com.xiaoxianben.watergenerators.init.EnumModBlock;
 import com.xiaoxianben.watergenerators.init.EnumModItems;
+import com.xiaoxianben.watergenerators.init.EnumModRegister;
 import com.xiaoxianben.watergenerators.init.ModRecipes;
 import com.xiaoxianben.watergenerators.items.ItemBase;
 import com.xiaoxianben.watergenerators.items.component.ItemComponent;
@@ -30,7 +32,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -40,9 +41,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class MinecraftRegister implements IModRegister {
     public static Block GOLD_PLATED_IRON_BLOCK;
@@ -50,8 +49,6 @@ public class MinecraftRegister implements IModRegister {
     public static BlockGeneratorCreate generatorCreate;
     public static Fluid steam;
     public static Fluid waterCompressed;
-    public static ItemStack waterCompressedBucket;
-    public static ItemStack steamBucket;
 
     public static Item GOLD_PLATED_IRON_INGOT;
     public static Item ductShell_bank;
@@ -63,12 +60,11 @@ public class MinecraftRegister implements IModRegister {
     public static ItemComponent component_powerGeneration;
     public static ItemComponent component_efficiency;
 
-    private final int[] levels = new int[]{1, 2, 3, 4, 5};
+    private final float[] levels = new float[]{1, 2, 3, 4, 5};
     private final String[] levelIngotOres = new String[]{"ingotIron", "ingotGoldPlatedIron", "gemDiamond", "obsidian", "gemEmerald"};
     private final String[] gearOres = new String[]{"gearIron", "gearGoldPlatedIron", "gearDiamond", "gearObsidian", "gearEmerald"};
     private final EnumModRegister selfRegister = EnumModRegister.MINECRAFT;
-    public BlockFluidClassic blockSteam;
-    public BlockFluidClassic blockWaterCompressed;
+
 
     @Override
     public void preInit() {
@@ -81,32 +77,19 @@ public class MinecraftRegister implements IModRegister {
         waterCompressed.setDensity(3000).setViscosity(6000);
         FluidRegistry.addBucketForFluid(waterCompressed);
 
+        MaterialLiquid MaterialSteam = (new MaterialLiquid(MapColor.SNOW));
+        BlockFluidClassic blockSteam = (BlockFluidClassic) new BlockFluidClassic(steam, MaterialSteam).setRegistryName(WaterGenerators.MOD_ID, "steam").setUnlocalizedName(WaterGenerators.MOD_ID + ".steam");
+        BlockFluidClassic blockWaterCompressed = (BlockFluidClassic) new BlockFluidClassic(waterCompressed, Material.WATER).setRegistryName(WaterGenerators.MOD_ID, "watercompressed").setUnlocalizedName(WaterGenerators.MOD_ID + ".watercompressed");
+
         // block
         GOLD_PLATED_IRON_BLOCK = new BlockBase("block_goldPlatedIron", Material.IRON, WaterGenerators.MATERIAL_TAB, null);
-        machineShell_frame = new BlockBase("machineshell_frame", Material.IRON, WaterGenerators.MATERIAL_TAB, null) {
-            public boolean canPlaceBlockAt(@Nonnull World worldIn, @Nonnull BlockPos pos) {
-                return false;
-            }
-        };
+        machineShell_frame = new MachineShellFrame();
         generatorCreate = new BlockGeneratorCreate();
 
-        MaterialLiquid MaterialSteam = (new MaterialLiquid(MapColor.SNOW));
-        blockSteam = (BlockFluidClassic) new BlockFluidClassic(steam, MaterialSteam).setRegistryName(WaterGenerators.MOD_ID, "steam").setUnlocalizedName(WaterGenerators.MOD_ID + ".steam");
-        blockWaterCompressed = (BlockFluidClassic) new BlockFluidClassic(waterCompressed, Material.WATER).setRegistryName(WaterGenerators.MOD_ID, "watercompressed").setUnlocalizedName(WaterGenerators.MOD_ID + ".watercompressed");
 
         EnumModBlock.OTHER.addBlocks(selfRegister, new Block[]{GOLD_PLATED_IRON_BLOCK, machineShell_frame, generatorCreate, blockSteam, blockWaterCompressed});
 
-        for (int i = 1; i < EnumModBlock.values().length; i++) {
-            EnumModBlock modBlock = EnumModBlock.values()[i];
-            Block[] blocks = new Block[levels.length];
-
-            for (int i2 = 0; i2 < levels.length; i2++) {
-                int i3 = levels[i2];
-                blocks[i2] = modBlock.creat(i3, "level" + i3);
-            }
-
-            modBlock.addBlocks(selfRegister, blocks);
-        }
+        registerDefaultBlock();
 
         // item
         GOLD_PLATED_IRON_INGOT = new ItemBase("ingot_goldPlatedIron", WaterGenerators.MATERIAL_TAB);
@@ -116,7 +99,7 @@ public class MinecraftRegister implements IModRegister {
             @ParametersAreNonnullByDefault
             @SideOnly(Side.CLIENT)
             public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-                tooltip.add("用于查看机器的NBT");
+                tooltip.add("用于查看机器的NBT，仅限创造模式");
             }
 
             @ParametersAreNonnullByDefault
@@ -142,24 +125,14 @@ public class MinecraftRegister implements IModRegister {
                 new Item[]{GOLD_PLATED_IRON_INGOT, ductShell_bank, ductShell, information_finder,
                         component_null, component_extract, component_powerGeneration, component_efficiency});
 
-        for (int i = 1; i < EnumModItems.values().length; i++) {
-            EnumModItems modItems = EnumModItems.values()[i];
-            Item[] items = new Item[levels.length];
-
-            for (int i2 = 0; i2 < levels.length; i2++) {
-                int i3 = levels[i2];
-                items[i2] = modItems.creat("level" + i3);
-            }
-
-            modItems.addItems(selfRegister, items);
-        }
+        registerDefaultItem();
 
     }
 
     @Override
     public void init() {
-        steamBucket = this.getBucket(steam);
-        waterCompressedBucket = this.getBucket(waterCompressed);
+        ItemStack steamBucket = FluidUtil.getFilledBucket(new FluidStack(steam, Fluid.BUCKET_VOLUME));
+        ItemStack waterCompressedBucket = FluidUtil.getFilledBucket(new FluidStack(waterCompressed, Fluid.BUCKET_VOLUME));
 
         ModRecipes.instance.inputItemStack = new ItemStack[]{
                 EnumModItems.COIL.itemMap.get(EnumModRegister.MINECRAFT)[0],
@@ -196,88 +169,65 @@ public class MinecraftRegister implements IModRegister {
                 'G', "blockGold"
         );
 
-        final int[] i1 = {0};
-        Arrays.stream(EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    ModRecipes.instance.addRecipeShell(block,
-                            i == 0 ? machineShell_frame : EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister)[i - 1],
-                            levelIngotOres[i]);
-                    ++i1[0];
-                });
-        i1[0] = 0;
-        Arrays.stream(EnumModBlock.MACHINE_VAPORIZATION.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    ModRecipes.instance.addRecipeMachineVaporization((BlockMachineBase) block,
-                            (BlockMachineShell) EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister)[i],
-                            EnumModItems.CONDUIT.itemMap.get(selfRegister)[i],
-                            gearOres[i]);
-                    ++i1[0];
-                });
-        i1[0] = 0;
-        Arrays.stream(EnumModBlock.MACHINE_CONCENTRATION.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    ModRecipes.instance.addRecipeMachineConcentration((BlockMachineBase) block,
-                            (BlockMachineShell) EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister)[i],
-                            EnumModItems.CONDUIT.itemMap.get(selfRegister)[i],
-                            (BlockMachineBase) EnumModBlock.MACHINE_VAPORIZATION.getBlocks(selfRegister)[i]);
-                    ++i1[0];
-                });
-        i1[0] = 0;
-        Arrays.stream(EnumModBlock.GENERATOR_turbine.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    recipeGenerator(i,
-                            (BlockGeneratorBasic) block,
-                            i == 0 ? null : EnumModBlock.GENERATOR_turbine.getBlocks(selfRegister)[i - 1]);
-                    ++i1[0];
-                });
-        i1[0] = 0;
-        Arrays.stream(EnumModBlock.GENERATOR_fluid.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    recipeGenerator(i,
-                            (BlockGeneratorBasic) block,
-                            i == 0 ? null : EnumModBlock.GENERATOR_fluid.getBlocks(selfRegister)[i - 1]);
-                    ++i1[0];
-                });
-        i1[0] = 0;
-        Arrays.stream(EnumModBlock.GENERATOR_water.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    recipeGenerator(i,
-                            (BlockGeneratorBasic) block,
-                            i == 0 ? null : EnumModBlock.GENERATOR_water.getBlocks(selfRegister)[i - 1]);
-                    ++i1[0];
-                });
-        i1[0] = 0;
-        Arrays.stream(EnumModBlock.GENERATOR_steam.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    recipeGenerator(i,
-                            (BlockGeneratorBasic) block,
-                            i == 0 ? null : EnumModBlock.GENERATOR_steam.getBlocks(selfRegister)[i - 1]);
-                    ++i1[0];
-                });
-        i1[0] = 0;
-        Arrays.stream(EnumModBlock.GENERATOR_waterCompressed.blockMap.get(selfRegister))
-                .filter(Objects::nonNull)
-                .forEach(block -> {
-                    int i = i1[0];
-                    recipeGenerator(i,
-                            (BlockGeneratorBasic) block,
-                            i == 0 ? null : EnumModBlock.GENERATOR_waterCompressed.getBlocks(selfRegister)[i - 1]);
-                    ++i1[0];
-                });
+        recipeBlock(EnumModBlock.MACHINE_SHELL, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            ModRecipes.instance.addRecipeShell(block,
+                    i == 0 ? machineShell_frame : EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister)[i - 1],
+                    levelIngotOres[i]);
+        });
+        recipeBlock(EnumModBlock.MACHINE_VAPORIZATION, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            ModRecipes.instance.addRecipeMachineVaporization((BlockMachineBase) block,
+                    (BlockMachineShell) EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister)[i],
+                    EnumModItems.CONDUIT.itemMap.get(selfRegister)[i],
+                    gearOres[i]);
+        });
+        recipeBlock(EnumModBlock.MACHINE_CONCENTRATION, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            ModRecipes.instance.addRecipeMachineConcentration((BlockMachineBase) block,
+                    (BlockMachineShell) EnumModBlock.MACHINE_SHELL.blockMap.get(selfRegister)[i],
+                    EnumModItems.CONDUIT.itemMap.get(selfRegister)[i],
+                    (BlockMachineBase) EnumModBlock.MACHINE_VAPORIZATION.getBlocks(selfRegister)[i]);
+        });
+        recipeBlock(EnumModBlock.GENERATOR_turbine, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            recipeGenerator(i,
+                    (BlockGeneratorBasic) block,
+                    i == 0 ? null : EnumModBlock.GENERATOR_turbine.getBlocks(selfRegister)[i - 1]);
+        });
+        recipeBlock(EnumModBlock.GENERATOR_fluid, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            recipeGenerator(i,
+                    (BlockGeneratorBasic) block,
+                    i == 0 ? null : EnumModBlock.GENERATOR_fluid.getBlocks(selfRegister)[i - 1]);
+        });
+        recipeBlock(EnumModBlock.GENERATOR_water, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            recipeGenerator(i,
+                    (BlockGeneratorBasic) block,
+                    i == 0 ? null : EnumModBlock.GENERATOR_water.getBlocks(selfRegister)[i - 1]);
+        });
+        recipeBlock(EnumModBlock.GENERATOR_steam, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            recipeGenerator(i,
+                    (BlockGeneratorBasic) block,
+                    i == 0 ? null : EnumModBlock.GENERATOR_steam.getBlocks(selfRegister)[i - 1]);
+        });
+        recipeBlock(EnumModBlock.GENERATOR_waterCompressed, recipeBlockInput -> {
+            final Block block = recipeBlockInput.block;
+            final int i = recipeBlockInput.i;
+            recipeGenerator(i,
+                    (BlockGeneratorBasic) block,
+                    i == 0 ? null : EnumModBlock.GENERATOR_waterCompressed.getBlocks(selfRegister)[i - 1]);
+        });
+
 
         // item
         GameRegistry.addSmelting(ductShell_bank, new ItemStack(ductShell, 8), 0.5f);
@@ -286,48 +236,39 @@ public class MinecraftRegister implements IModRegister {
         ModRecipes.instance.addRecipeComponent(component_extract, component_null, Items.BUCKET);
         ModRecipes.instance.addRecipeComponent(component_powerGeneration, component_null, EnumModItems.TURBINE_ROTOR.itemMap.get(selfRegister)[4].getItem());
 
-        int i = 0;
-        for (ItemStack itemStack : EnumModItems.GEAR.itemMap.get(selfRegister)) {
+        recipeItem(EnumModItems.GEAR, recipeItemInput -> {
+            ItemStack itemStack = recipeItemInput.item;
+            int i = recipeItemInput.i;
             ModRecipes.instance.addRecipeGear(itemStack.getItem(), levelIngotOres[i]);
-            ++i;
-        }
-        i = 0;
-        for (ItemStack itemStack : EnumModItems.TURBINE_ROTOR.itemMap.get(selfRegister)) {
+        });
+        recipeItem(EnumModItems.TURBINE_ROTOR, recipeItemInput -> {
+            ItemStack itemStack = recipeItemInput.item;
+            int i = recipeItemInput.i;
             ModRecipes.instance.addRecipeTurbineRotor(itemStack.getItem(), levelIngotOres[i], gearOres[i]);
-            ++i;
-        }
-        i = 0;
-        for (ItemStack itemStack : EnumModItems.COIL.itemMap.get(selfRegister)) {
+        });
+        recipeItem(EnumModItems.COIL, recipeItemInput -> {
+            ItemStack itemStack = recipeItemInput.item;
+            int i = recipeItemInput.i;
             ModRecipes.instance.addRecipeCoil(itemStack.getItem(), i == 0 ? null : EnumModItems.COIL.itemMap.get(selfRegister)[i - 1].getItem(), levelIngotOres[i]);
-            ++i;
-        }
-        i = 0;
-        for (ItemStack itemStack : EnumModItems.CONDUIT.itemMap.get(selfRegister)) {
+        });
+        recipeItem(EnumModItems.CONDUIT, recipeItemInput -> {
+            ItemStack itemStack = recipeItemInput.item;
+            int i = recipeItemInput.i;
             Item coil = EnumModItems.COIL.itemMap.get(selfRegister)[i].getItem();
+
             if (i == 0) {
                 ModRecipes.instance.addRecipeConduit(itemStack.getItem(), coil, coil);
             } else {
                 ModRecipes.instance.addRecipeConduit(itemStack.getItem(),
                         coil, EnumModItems.CONDUIT.itemMap.get(selfRegister)[i - 1].getItem());
             }
-            ++i;
-        }
-    }
+        });
 
+    }
 
     @Override
     public void posInit() {
 
-    }
-
-    private ItemStack getBucket(Fluid fluid) {
-        UniversalBucket bucket = ForgeModContainer.getInstance().universalBucket;
-        ItemStack itemBucket = new ItemStack(bucket);
-
-        FluidStack fluidContents = new FluidStack(FluidRegistry.getFluid(fluid.getName()), bucket.getCapacity());
-
-        itemBucket.setTagCompound(fluidContents.writeToNBT(new NBTTagCompound()));
-        return itemBucket;
     }
 
     @Override
@@ -336,8 +277,43 @@ public class MinecraftRegister implements IModRegister {
     }
 
     @Override
+    public float[] getLevels() {
+        return levels;
+    }
+
+    @Override
+    public String[] getLevelsString() {
+        return new String[]{"level1", "level2", "level3", "level4", "level5"};
+    }
+
+    @Override
     public String getGearOre(int i) {
         return gearOres[i];
     }
 
+    @Override
+    public void registerDefaultItem() {
+        for (int i = 1; i < EnumModItems.values().length; i++) {
+            EnumModItems modItems = EnumModItems.values()[i];
+
+            String[] levelsString = getLevelsString();
+            Item[] items = new Item[levelsString.length];
+
+            for (int i2 = 0; i2 < levelsString.length; i2++) {
+                items[i2] = modItems.create(levelsString[i2]);
+            }
+
+            modItems.addItems(getModRegister(), items);
+        }
+    }
+
+    private static class MachineShellFrame extends BlockBase {
+        public MachineShellFrame() {
+            super("machineshell_frame", Material.IRON, WaterGenerators.MATERIAL_TAB, null);
+        }
+
+        public boolean canPlaceBlockAt(@Nonnull World worldIn, @Nonnull BlockPos pos) {
+            return false;
+        }
+    }
 }

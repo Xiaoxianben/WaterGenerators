@@ -53,7 +53,7 @@ public class BlockGeneratorTurbine extends BlockGeneratorBasic {
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEGeneratorTurbine(this.basePowerGeneration);
+        return new TEGeneratorTurbine();
     }
 
 }

@@ -23,15 +23,17 @@ public class ModJsonRecipe {
     public static Recipes<FluidStack, FluidStackAndEnergy> recipeVaporization = new Recipes<>(RecipeTypes.recipe_fluidStack, RecipeTypes.recipe_fluidStackAndEnergy);
     public static Recipes<FluidStack, FluidStackAndEnergy> recipeConcentration = new Recipes<>(RecipeTypes.recipe_fluidStack, RecipeTypes.recipe_fluidStackAndEnergy);
     public static Recipes<Fluid, Float> recipeFluidGenerator = new Recipes<>(RecipeTypes.recipe_fluid, RecipeTypes.recipe_float);
+    public static Recipes<Fluid, Float> recipeFluidMachineMagnification = new Recipes<>(RecipeTypes.recipe_fluid, RecipeTypes.recipe_float);
+
 
     public void init() {
         recipeVaporization.addRecipe(
                 new FluidStack(FluidRegistry.WATER, 1),
-                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("steam"), 1), -1)
+                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("steam"), 1), -2)
         );
         recipeConcentration.addRecipe(
-                new FluidStack(FluidRegistry.WATER, 100),
-                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("watercompressed"), 1), -1000)
+                new FluidStack(FluidRegistry.WATER, 9),
+                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("watercompressed"), 1), -1)
         );
 
         recipeFluidGenerator.addRecipe(
@@ -40,11 +42,24 @@ public class ModJsonRecipe {
         );
         recipeFluidGenerator.addRecipe(
                 FluidRegistry.getFluid("watercompressed"),
-                8f
+                10f
         );
         recipeFluidGenerator.addRecipe(
                 FluidRegistry.getFluid("steam"),
-                2f
+                3f
+        );
+
+        recipeFluidMachineMagnification.addRecipe(
+                FluidRegistry.WATER,
+                1.5f
+        );
+        recipeFluidMachineMagnification.addRecipe(
+                FluidRegistry.getFluid("watercompressed"),
+                4.0f
+        );
+        recipeFluidMachineMagnification.addRecipe(
+                FluidRegistry.getFluid("steam"),
+                20.0f
         );
 
         // 读取配置文件

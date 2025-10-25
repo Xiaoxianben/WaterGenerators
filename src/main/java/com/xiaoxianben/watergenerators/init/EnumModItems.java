@@ -1,6 +1,5 @@
 package com.xiaoxianben.watergenerators.init;
 
-import com.xiaoxianben.watergenerators.init.modRegister.EnumModRegister;
 import com.xiaoxianben.watergenerators.items.material.ItemMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,9 +16,9 @@ public enum EnumModItems {
 
 
     public final EnumMap<EnumModRegister, ItemStack[]> itemMap = new EnumMap<>(EnumModRegister.class);
-    private final MaterialCreat func;
+    private final MaterialCreate func;
 
-    EnumModItems(MaterialCreat func) {
+    EnumModItems(MaterialCreate func) {
         this.func = func;
     }
 
@@ -30,12 +29,12 @@ public enum EnumModItems {
         itemMap.put(register, items);
     }
 
-    public Item creat(String levelName) {
-        return func.creat(levelName);
+    public Item create(String levelName) {
+        return func.create(levelName);
     }
 
 
-    interface MaterialCreat {
-        Item creat(String levelName);
+    interface MaterialCreate {
+        Item create(String levelName);
     }
 }
