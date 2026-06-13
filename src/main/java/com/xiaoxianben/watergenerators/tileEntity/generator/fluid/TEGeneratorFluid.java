@@ -29,7 +29,6 @@ public class TEGeneratorFluid extends TEGeneratorBase {
     public TEGeneratorFluid() {
         super();
         this.fluidTank = new FluidTankGenerator(4000, ModJsonRecipe.recipeFluidGenerator.getInputs());
-        this.fluidTank.setCanDrain(false);
 
         this.itemComponentHandler = new ItemComponentHandler(ItemComponentHandler.canPutItem_fluidGenerator);
     }

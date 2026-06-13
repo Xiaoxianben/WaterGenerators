@@ -35,7 +35,7 @@ public class BlockGeneratorCreate extends BlockGeneratorBasic {
 
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
-        return new TEGeneratorCreate(this.basePowerGeneration);
+        return new TEGeneratorCreate();
     }
 
 }
