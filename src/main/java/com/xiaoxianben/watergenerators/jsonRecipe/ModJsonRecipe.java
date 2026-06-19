@@ -33,7 +33,7 @@ public class ModJsonRecipe {
         );
         recipeConcentration.addRecipe(
                 new FluidStack(FluidRegistry.WATER, 9),
-                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("watercompressed"), 1), -1)
+                new FluidStackAndEnergy(new FluidStack(FluidRegistry.getFluid("watercompressed"), 1), -9)
         );
 
         recipeFluidGenerator.addRecipe(

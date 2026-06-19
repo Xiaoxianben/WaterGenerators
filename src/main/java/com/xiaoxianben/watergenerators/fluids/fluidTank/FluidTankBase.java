@@ -23,4 +23,13 @@ public class FluidTankBase extends FluidTank {
         }
         return this;
     }
+
+    @Override
+    public void setCapacity(int capacity) {
+        super.setCapacity(capacity);
+
+        if (fluid != null) {
+            fluid.amount = Math.min(fluid.amount, capacity);
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class EnergyStorage implements IEnergyStorage {
     }
 
     public EnergyStorage(long capacity, boolean canReceive, boolean canExtract) {
-        this(capacity, canReceive ? Integer.MAX_VALUE : 0, canExtract ? Integer.MAX_VALUE : 0);
+        this(capacity, canReceive ? capacity : 0, canExtract ? capacity : 0);
     }
 
 
@@ -29,6 +29,12 @@ public class EnergyStorage implements IEnergyStorage {
 
         if (energy > capacity) {
             energy = capacity;
+        }
+        if (maxReceive != capacity) {
+            maxReceive = capacity;
+        }
+        if (maxExtract != capacity) {
+            maxExtract = capacity;
         }
         return this;
     }

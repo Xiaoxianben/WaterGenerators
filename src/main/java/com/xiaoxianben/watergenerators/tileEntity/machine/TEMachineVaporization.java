@@ -51,6 +51,13 @@ public class TEMachineVaporization extends TEMachineBase implements IComponentIt
         fluidTankOut.setCanFill(false);
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        fluidTankInt.setCapacity((int) (10000 * level));
+        fluidTankOut.setCapacity((int) (10000 * level));
+    }
+
     public FluidTankRecipe getFluidTankInt() {
         return fluidTankInt;
     }
@@ -90,7 +97,7 @@ public class TEMachineVaporization extends TEMachineBase implements IComponentIt
 
         // 这段代码用于计算运算次数。
         int numberRun = (int) Math.min(getNumberRun(recipeFluidInput, recipeOutput.getFluidStack1(), energyDepleteValue),
-                this.getLevel() * runNumber * (itemComponentHandler.getComponentCount(ItemsComponent.component_efficiency) + 1));
+                this.getLevel() * (itemComponentHandler.getComponentCount(ItemsComponent.component_efficiency) + 1));
         if (numberRun <= 0) {
             return;
         }

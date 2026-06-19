@@ -1,5 +1,6 @@
 package com.xiaoxianben.watergenerators.tileEntity.machine;
 
+import com.xiaoxianben.watergenerators.blocks.machine.BlockMachineBase;
 import com.xiaoxianben.watergenerators.tileEntity.TEEnergyBasic;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -20,10 +21,20 @@ public class TEMachineBase extends TEEnergyBasic {
         this.level = level;
     }
 
+    public TEMachineBase() {
+        this(999);
+    }
+
     public float getLevel() {
         return level;
     }
 
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        this.level = ((BlockMachineBase) getBlockType()).getLevel();
+        this.energyStorage.setCapacity((long) (this.level * 10000));
+    }
 
     // NBT
     @Override
@@ -41,20 +52,11 @@ public class TEMachineBase extends TEEnergyBasic {
     @Nonnull
     @Override
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
-        NBTTagCompound nbtTagCompound = super.writeToNBT(compound);
-
-        NBTTagCompound nbtMachine = new NBTTagCompound();
-        nbtMachine.setFloat("Level", this.getLevel());
-        nbtTagCompound.setTag("Attribute", nbtMachine);
-
-        return nbtTagCompound;
+        return super.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(@Nonnull NBTTagCompound NBT) {
-        NBTTagCompound nbtMachine = NBT.getCompoundTag("Attribute");
-        this.level = nbtMachine.getFloat("Level");
-
         super.readFromNBT(NBT);
     }
 
